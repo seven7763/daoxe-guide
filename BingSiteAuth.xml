@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- Bing Webmaster Tools — XML file verification (PLACEHOLDER).
+     Replace the key below with the token Bing shows under
+     "Add & Verify Site" → "XML file", then run `python3 build.py` and redeploy.
+     Faster alternative: paste the same token into SITE_VERIFICATION["bing"]
+     in generator/config.py (meta-tag method) — no file needed.
+     Bing can also auto-import verification from Google Search Console. -->
+<users>
+	<add key="REPLACE_WITH_YOUR_BING_VERIFICATION_TOKEN" />
+</users>
