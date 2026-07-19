@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE vs One API / New API —— 托管访问 vs 自托管中转面板</title>
+  <meta name="description" content="DaoXE 对比 One API / New API（自托管的「中转」面板）：各自到底是什么、谁来托管、谁来提供上游渠道，以及掉包风险藏在哪里。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE vs One API / New API —— 托管访问 vs 自托管中转面板">
+  <meta property="og:description" content="DaoXE 对比 One API / New API（自托管的「中转」面板）：各自到底是什么、谁来托管、谁来提供上游渠道，以及掉包风险藏在哪里。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE vs One API / New API —— 托管访问 vs 自托管中转面板">
+  <meta name="twitter:description" content="DaoXE 对比 One API / New API（自托管的「中转」面板）：各自到底是什么、谁来托管、谁来提供上游渠道，以及掉包风险藏在哪里。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/#article", "headline": "DaoXE vs One API / New API", "name": "DaoXE vs One API / New API —— 托管访问 vs 自托管中转面板", "description": "DaoXE 对比 One API / New API（自托管的「中转」面板）：各自到底是什么、谁来托管、谁来提供上游渠道，以及掉包风险藏在哪里。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE vs One API / New API", "item": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/#faq", "mainEntity": [{"@type": "Question", "name": "One API / New API 是模型供应商吗？", "acceptedAnswer": {"@type": "Answer", "text": "不是 —— 它们是自托管的中转/管理面板。上游渠道仍需你自己提供。DaoXE 本身才是托管的访问。"}}, {"@type": "Question", "name": "这些面板能防止掉包吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能保证 —— 中转的诚实只等于其上游渠道的诚实。无论用哪个面板，都要 benchmark 并如何鉴别掉包。"}}, {"@type": "Question", "name": "用 DaoXE 需要自托管什么吗？", "acceptedAnswer": {"@type": "Answer", "text": "不需要 —— DaoXE 是托管的。One API/New API 需要你部署并维护面板及其上游。"}}, {"@type": "Question", "name": "能把 DaoXE 放在 One API / New API 后面吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以加一个 OpenAI 兼容的上游渠道 —— 但如果你只是想要访问，直接调 DaoXE 更简单。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/daoxe-vs-oneapi/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/daoxe-vs-oneapi/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/daoxe-vs-oneapi/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>DaoXE vs One API / New API</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE vs One API / New API</h1>
+      <p class="lead">One API 和 New API 是你自托管、再接入上游渠道的开源中转/管理面板。DaoXE 是托管的模型访问。这是诚实的区别 —— 以及为什么你接入的上游才是掉包风险所在。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>One API 及其热门分支 New API 是用于<em>中转与管理</em> LLM API key 的开源面板：你自托管面板、添加上游<strong>渠道</strong>（每个渠道有自己的来源 key/base URL），它对外暴露统一的 OpenAI 兼容端点，带令牌、额度与多用户计费。关键在于：面板本身不是模型来源 —— 它的诚实与可靠，完全取决于你接入的渠道，而这正是可能发生「悄悄掉包」的地方。相比之下，DaoXE 本身就是托管的访问。面板的当前功能请以其仓库为准。</p><h2 id="sec-1">为什么会拿它们对比<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><ul><li><strong>统一的 OpenAI 端点。</strong> 两者最终都成为一个 OpenAI 兼容 URL、调多种模型，所以会被比较。</li><li><strong>面板 vs 访问。</strong> One API/New API 是你自托管的管理/分销层；DaoXE 是其下真正的模型访问。</li><li><strong>掉包藏在哪。</strong> 中转面板的可信度只等于其上游渠道的可信度 —— 所以验证更重要。学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>。</li></ul><h2 id="sec-2">逐项对比<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><div class="table-wrap"><table><thead><tr><th>维度</th><th>DaoXE</th><th>One API / New API</th></tr></thead><tbody><tr><td>它是什么</td><td>托管的模型访问</td><td>自托管的中转/key 管理面板</td></tr><tr><td>托管</td><td>无需自托管</td><td>你部署面板（Docker）并持续更新</td></tr><tr><td>上游渠道</td><td>不适用 —— DaoXE 本身就是来源</td><td>你自行寻找并配置每个上游渠道</td></tr><tr><td>掉包风险</td><td>厂商欢迎 benchmark 验证</td><td>可信度 = 你接入渠道的可信度 —— <a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a></td></tr><tr><td>原生 Anthropic Messages</td><td>是 —— <code>/v1/messages</code></td><td>取决于渠道/版本支持</td></tr><tr><td>适合谁</td><td>直接的托管访问、免运维</td><td>跨上游分销/管理 key 的团队</td></tr><tr><td>地区</td><td>面向出海；<strong>不服务中国大陆</strong></td><td>你部署在哪就在哪运行</td></tr><tr><td>成本模型</td><td>按用量 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a></td><td>软件免费；上游由你付费/运维</td></tr></tbody><caption>方向性对比 —— One API / New API 的当前功能请以其仓库为准。</caption></table></div><h2 id="sec-3">哪种更适合你<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><ul><li><strong>选 One API / New API</strong>：如果你想自托管一个面板，去管理或分销你已有的上游渠道的 key。</li><li><strong>选 DaoXE</strong>：如果你想要真正的托管访问，而不用自托管面板或自己找上游 —— 且来自一个欢迎 benchmark 验证的服务方。</li><li><strong>无论经由什么中转，都要验证。</strong> 任何面板的风险都是被悄悄换掉的模型；在 temperature 0 下对比并<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>。</li></ul><h2 id="sec-4">几分钟上手<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><p>无需部署面板、无需寻找渠道 —— 把 OpenAI SDK 指向 DaoXE 就能调模型：</p><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>from openai import OpenAI
+# DaoXE: nothing to host; one key already spans GPT / Claude / Gemini / DeepSeek...
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>One API / New API 是模型供应商吗？</summary><div class="a"><p>不是 —— 它们是自托管的中转/管理面板。上游渠道仍需你自己提供。DaoXE 本身才是托管的访问。</p></div></details><details><summary>这些面板能防止掉包吗？</summary><div class="a"><p>不能保证 —— 中转的诚实只等于其上游渠道的诚实。无论用哪个面板，都要 benchmark 并<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>。</p></div></details><details><summary>用 DaoXE 需要自托管什么吗？</summary><div class="a"><p>不需要 —— DaoXE 是托管的。One API/New API 需要你部署并维护面板及其上游。</p></div></details><details><summary>能把 DaoXE 放在 One API / New API 后面吗？</summary><div class="a"><p>可以加一个 OpenAI 兼容的上游渠道 —— 但如果你只是想要访问，直接调 DaoXE 更简单。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#sec-1">为什么会拿它们对比</a></li><li><a href="#sec-2">逐项对比</a></li><li><a href="#sec-3">哪种更适合你</a></li><li><a href="#sec-4">几分钟上手</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/daoxe-vs-litellm/"><div class="r-k">DaoXE vs LiteLLM</div><div class="r-d">LiteLLM —— 自托管的 OpenAI 兼容代理。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a><a href="/daoxe-guide/zh/openrouter-alternative/"><div class="r-k">OpenRouter 替代</div><div class="r-d">一个能被 benchmark 验证的多模型网关 —— 且原生支持 Claude 协议。</div></a><a href="/daoxe-guide/zh/daoxe-vs-openrouter/"><div class="r-k">DaoXE vs OpenRouter</div><div class="r-d">OpenRouter —— 广目录的托管多供应商路由。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -82,6 +82,206 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/"/>
   </url>
   <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cursor/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cursor/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-roo-code/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-roo-code/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-continue/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-continue/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cherry-studio/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cherry-studio/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/gemini-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/gemini-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/deepseek-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/deepseek-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/kimi-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/kimi-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/"/>
+  </url>
+  <url>
     <loc>https://seven7763.github.io/daoxe-guide/ru/</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -152,6 +352,206 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/"/>
   </url>
   <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-openrouter/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-litellm/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cursor/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cursor/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cline/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-roo-code/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-roo-code/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-continue/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-continue/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-zed/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-opencode/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cherry-studio/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cherry-studio/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-open-webui/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/claude-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/gpt-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/gemini-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/gemini-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/deepseek-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/deepseek-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/kimi-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/kimi-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/qwen-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/doubao-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-your-tools/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/"/>
+  </url>
+  <url>
     <loc>https://seven7763.github.io/daoxe-guide/zh/</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -220,5 +620,205 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cursor/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cursor/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cursor/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cline/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-roo-code/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-roo-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-roo-code/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-continue/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-continue/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-continue/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-aider/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-aider/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cherry-studio/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cherry-studio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cherry-studio/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/claude-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/claude-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/gpt-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/gpt-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/gemini-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/gemini-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/gemini-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/deepseek-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/deepseek-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/deepseek-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/kimi-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/kimi-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/kimi-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-your-tools/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-your-tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/"/>
   </url>
 </urlset>

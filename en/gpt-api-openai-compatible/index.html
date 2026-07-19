@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GPT API access, OpenAI-compatible — chat + Responses | DaoXE</title>
+  <meta name="description" content="Call GPT models through DaoXE with unchanged OpenAI SDK code: base-URL swap, both /v1/chat/completions and /v1/responses, reasoning-model notes, and how to verify.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/gpt-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/gpt-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="GPT API access, OpenAI-compatible — chat + Responses | DaoXE">
+  <meta property="og:description" content="Call GPT models through DaoXE with unchanged OpenAI SDK code: base-URL swap, both /v1/chat/completions and /v1/responses, reasoning-model notes, and how to verify.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GPT API access, OpenAI-compatible — chat + Responses | DaoXE">
+  <meta name="twitter:description" content="Call GPT models through DaoXE with unchanged OpenAI SDK code: base-URL swap, both /v1/chat/completions and /v1/responses, reasoning-model notes, and how to verify.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/#article", "headline": "GPT API access, OpenAI-compatible — one key across vendors", "name": "GPT API access, OpenAI-compatible — chat + Responses | DaoXE", "description": "Call GPT models through DaoXE with unchanged OpenAI SDK code: base-URL swap, both /v1/chat/completions and /v1/responses, reasoning-model notes, and how to verify.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "GPT API (OpenAI-compatible)", "item": "https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/gpt-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "Will my OpenAI code work unchanged?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — change the base URL to https://daoxe.com/v1 and keep the SDK calls; use exact model IDs."}}, {"@type": "Question", "name": "Chat Completions or Responses?", "acceptedAnswer": {"@type": "Answer", "text": "Both are available. Use whichever your client expects; force chat if a client mishandles Responses."}}, {"@type": "Question", "name": "How do reasoning models work?", "acceptedAnswer": {"@type": "Answer", "text": "Select the reasoning variant by its model ID from GET /v1/models; there's no separate flag."}}, {"@type": "Question", "name": "How much does GPT cost here?", "acceptedAnswer": {"@type": "Answer", "text": "Per model, account-scoped — see live pricing. Advantage vs official: see live pricing."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/gpt-api-openai-compatible/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/gpt-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/gpt-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>GPT API (OpenAI-compatible)</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>GPT API access, OpenAI-compatible — one key across vendors</h1>
+      <p class="lead">DaoXE is OpenAI-compatible, so reaching GPT is a base-URL change. Both /v1/chat/completions and /v1/responses are available, and existing OpenAI SDK code runs unchanged.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Because DaoXE mirrors the OpenAI API, GPT is a one-line change: point the base URL at <code>https://daoxe.com/v1</code>, keep your code. The same key also reaches Claude, Gemini, DeepSeek and more — see the <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a> for cost routing.</p><h2 id="call-gpt-through-daoxe">Call GPT through DaoXE<a class="anchor" href="#call-gpt-through-daoxe" aria-label="Link to section">#</a></h2><p>Use <code>/v1/chat/completions</code> for the classic Chat API, or <code>/v1/responses</code> for projects on the Responses API. Reasoning behavior (o-series / gpt-5) is selected by the model ID, not a separate endpoint.</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/responses \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;input&quot;: &quot;Say hello in one sentence.&quot;
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>from openai import OpenAI
+
+client = OpenAI(
+    base_url=&quot;https://daoxe.com/v1&quot;,   # one base URL for every model
+    api_key=&quot;YOUR_DAOXE_KEY&quot;,
+)
+resp = client.chat.completions.create(
+    model=&quot;YOUR_EXACT_MODEL_ID&quot;,       # from GET /v1/models
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Hello&quot;}],
+    max_tokens=64,
+)
+print(resp.choices[0].message.content)</code></pre></div><h2 id="gpt-specific-notes">GPT-specific notes<a class="anchor" href="#gpt-specific-notes" aria-label="Link to section">#</a></h2><ul><li><strong>Two protocols.</strong> Chat Completions and Responses are both exposed — pick whichever your client speaks.</li><li><strong>Reasoning is per model ID.</strong> Pick the reasoning variant by its ID; there's no magic switch.</li><li><strong>Some clients default to /responses.</strong> If a client errors on Responses, force <code>/chat/completions</code> in its settings.</li><li><strong>Exact IDs only.</strong> Read them from <code>GET /v1/models</code> for your account.</li></ul><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Prove the endpoint, then diff a fixed prompt against the official OpenAI API at temperature 0 to confirm you get the same model class:</p><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Will my OpenAI code work unchanged?</summary><div class="a"><p>Yes — change the base URL to <code>https://daoxe.com/v1</code> and keep the SDK calls; use exact model IDs.</p></div></details><details><summary>Chat Completions or Responses?</summary><div class="a"><p>Both are available. Use whichever your client expects; force chat if a client mishandles Responses.</p></div></details><details><summary>How do reasoning models work?</summary><div class="a"><p>Select the reasoning variant by its model ID from <code>GET /v1/models</code>; there's no separate flag.</p></div></details><details><summary>How much does GPT cost here?</summary><div class="a"><p>Per model, account-scoped — see <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>. Advantage vs official: <span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">see live pricing</span>.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#call-gpt-through-daoxe">Call GPT through DaoXE</a></li><li><a href="#gpt-specific-notes">GPT-specific notes</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/claude-api-openai-compatible/"><div class="r-k">Claude API (OpenAI-compatible)</div><div class="r-d">Claude via OpenAI chat + native Anthropic Messages.</div></a><a href="/daoxe-guide/en/gemini-api-openai-compatible/"><div class="r-k">Gemini API (OpenAI-compatible)</div><div class="r-d">Gemini via /v1/chat/completions; no Google key needed.</div></a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/"><div class="r-k">Gateway benchmark</div><div class="r-d">Measure price, latency and success rate yourself.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

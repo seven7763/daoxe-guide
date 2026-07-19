@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE vs LiteLLM —— 托管网关 vs 自托管代理</title>
+  <meta name="description" content="诚实对比 DaoXE 与 LiteLLM：托管的模型访问 vs 你用自己厂商 key 自托管的开源代理。托管、账号、控制权 —— 以及何时两者结合。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE vs LiteLLM —— 托管网关 vs 自托管代理">
+  <meta property="og:description" content="诚实对比 DaoXE 与 LiteLLM：托管的模型访问 vs 你用自己厂商 key 自托管的开源代理。托管、账号、控制权 —— 以及何时两者结合。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE vs LiteLLM —— 托管网关 vs 自托管代理">
+  <meta name="twitter:description" content="诚实对比 DaoXE 与 LiteLLM：托管的模型访问 vs 你用自己厂商 key 自托管的开源代理。托管、账号、控制权 —— 以及何时两者结合。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/#article", "headline": "DaoXE vs LiteLLM", "name": "DaoXE vs LiteLLM —— 托管网关 vs 自托管代理", "description": "诚实对比 DaoXE 与 LiteLLM：托管的模型访问 vs 你用自己厂商 key 自托管的开源代理。托管、账号、控制权 —— 以及何时两者结合。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE vs LiteLLM", "item": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/#faq", "mainEntity": [{"@type": "Question", "name": "LiteLLM 是竞品还是补充？", "acceptedAnswer": {"@type": "Answer", "text": "都是。它是自托管代理；DaoXE 是托管的模型来源。你可以把 DaoXE 作为 LiteLLM 的上游，减少逐家注册。"}}, {"@type": "Question", "name": "用 LiteLLM 需要厂商账号吗？", "acceptedAnswer": {"@type": "Answer", "text": "需要 —— LiteLLM 用你自己的 key 路由到上游。DaoXE 的单一 key 已覆盖其模型集合。"}}, {"@type": "Question", "name": "LiteLLM 要花钱吗？", "acceptedAnswer": {"@type": "Answer", "text": "软件开源；你直接付费给每个上游并自行运维。DaoXE 按用量计费 —— 见实时定价。"}}, {"@type": "Question", "name": "两种方式都能保留我的 OpenAI 代码吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— 都 OpenAI 兼容。用 DaoXE 只是改 base URL；用 LiteLLM 则指向你的代理 URL。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/daoxe-vs-litellm/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/daoxe-vs-litellm/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/daoxe-vs-litellm/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>DaoXE vs LiteLLM</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE vs LiteLLM</h1>
+      <p class="lead">LiteLLM 是你用自己上游 key 自托管的开源代理；DaoXE 是已经能触达模型的托管网关。两种不同的工具 —— 这是诚实的分野，以及如何结合使用。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>这有点「苹果比橙子」：LiteLLM 是你自己部署的基础设施（覆盖 100+ 供应商的代理/SDK，用你自己的厂商账号），而 DaoXE 是本身就提供模型访问的托管服务。你甚至可以两者并用 —— 把 DaoXE 作为 LiteLLM 的一个上游。LiteLLM 的当前功能请以其文档为准。</p><h2 id="sec-1">为什么会拿它们对比<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><ul><li><strong>都说 OpenAI。</strong> 无论哪种，客户端代码都保持 OpenAI 形态，所以会被拿来比较。</li><li><strong>自托管 vs 托管。</strong> LiteLLM 要你部署与运维；DaoXE 是你直接调用。这是核心取舍。</li><li><strong>账号。</strong> LiteLLM 需要你为每个上游厂商准备 key；DaoXE 的一个 key 已覆盖多模型。</li></ul><h2 id="sec-2">逐项对比<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><div class="table-wrap"><table><thead><tr><th>维度</th><th>DaoXE</th><th>LiteLLM</th></tr></thead><tbody><tr><td>它是什么</td><td>托管的 OpenAI 兼容网关</td><td>自托管的开源代理 + SDK</td></tr><tr><td>托管</td><td>无需自托管</td><td>你部署并运维代理（常还要数据库）</td></tr><tr><td>上游账号</td><td>已包含 —— 一个 key 覆盖多模型</td><td>你自备每家厂商的 key/账号</td></tr><tr><td>原生 Anthropic Messages</td><td>是 —— <code>/v1/messages</code></td><td>取决于你的配置/上游</td></tr><tr><td>控制与可观测</td><td>厂商托管；用 benchmark 验证</td><td>对 key、花费、日志完全掌控 —— 由你运维</td></tr><tr><td>适合谁</td><td>免运维、免逐家注册的访问</td><td>想要自托管控制面的团队</td></tr><tr><td>地区</td><td>面向出海；<strong>不服务中国大陆</strong></td><td>你部署在哪就在哪运行</td></tr><tr><td>成本模型</td><td>按用量 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a></td><td>软件免费；你直接付费给每个上游</td></tr></tbody><caption>方向性对比 —— LiteLLM 的当前能力请以其文档为准。</caption></table></div><h2 id="sec-3">哪种更适合你<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><ul><li><strong>选 LiteLLM</strong>：如果你已有各家厂商账号，想自托管一个带完整日志、预算与 key 管理的控制面。</li><li><strong>选 DaoXE</strong>：如果你不想运维基础设施、不想逐家开户，想要一个已能触达模型的 key。</li><li><strong>两者结合</strong>：如果你喜欢 LiteLLM 的控制面但想少注册几家 —— 把 DaoXE 作为一个 OpenAI 兼容上游加进去。</li></ul><h2 id="sec-4">几分钟上手<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><p>无需部署代理 —— 把 OpenAI SDK 指向 DaoXE，立刻就能调模型：</p><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>from openai import OpenAI
+# DaoXE: nothing to host; one key already spans GPT / Claude / Gemini / DeepSeek...
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>LiteLLM 是竞品还是补充？</summary><div class="a"><p>都是。它是自托管代理；DaoXE 是托管的模型来源。你可以把 DaoXE 作为 LiteLLM 的上游，减少逐家注册。</p></div></details><details><summary>用 LiteLLM 需要厂商账号吗？</summary><div class="a"><p>需要 —— LiteLLM 用你自己的 key 路由到上游。DaoXE 的单一 key 已覆盖其模型集合。</p></div></details><details><summary>LiteLLM 要花钱吗？</summary><div class="a"><p>软件开源；你直接付费给每个上游并自行运维。DaoXE 按用量计费 —— 见<a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>。</p></div></details><details><summary>两种方式都能保留我的 OpenAI 代码吗？</summary><div class="a"><p>能 —— 都 OpenAI 兼容。用 DaoXE 只是改 base URL；用 LiteLLM 则指向你的代理 URL。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#sec-1">为什么会拿它们对比</a></li><li><a href="#sec-2">逐项对比</a></li><li><a href="#sec-3">哪种更适合你</a></li><li><a href="#sec-4">几分钟上手</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/daoxe-vs-openrouter/"><div class="r-k">DaoXE vs OpenRouter</div><div class="r-d">OpenRouter —— 广目录的托管多供应商路由。</div></a><a href="/daoxe-guide/zh/daoxe-vs-oneapi/"><div class="r-k">DaoXE vs One API / New API</div><div class="r-d">One API / New API —— 自托管的中转与 key 管理面板。</div></a><a href="/daoxe-guide/zh/openrouter-alternative/"><div class="r-k">OpenRouter 替代</div><div class="r-d">一个能被 benchmark 验证的多模型网关 —— 且原生支持 Claude 协议。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

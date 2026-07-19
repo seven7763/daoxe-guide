@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE vs One API / New API — управляемый доступ против самохостинг-панели ретрансляции</title>
+  <meta name="description" content="DaoXE против One API / New API (самохостинг-панели 中转): что это на самом деле, кто хостит, кто поставляет upstream-каналы и где живёт риск подмены моделей.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE vs One API / New API — управляемый доступ против самохостинг-панели ретрансляции">
+  <meta property="og:description" content="DaoXE против One API / New API (самохостинг-панели 中转): что это на самом деле, кто хостит, кто поставляет upstream-каналы и где живёт риск подмены моделей.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE vs One API / New API — управляемый доступ против самохостинг-панели ретрансляции">
+  <meta name="twitter:description" content="DaoXE против One API / New API (самохостинг-панели 中转): что это на самом деле, кто хостит, кто поставляет upstream-каналы и где живёт риск подмены моделей.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/#article", "headline": "DaoXE vs One API / New API", "name": "DaoXE vs One API / New API — управляемый доступ против самохостинг-панели ретрансляции", "description": "DaoXE против One API / New API (самохостинг-панели 中转): что это на самом деле, кто хостит, кто поставляет upstream-каналы и где живёт риск подмены моделей.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE vs One API / New API", "item": "https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/#faq", "mainEntity": [{"@type": "Question", "name": "One API / New API — это провайдеры моделей?", "acceptedAnswer": {"@type": "Answer", "text": "Нет — это самохостинг-панели ретрансляции/управления. upstream-каналы вы поставляете сами. DaoXE — сам управляемый доступ."}}, {"@type": "Question", "name": "Предотвращают ли эти панели подмену моделей?", "acceptedAnswer": {"@type": "Answer", "text": "Не гарантируют — ретранслятор честен лишь настолько, насколько честны его каналы. Всегда делайте бенчмарк и как поймать подмену модели, какой бы ни была панель."}}, {"@type": "Question", "name": "Нужно ли что-то хостить с DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Нет — DaoXE управляемый. One API/New API требуют развернуть и обслуживать панель и её upstream."}}, {"@type": "Question", "name": "Можно поставить DaoXE за One API / New API?", "acceptedAnswer": {"@type": "Answer", "text": "Можно добавить OpenAI-совместимый upstream-канал — но если нужен просто доступ, вызывать DaoXE напрямую проще."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/daoxe-vs-oneapi/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/daoxe-vs-oneapi/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/daoxe-vs-oneapi/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>DaoXE vs One API / New API</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE vs One API / New API</h1>
+      <p class="lead">One API и New API — open-source панели ретрансляции/управления, которые вы хостите и в которые подключаете upstream-каналы. DaoXE — управляемый доступ к моделям. Вот честное отличие — и почему риск подмены живёт именно в подключённом upstream.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>One API и её популярный форк New API — open-source панели для <em>ретрансляции и управления</em> ключами LLM API: вы хостите панель, добавляете upstream-<strong>каналы</strong> (у каждого свой исходный ключ/base URL), и она отдаёт единый OpenAI-совместимый эндпоинт с токенами, квотами и мультипользовательским биллингом. Важно: панель сама не является источником моделей — она честна и надёжна ровно настолько, насколько честны подключённые каналы, и именно там возможна тихая подмена модели. DaoXE же сам является управляемым доступом. Актуальные функции панелей проверяйте в их репозиториях.</p><h2 id="sec-1">Почему их сравнивают<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><ul><li><strong>Единый OpenAI-эндпоинт.</strong> Оба в итоге дают один OpenAI-совместимый URL ко многим моделям, поэтому их сравнивают.</li><li><strong>Панель vs доступ.</strong> One API/New API — это уровень управления/перепродажи, который вы хостите; DaoXE — сам доступ к моделям под ним.</li><li><strong>Где прячется подмена.</strong> Панель ретрансляции надёжна лишь настолько, насколько надёжны её upstream-каналы — поэтому проверка важна вдвойне. Освойте, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>.</li></ul><h2 id="sec-2">Сравнение<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><div class="table-wrap"><table><thead><tr><th>Критерий</th><th>DaoXE</th><th>One API / New API</th></tr></thead><tbody><tr><td>Что это</td><td>Управляемый доступ к моделям</td><td>Самохостинг-панель ретрансляции/управления ключами</td></tr><tr><td>Хостинг</td><td>Ничего не хостить</td><td>Вы разворачиваете панель (Docker) и обновляете её</td></tr><tr><td>Upstream-каналы</td><td>Неприменимо — DaoXE и есть источник</td><td>Вы сами находите и настраиваете каждый канал</td></tr><tr><td>Риск подмены модели</td><td>Вендор приглашает к бенчмарк-проверке</td><td>Надёжность = надёжность каналов — <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a></td></tr><tr><td>Нативный Anthropic Messages</td><td>Да — <code>/v1/messages</code></td><td>Зависит от поддержки канала/версии</td></tr><tr><td>Кому подходит</td><td>Прямой управляемый доступ без операций</td><td>Командам, перепродающим/управляющим ключами</td></tr><tr><td>Регион</td><td>Готов для зарубежья; <strong>не для материкового Китая</strong></td><td>Работает там, где вы его хостите</td></tr><tr><td>Модель затрат</td><td>По потреблению — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=ru" target="_blank" rel="noopener">актуальные цены</a></td><td>ПО бесплатно; upstream вы оплачиваете/ведёте сами</td></tr></tbody><caption>Ориентировочное сравнение — актуальные функции One API / New API проверяйте в их репозиториях.</caption></table></div><h2 id="sec-3">Что подходит именно вам<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><ul><li><strong>Выбирайте One API / New API</strong>, если хотите self-hosted панель для управления или перепродажи ключей по upstream-каналам, которые у вас уже есть.</li><li><strong>Выбирайте DaoXE</strong>, если хотите реальный управляемый доступ без хостинга панели и поиска upstream — от вендора, приглашающего к бенчмарк-проверке.</li><li><strong>Через что бы вы ни ретранслировали — проверяйте.</strong> С любой панелью риск — тихо подменённые модели; сравнивайте при temperature 0 и <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>.</li></ul><h2 id="sec-4">Попробовать за минуты<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><p>Никакой панели и поиска каналов — направьте OpenAI SDK на DaoXE и вызовите модель:</p><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>from openai import OpenAI
+# DaoXE: nothing to host; one key already spans GPT / Claude / Gemini / DeepSeek...
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)</code></pre></div><div class="callout ok"><p class="c-title">Проверяйте нас, а не верьте на слово</p><p>Направьте <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a> на DaoXE и на официальный API и сравните при temperature 0. Затем изучите, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, чтобы дешёвый эндпоинт не подменил вам модель на меньшую.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>One API / New API — это провайдеры моделей?</summary><div class="a"><p>Нет — это самохостинг-панели ретрансляции/управления. upstream-каналы вы поставляете сами. DaoXE — сам управляемый доступ.</p></div></details><details><summary>Предотвращают ли эти панели подмену моделей?</summary><div class="a"><p>Не гарантируют — ретранслятор честен лишь настолько, насколько честны его каналы. Всегда делайте бенчмарк и <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, какой бы ни была панель.</p></div></details><details><summary>Нужно ли что-то хостить с DaoXE?</summary><div class="a"><p>Нет — DaoXE управляемый. One API/New API требуют развернуть и обслуживать панель и её upstream.</p></div></details><details><summary>Можно поставить DaoXE за One API / New API?</summary><div class="a"><p>Можно добавить OpenAI-совместимый upstream-канал — но если нужен просто доступ, вызывать DaoXE напрямую проще.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#sec-1">Почему их сравнивают</a></li><li><a href="#sec-2">Сравнение</a></li><li><a href="#sec-3">Что подходит именно вам</a></li><li><a href="#sec-4">Попробовать за минуты</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/"><div class="r-k">В ваших инструментах</div><div class="r-d">Индекс всех интеграций DaoXE + таблица выбора.</div></a><a href="/daoxe-guide/ru/daoxe-vs-litellm/"><div class="r-k">DaoXE vs LiteLLM</div><div class="r-d">LiteLLM — самостоятельно размещаемый OpenAI-совместимый прокси.</div></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/"><div class="r-k">Проверка подмены</div><div class="r-d">Ловите даунгрейд, квантизацию и обрезку контекста в любом прокси.</div></a><a href="/daoxe-guide/ru/openrouter-alternative/"><div class="r-k">Альтернатива OpenRouter</div><div class="r-d">Мультимодельный шлюз, который можно проверить — с нативным протоколом Claude.</div></a><a href="/daoxe-guide/ru/daoxe-vs-openrouter/"><div class="r-k">DaoXE vs OpenRouter</div><div class="r-d">OpenRouter — широкий хостовый роутер по многим провайдерам.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use DaoXE in Open WebUI — OpenAI connection, /v1 base URL</title>
+  <meta name="description" content="Connect Open WebUI to DaoXE via an OpenAI API connection: base URL https://daoxe.com/v1, key, model population, and the task-model setting. Includes caveats and a verify step.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Use DaoXE in Open WebUI — OpenAI connection, /v1 base URL">
+  <meta property="og:description" content="Connect Open WebUI to DaoXE via an OpenAI API connection: base URL https://daoxe.com/v1, key, model population, and the task-model setting. Includes caveats and a verify step.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Use DaoXE in Open WebUI — OpenAI connection, /v1 base URL">
+  <meta name="twitter:description" content="Connect Open WebUI to DaoXE via an OpenAI API connection: base URL https://daoxe.com/v1, key, model population, and the task-model setting. Includes caveats and a verify step.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/#article", "headline": "Use DaoXE in Open WebUI", "name": "Use DaoXE in Open WebUI — OpenAI connection, /v1 base URL", "description": "Connect Open WebUI to DaoXE via an OpenAI API connection: base URL https://daoxe.com/v1, key, model population, and the task-model setting. Includes caveats and a verify step.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Use DaoXE in Open WebUI", "item": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/#faq", "mainEntity": [{"@type": "Question", "name": "What base URL does Open WebUI need?", "acceptedAnswer": {"@type": "Answer", "text": "Use the OpenAI API connection with base URL https://daoxe.com/v1 — Open WebUI appends /models and /chat/completions."}}, {"@type": "Question", "name": "My model list is empty — why?", "acceptedAnswer": {"@type": "Answer", "text": "The connection failed. Re-check the base URL (must end at /v1) and the key; confirm with GET /v1/models."}}, {"@type": "Question", "name": "Can I set it via environment variables?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — OPENAI_API_BASE_URL=https://daoxe.com/v1 and OPENAI_API_KEY at container start also work."}}, {"@type": "Question", "name": "How do I cut background token cost?", "acceptedAnswer": {"@type": "Answer", "text": "Point title/tag/query tasks at a cheap DaoXE model in Admin settings; keep a frontier model for chat. Advantage: see live pricing."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-open-webui/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-open-webui/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-open-webui/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Use DaoXE in Open WebUI</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Use DaoXE in Open WebUI</h1>
+      <p class="lead">Open WebUI is a self-hosted chat front-end. Add DaoXE as an OpenAI API connection to serve GPT, Claude, Gemini, DeepSeek and more to your whole instance — from one key.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Open WebUI speaks the OpenAI API, so DaoXE plugs in as a <strong>Connection</strong>: set the base URL and key, and it lists your models automatically. One connection serves every user on the instance. See the <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a> for using a cheap model for background tasks and a frontier one for chat.</p><h2 id="why-route-open-webui-through-daoxe">Why route Open WebUI through DaoXE<a class="anchor" href="#why-route-open-webui-through-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>Self-hosted, multi-user.</strong> One DaoXE connection powers chat for your whole team.</li><li><strong>One key, many models.</strong> GPT, Claude, Gemini and DeepSeek appear in the model picker from a single connection.</li><li><strong>Cheap task model.</strong> Point title/tag generation at a cheap DaoXE model and keep a frontier one for real chat.</li></ul><h2 id="set-it-up-in-open-webui">Set it up in Open WebUI<a class="anchor" href="#set-it-up-in-open-webui" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Open Connections.</span> <strong>Admin Panel → Settings → Connections</strong> (or your profile's Connections for a personal setup).</li><li><span class="s-title">Add an OpenAI connection.</span> Set the API Base URL to <code>https://daoxe.com/v1</code> and paste your DaoXE key, then save.</li><li><span class="s-title">Confirm models populate.</span> Open the model selector — DaoXE model IDs from <code>GET /v1/models</code> should appear. If the list is empty, the connection failed.</li><li><span class="s-title">Set a task model (optional).</span> In Admin settings, point title/tag/autocomplete tasks at a cheap DaoXE model to cut background cost.</li></ol><div class="callout warn"><p class="c-title">Caveats worth knowing</p><p>The base URL must be the <code>/v1</code> root — Open WebUI appends <code>/models</code> and <code>/chat/completions</code> itself. An <strong>empty model list means the connection failed</strong> (wrong URL or key), not that there are no models. You can also set it at container start with <code>OPENAI_API_BASE_URL</code>/<code>OPENAI_API_KEY</code> env vars. Remember background features (title generation, RAG query rewriting, embeddings) also consume tokens — set them to a cheap model. Embeddings need an embedding-capable model ID.</p></div><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Prove the endpoint independently of Open WebUI first, then diff a fixed prompt against the official API at temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>What base URL does Open WebUI need?</summary><div class="a"><p>Use the OpenAI API connection with base URL <code>https://daoxe.com/v1</code> — Open WebUI appends <code>/models</code> and <code>/chat/completions</code>.</p></div></details><details><summary>My model list is empty — why?</summary><div class="a"><p>The connection failed. Re-check the base URL (must end at <code>/v1</code>) and the key; confirm with <code>GET /v1/models</code>.</p></div></details><details><summary>Can I set it via environment variables?</summary><div class="a"><p>Yes — <code>OPENAI_API_BASE_URL=https://daoxe.com/v1</code> and <code>OPENAI_API_KEY</code> at container start also work.</p></div></details><details><summary>How do I cut background token cost?</summary><div class="a"><p>Point title/tag/query tasks at a cheap DaoXE model in Admin settings; keep a frontier model for chat. Advantage: <span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">see live pricing</span>.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-route-open-webui-through-daoxe">Why route Open WebUI through DaoXE</a></li><li><a href="#set-it-up-in-open-webui">Set it up in Open WebUI</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/use-daoxe-in-cherry-studio/"><div class="r-k">Use DaoXE in Cherry Studio</div><div class="r-d">Cherry Studio via an OpenAI-type provider.</div></a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/gpt-api-openai-compatible/"><div class="r-k">GPT API (OpenAI-compatible)</div><div class="r-d">GPT via chat + Responses; drop-in OpenAI SDK.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

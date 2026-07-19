@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 Zed 里用 DaoXE —— settings.json 的 openai_compatible 供应商</title>
+  <meta name="description" content="把 DaoXE 加到 Zed 的 Agent 里作为 OpenAI 兼容供应商：api_url、available_models、通过环境变量提供 key 的规则、推理模型设置，以及验证步骤。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 Zed 里用 DaoXE —— settings.json 的 openai_compatible 供应商">
+  <meta property="og:description" content="把 DaoXE 加到 Zed 的 Agent 里作为 OpenAI 兼容供应商：api_url、available_models、通过环境变量提供 key 的规则、推理模型设置，以及验证步骤。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 Zed 里用 DaoXE —— settings.json 的 openai_compatible 供应商">
+  <meta name="twitter:description" content="把 DaoXE 加到 Zed 的 Agent 里作为 OpenAI 兼容供应商：api_url、available_models、通过环境变量提供 key 的规则、推理模型设置，以及验证步骤。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/#article", "headline": "在 Zed 里用 DaoXE", "name": "在 Zed 里用 DaoXE —— settings.json 的 openai_compatible 供应商", "description": "把 DaoXE 加到 Zed 的 Agent 里作为 OpenAI 兼容供应商：api_url、available_models、通过环境变量提供 key 的规则、推理模型设置，以及验证步骤。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 Zed 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/#faq", "mainEntity": [{"@type": "Question", "name": "Zed 如何保存我的 key？", "acceptedAnswer": {"@type": "Answer", "text": "不放在 settings.json。用 UI，或设 DAOXE_API_KEY —— Zed 按供应商名推导变量名（大写 + _API_KEY）。"}}, {"@type": "Question", "name": "api_url 填什么？", "acceptedAnswer": {"@type": "Answer", "text": "https://daoxe.com/v1，必须含 /v1。"}}, {"@type": "Question", "name": "一定要列出模型吗？", "acceptedAnswer": {"@type": "Answer", "text": "要 —— 在 available_models 里加准确 ID 和 max_tokens（上下文窗口）。"}}, {"@type": "Question", "name": "推理模型不思考？", "acceptedAnswer": {"@type": "Answer", "text": "在该模型项里设 reasoning_effort 和相应 capabilities。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-zed/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-zed/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-zed/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 Zed 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 Zed 里用 DaoXE</h1>
+      <p class="lead">Zed 的 Agent 支持自定义 OpenAI 兼容供应商。在 <code>language_models.openai_compatible</code> 下加入 DaoXE，就能在一个快速的原生编辑器里用 GPT、Claude、Gemini、DeepSeek 等 —— 一个 key。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Zed 允许在 Agent 设置界面或直接在 <code>settings.json</code> 里注册 OpenAI 兼容供应商。把 <code>api_url</code> 指向 DaoXE 并列出你要的模型；key 不放在文件里（用环境变量或 UI）。一个 key 覆盖各家 —— 见<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>。</p><h2 id="zed-daoxe">为什么让 Zed 走 DaoXE<a class="anchor" href="#zed-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>原生、快速。</strong> Zed 的 Agent 面板用你的 DaoXE 模型做编辑。</li><li><strong>显式声明模型。</strong> 在 <code>available_models</code> 里写准确 ID 和上下文窗口。</li><li><strong>一个 key，多家厂商。</strong> 无需分别开 GPT/Claude/Gemini/DeepSeek 账号。</li></ul><h2 id="zed">在 Zed 里配置<a class="anchor" href="#zed" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">打开 Agent 设置。</span> 执行 <code>agent: open settings</code>，在 LLM Providers 点 <strong>Add Provider</strong> —— 或直接编辑 <code>settings.json</code>。</li><li><span class="s-title">设 api_url 和模型。</span> 在 <code>language_models.openai_compatible</code> 下加一个供应商：<code>api_url: https://daoxe.com/v1</code>，并在 <code>available_models</code> 写一项（准确 ID + max_tokens）。</li><li><span class="s-title">安全地提供 key。</span> 在 UI 里填，或设环境变量 <code>DAOXE_API_KEY</code> —— Zed 会按供应商名推导变量名。</li><li><span class="s-title">选择并测试。</span> 在 Agent 面板选中该模型，做一次小编辑确认可用。</li></ol><div class="code"><span class="lang-tag">json</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>// Zed settings.json  (agent: open settings -&gt; Add Provider, or edit directly)
+{
+  &quot;language_models&quot;: {
+    &quot;openai_compatible&quot;: {
+      &quot;DaoXE&quot;: {
+        &quot;api_url&quot;: &quot;https://daoxe.com/v1&quot;,
+        &quot;available_models&quot;: [
+          { &quot;name&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;, &quot;display_name&quot;: &quot;DaoXE model&quot;, &quot;max_tokens&quot;: 128000 }
+        ]
+      }
+    }
+  }
+}
+// Key is NOT stored here. Set it in the UI, or as env DAOXE_API_KEY
+// (Zed derives &lt;PROVIDER_ID_UPPERCASE&gt;_API_KEY from the provider name).</code></pre></div><div class="callout warn"><p class="c-title">值得注意的坑</p><p>切勿把 key 写进 <code>settings.json</code> —— Zed 读取名为 <code>&lt;供应商ID大写&gt;_API_KEY</code> 的环境变量，所以供应商 <code>DaoXE</code> 对应 <code>DAOXE_API_KEY</code>。<code>api_url</code> 必须含 <code>/v1</code>。推理模型需设 <code>reasoning_effort</code> 和对应 <code>capabilities</code>。ID 与账号绑定 —— 见 <code>GET /v1/models</code>。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先脱离 Zed 独立验证端点，再在 temperature 0 下把固定 prompt 与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Zed 如何保存我的 key？</summary><div class="a"><p>不放在 <code>settings.json</code>。用 UI，或设 <code>DAOXE_API_KEY</code> —— Zed 按供应商名推导变量名（大写 + _API_KEY）。</p></div></details><details><summary>api_url 填什么？</summary><div class="a"><p><code>https://daoxe.com/v1</code>，必须含 <code>/v1</code>。</p></div></details><details><summary>一定要列出模型吗？</summary><div class="a"><p>要 —— 在 <code>available_models</code> 里加准确 ID 和 <code>max_tokens</code>（上下文窗口）。</p></div></details><details><summary>推理模型不思考？</summary><div class="a"><p>在该模型项里设 <code>reasoning_effort</code> 和相应 <code>capabilities</code>。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#zed-daoxe">为什么让 Zed 走 DaoXE</a></li><li><a href="#zed">在 Zed 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-continue/"><div class="r-k">在 Continue 里用 DaoXE</div><div class="r-d">Continue 走 config.yaml 的 apiBase。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-opencode/"><div class="r-k">在 opencode 里用 DaoXE</div><div class="r-d">opencode 走 opencode.json 里的自定义供应商。</div></a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor·Claude Code</div><div class="r-d">把 Cursor 和 Claude Code 指向更便宜的 endpoint。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE vs OpenRouter —— OpenAI 兼容网关的诚实对比</title>
+  <meta name="description" content="中立的 DaoXE 与 OpenRouter 对比：目录广度、协议（原生 Anthropic Messages）、掉包透明度与地区。当前功能与价格请自行核实。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-openrouter/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-openrouter/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE vs OpenRouter —— OpenAI 兼容网关的诚实对比">
+  <meta property="og:description" content="中立的 DaoXE 与 OpenRouter 对比：目录广度、协议（原生 Anthropic Messages）、掉包透明度与地区。当前功能与价格请自行核实。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE vs OpenRouter —— OpenAI 兼容网关的诚实对比">
+  <meta name="twitter:description" content="中立的 DaoXE 与 OpenRouter 对比：目录广度、协议（原生 Anthropic Messages）、掉包透明度与地区。当前功能与价格请自行核实。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/#article", "headline": "DaoXE vs OpenRouter", "name": "DaoXE vs OpenRouter —— OpenAI 兼容网关的诚实对比", "description": "中立的 DaoXE 与 OpenRouter 对比：目录广度、协议（原生 Anthropic Messages）、掉包透明度与地区。当前功能与价格请自行核实。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE vs OpenRouter", "item": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-openrouter/#faq", "mainEntity": [{"@type": "Question", "name": "DaoXE 是 OpenRouter 的替代吗？", "acceptedAnswer": {"@type": "Answer", "text": "有重叠 —— 两者都是 OpenAI 兼容的多模型网关。DaoXE 侧重精选集合、原生 Anthropic Messages 与可验证的诚实。见OpenRouter 替代。"}}, {"@type": "Question", "name": "谁的模型更多？", "acceptedAnswer": {"@type": "Answer", "text": "OpenRouter 的目录在供应商维度更广；DaoXE 精选主流家族（GPT、Claude、Gemini、DeepSeek、Kimi、Qwen、Doubao）。当前列表以各家官网为准。"}}, {"@type": "Question", "name": "谁原生支持 Claude Code？", "acceptedAnswer": {"@type": "Answer", "text": "DaoXE 在 /v1/messages 提供原生 Anthropic Messages 给 Claude Code。OpenRouter 的当前协议支持请按你的需求另行核实。"}}, {"@type": "Question", "name": "怎么公平对比？", "acceptedAnswer": {"@type": "Answer", "text": "在 temperature 0 下把同一高难度 prompt 发给两边并对比输出；再学会如何鉴别掉包，让任何一方都无法悄悄降级。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/daoxe-vs-openrouter/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/daoxe-vs-openrouter/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/daoxe-vs-openrouter/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>DaoXE vs OpenRouter</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE vs OpenRouter</h1>
+      <p class="lead">两者都给你一个 OpenAI 兼容 key 调用多种模型。差别在目录广度、协议支持与定位。这是一份诚实对比 —— 细节请自行核实。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>OpenRouter 是托管路由，拥有非常大的多供应商目录和内置路由/回退；DaoXE 是精选、以诚实为先的网关，且为 Claude Code 提供原生 Anthropic Messages。两者都 OpenAI 兼容，所以互相切换只是改 base URL。功能与价格变化很快 —— 把这当作框架，具体以各家官网为准。想切换？见<a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a>。</p><h2 id="sec-1">为什么会拿它们对比<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><ul><li><strong>核心承诺相同。</strong> 一个 key、一个 OpenAI 兼容 base URL、多种模型 —— 所以自然会被拿来比较。</li><li><strong>广度 vs 聚焦。</strong> OpenRouter 追求最广目录与跨供应商路由；DaoXE 追求精选集合与可验证的诚实。</li><li><strong>协议需求。</strong> 若你用 Claude Code，原生 Anthropic Messages 很关键 —— 看哪边支持你需要的确切协议。</li></ul><h2 id="sec-2">逐项对比<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><div class="table-wrap"><table><thead><tr><th>维度</th><th>DaoXE</th><th>OpenRouter</th></tr></thead><tbody><tr><td>模型目录</td><td>精选：GPT · Claude · Gemini · DeepSeek · Kimi · Qwen · Doubao</td><td>非常大；多供应商与小众模型</td></tr><tr><td>OpenAI 兼容</td><td>是 —— <code>https://daoxe.com/v1</code></td><td>是</td></tr><tr><td>原生 Anthropic Messages</td><td>是 —— 给 Claude Code 的 <code>/v1/messages</code></td><td>请核实当前支持</td></tr><tr><td>跨供应商路由/回退</td><td>非重点 —— 精选端点</td><td>内置路由与回退</td></tr><tr><td>定位</td><td>诚实为先；欢迎 benchmark；<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a></td><td>市场广度；透明度看板</td></tr><tr><td>地区</td><td>面向出海；<strong>不服务中国大陆</strong></td><td>普遍可用 —— 请核实你的地区</td></tr><tr><td>价格</td><td>按用量 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>（优势 <span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">见定价页</span>）</td><td>按用量的额度 —— 以其官网为准</td></tr></tbody><caption>方向性对比 —— 当前功能与价格请以各家官网为准。</caption></table></div><h2 id="sec-3">哪种更适合你<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><ul><li><strong>选 OpenRouter</strong>：如果你要最广的目录、大量小众/实验模型，或内置的跨供应商路由与回退。</li><li><strong>选 DaoXE</strong>：如果你要原生 Claude Code、便宜地用一批主流家族，以及一个欢迎你 benchmark 和<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>的服务方。</li><li><strong>无论选哪个都要验证。</strong> 在 temperature 0 下把同一 prompt 发给两边对比 —— 网关只有在给你真模型时才值得。</li></ul><h2 id="sec-4">几分钟上手<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><p>切换只是改 base URL。把 OpenAI SDK 指向 DaoXE，代码不动：</p><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>from openai import OpenAI
+# DaoXE: nothing to host; one key already spans GPT / Claude / Gemini / DeepSeek...
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>DaoXE 是 OpenRouter 的替代吗？</summary><div class="a"><p>有重叠 —— 两者都是 OpenAI 兼容的多模型网关。DaoXE 侧重精选集合、原生 Anthropic Messages 与可验证的诚实。见<a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a>。</p></div></details><details><summary>谁的模型更多？</summary><div class="a"><p>OpenRouter 的目录在供应商维度更广；DaoXE 精选主流家族（GPT、Claude、Gemini、DeepSeek、Kimi、Qwen、Doubao）。当前列表以各家官网为准。</p></div></details><details><summary>谁原生支持 Claude Code？</summary><div class="a"><p>DaoXE 在 <code>/v1/messages</code> 提供原生 Anthropic Messages 给 Claude Code。OpenRouter 的当前协议支持请按你的需求另行核实。</p></div></details><details><summary>怎么公平对比？</summary><div class="a"><p>在 temperature 0 下把同一高难度 prompt 发给两边并对比输出；再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让任何一方都无法悄悄降级。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#sec-1">为什么会拿它们对比</a></li><li><a href="#sec-2">逐项对比</a></li><li><a href="#sec-3">哪种更适合你</a></li><li><a href="#sec-4">几分钟上手</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/openrouter-alternative/"><div class="r-k">OpenRouter 替代</div><div class="r-d">一个能被 benchmark 验证的多模型网关 —— 且原生支持 Claude 协议。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/daoxe-vs-litellm/"><div class="r-k">DaoXE vs LiteLLM</div><div class="r-d">LiteLLM —— 自托管的 OpenAI 兼容代理。</div></a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/"><div class="r-k">网关基准</div><div class="r-d">自己测价格、延迟与连通率。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

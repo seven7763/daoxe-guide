@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qwen API access, OpenAI-compatible — the enable_thinking switch | DaoXE</title>
+  <meta name="description" content="Call Qwen (Tongyi Qianwen) through DaoXE&#x27;s OpenAI-compatible endpoint — no Alibaba Cloud/DashScope account. Covers the enable_thinking toggle on Qwen3, open vs commercial variants, and how to verify.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Qwen API access, OpenAI-compatible — the enable_thinking switch | DaoXE">
+  <meta property="og:description" content="Call Qwen (Tongyi Qianwen) through DaoXE&#x27;s OpenAI-compatible endpoint — no Alibaba Cloud/DashScope account. Covers the enable_thinking toggle on Qwen3, open vs commercial variants, and how to verify.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Qwen API access, OpenAI-compatible — the enable_thinking switch | DaoXE">
+  <meta name="twitter:description" content="Call Qwen (Tongyi Qianwen) through DaoXE&#x27;s OpenAI-compatible endpoint — no Alibaba Cloud/DashScope account. Covers the enable_thinking toggle on Qwen3, open vs commercial variants, and how to verify.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/#article", "headline": "Qwen API access, OpenAI-compatible — and the enable_thinking switch", "name": "Qwen API access, OpenAI-compatible — the enable_thinking switch | DaoXE", "description": "Call Qwen (Tongyi Qianwen) through DaoXE's OpenAI-compatible endpoint — no Alibaba Cloud/DashScope account. Covers the enable_thinking toggle on Qwen3, open vs commercial variants, and how to verify.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Qwen API (OpenAI-compatible)", "item": "https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "Do I need an Alibaba Cloud/DashScope account?", "acceptedAnswer": {"@type": "Answer", "text": "No — through DaoXE, Qwen sits behind your single DaoXE key, skipping the DashScope signup."}}, {"@type": "Question", "name": "How do I turn Qwen3 'thinking' off?", "acceptedAnswer": {"@type": "Answer", "text": "Send enable_thinking: false in the request body. It's a non-standard field, so use your SDK's extra-body option if needed."}}, {"@type": "Question", "name": "Why do I only get a streamed response?", "acceptedAnswer": {"@type": "Answer", "text": "Some Qwen builds require streaming when thinking is ON. Turn thinking off for a simple call, or handle the stream."}}, {"@type": "Question", "name": "How much does Qwen cost here?", "acceptedAnswer": {"@type": "Answer", "text": "Per model, account-scoped — see live pricing. Advantage vs official: see live pricing."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/qwen-api-openai-compatible/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/qwen-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/qwen-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Qwen API (OpenAI-compatible)</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Qwen API access, OpenAI-compatible — and the enable_thinking switch</h1>
+      <p class="lead">Qwen is Alibaba's model family — strong, cheap, and awkward to sign up for from abroad. Through DaoXE it's a plain OpenAI-compatible call behind your one key, with a Qwen3-specific thinking toggle worth knowing.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Qwen spans open-weight releases (Qwen2.5, Qwen3) and commercial tiers (qwen-max / plus / turbo). Instead of a DashScope key and Alibaba Cloud console, DaoXE puts Qwen behind the same key as GPT, Claude and DeepSeek. Call <code>/v1/chat/completions</code> with a <code>qwen-*</code> ID; see the <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a> for where it fits a cost split.</p><h2 id="call-qwen-through-daoxe">Call Qwen through DaoXE<a class="anchor" href="#call-qwen-through-daoxe" aria-label="Link to section">#</a></h2><p>Use <code>/v1/chat/completions</code> with an exact <code>qwen-*</code> ID from <code>GET /v1/models</code>. Qwen3 has a hybrid reasoning mode toggled by the non-standard <code>enable_thinking</code> field — set it <code>false</code> for plain output; some builds require streaming when it's on.</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code># Qwen3 &quot;thinking&quot; is toggled by enable_thinking (an extra field, not standard
+# OpenAI). Turn it OFF for plain, cheaper output; some builds require streaming
+# when thinking is ON.
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Reply with OK.&quot;}],
+    &quot;enable_thinking&quot;: false
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><h2 id="qwen-specific-notes">Qwen-specific notes<a class="anchor" href="#qwen-specific-notes" aria-label="Link to section">#</a></h2><ul><li><strong>enable_thinking is non-standard.</strong> It's an extra field beyond the OpenAI spec; not every client forwards it. Send it in the request body, or via your SDK's extra-body escape hatch.</li><li><strong>Thinking may force streaming.</strong> With thinking ON, some Qwen builds only return via streaming — expect a stream, or turn thinking OFF for a simple call.</li><li><strong>Open vs commercial variants differ.</strong> qwen-max/plus/turbo and the open Qwen2.5/Qwen3 IDs behave and price differently — pick deliberately.</li><li><strong>Exact IDs only.</strong> Read <code>qwen-*</code> IDs from <code>GET /v1/models</code>; don't copy a version string from a blog.</li></ul><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Confirm connectivity, then diff a hard prompt against the official Qwen/DashScope API at temperature 0 to confirm the model class:</p><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Do I need an Alibaba Cloud/DashScope account?</summary><div class="a"><p>No — through DaoXE, Qwen sits behind your single DaoXE key, skipping the DashScope signup.</p></div></details><details><summary>How do I turn Qwen3 'thinking' off?</summary><div class="a"><p>Send <code>enable_thinking: false</code> in the request body. It's a non-standard field, so use your SDK's extra-body option if needed.</p></div></details><details><summary>Why do I only get a streamed response?</summary><div class="a"><p>Some Qwen builds require streaming when thinking is ON. Turn thinking off for a simple call, or handle the stream.</p></div></details><details><summary>How much does Qwen cost here?</summary><div class="a"><p>Per model, account-scoped — see <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>. Advantage vs official: <span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">see live pricing</span>.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#call-qwen-through-daoxe">Call Qwen through DaoXE</a></li><li><a href="#qwen-specific-notes">Qwen-specific notes</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/deepseek-api-openai-compatible/"><div class="r-k">DeepSeek API (OpenAI-compatible)</div><div class="r-d">DeepSeek via /v1/chat/completions; mind reasoning_content.</div></a><a href="/daoxe-guide/en/kimi-api-openai-compatible/"><div class="r-k">Kimi API (OpenAI-compatible)</div><div class="r-d">Kimi via /v1/chat/completions; disable thinking for plain output.</div></a><a href="/daoxe-guide/en/doubao-api-openai-compatible/"><div class="r-k">Doubao API (OpenAI-compatible)</div><div class="r-d">Doubao via /v1/chat/completions; catalog ID, no ep- setup.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

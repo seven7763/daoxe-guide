@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 opencode 里用 DaoXE —— opencode.json 里的自定义供应商</title>
+  <meta name="description" content="把 DaoXE 加到 opencode 作为自定义 OpenAI 兼容供应商：@ai-sdk/openai-compatible 适配器、baseURL、准确模型 ID、/responses 说明与验证步骤。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-opencode/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-opencode/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 opencode 里用 DaoXE —— opencode.json 里的自定义供应商">
+  <meta property="og:description" content="把 DaoXE 加到 opencode 作为自定义 OpenAI 兼容供应商：@ai-sdk/openai-compatible 适配器、baseURL、准确模型 ID、/responses 说明与验证步骤。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 opencode 里用 DaoXE —— opencode.json 里的自定义供应商">
+  <meta name="twitter:description" content="把 DaoXE 加到 opencode 作为自定义 OpenAI 兼容供应商：@ai-sdk/openai-compatible 适配器、baseURL、准确模型 ID、/responses 说明与验证步骤。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/#article", "headline": "在 opencode 里用 DaoXE", "name": "在 opencode 里用 DaoXE —— opencode.json 里的自定义供应商", "description": "把 DaoXE 加到 opencode 作为自定义 OpenAI 兼容供应商：@ai-sdk/openai-compatible 适配器、baseURL、准确模型 ID、/responses 说明与验证步骤。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 opencode 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-opencode/#faq", "mainEntity": [{"@type": "Question", "name": "该用哪个 npm 适配器？", "acceptedAnswer": {"@type": "Answer", "text": "chat completions 用 @ai-sdk/openai-compatible。需要 /v1/responses 的模型改用 @ai-sdk/openai。"}}, {"@type": "Question", "name": "base URL 放哪？", "acceptedAnswer": {"@type": "Answer", "text": "供应商块里的 options.baseURL = https://daoxe.com/v1。"}}, {"@type": "Question", "name": "模型没出现在 /models？", "acceptedAnswer": {"@type": "Answer", "text": "模型键必须等于 GET /v1/models 里的准确 ID，且改配置后需重启 opencode。"}}, {"@type": "Question", "name": "怎么让 key 不进文件？", "acceptedAnswer": {"@type": "Answer", "text": "在 options.apiKey 引用环境变量，并导出 DAOXE_API_KEY。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-opencode/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-opencode/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-opencode/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 opencode 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 opencode 里用 DaoXE</h1>
+      <p class="lead">opencode 是终端 AI 编码智能体，供应商系统可插拔。在 <code>opencode.json</code> 里把 DaoXE 加为自定义供应商，即可用 GPT、Claude、Gemini、DeepSeek 等来驱动它 —— 一个 key。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>opencode 在 <code>opencode.json</code> 里用 AI-SDK 适配器配置供应商。用 <code>@ai-sdk/openai-compatible</code>，把 <code>baseURL</code> 指向 DaoXE，并列出模型 ID。一个供应商块就解锁 key 背后的各家 —— 见<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>。</p><h2 id="opencode-daoxe">为什么让 opencode 走 DaoXE<a class="anchor" href="#opencode-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>终端智能体。</strong> opencode 在 shell 里用你的 DaoXE 模型执行多步任务。</li><li><strong>声明式供应商。</strong> 一段 JSON 就加上 DaoXE 及其模型。</li><li><strong>一个 key，多家厂商。</strong> GPT、Claude、Gemini、DeepSeek、Kimi 都在一个 key 后面。</li></ul><h2 id="opencode">在 opencode 里配置<a class="anchor" href="#opencode" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">打开 opencode.json。</span> 创建/编辑 <code>opencode.json</code>（项目）或 <code>~/.config/opencode/opencode.json</code>（全局）。</li><li><span class="s-title">添加供应商。</span> 在 <code>provider</code> 下用 <code>npm: "@ai-sdk/openai-compatible"</code>，设 <code>options.baseURL</code> 为 <code>https://daoxe.com/v1</code>。</li><li><span class="s-title">列出准确模型 ID。</span> 在 <code>models</code> 下加与 <code>GET /v1/models</code> 一致的键。key 通过 <code>options.apiKey</code> 引用环境变量。</li><li><span class="s-title">重启并验证。</span> 重启 opencode，运行 <code>/models</code> 确认 DaoXE 及其模型出现。</li></ol><div class="code"><span class="lang-tag">json</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>// opencode.json (project) or ~/.config/opencode/opencode.json (global)
+{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;provider&quot;: {
+    &quot;daoxe&quot;: {
+      &quot;npm&quot;: &quot;@ai-sdk/openai-compatible&quot;,
+      &quot;name&quot;: &quot;DaoXE&quot;,
+      &quot;options&quot;: {
+        &quot;baseURL&quot;: &quot;https://daoxe.com/v1&quot;,
+        &quot;apiKey&quot;: &quot;{env:DAOXE_API_KEY}&quot;
+      },
+      &quot;models&quot;: {
+        &quot;YOUR_EXACT_MODEL_ID&quot;: { &quot;name&quot;: &quot;DaoXE model&quot; }
+      }
+    }
+  }
+}</code></pre></div><div class="callout warn"><p class="c-title">值得注意的坑</p><p>用 <code>@ai-sdk/openai-compatible</code> 走 <code>/v1/chat/completions</code>；若某模型需要 <code>/v1/responses</code>，则该模型改用 <code>@ai-sdk/openai</code>。模型键必须与账号 ID 完全一致（<code>GET /v1/models</code>）。可从 models.dev 拉取限额/价格元数据，但模型键仍须是真实 ID。改完配置要重启。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先独立验证端点，再在 temperature 0 下把固定 prompt 与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>该用哪个 npm 适配器？</summary><div class="a"><p>chat completions 用 <code>@ai-sdk/openai-compatible</code>。需要 <code>/v1/responses</code> 的模型改用 <code>@ai-sdk/openai</code>。</p></div></details><details><summary>base URL 放哪？</summary><div class="a"><p>供应商块里的 <code>options.baseURL</code> = <code>https://daoxe.com/v1</code>。</p></div></details><details><summary>模型没出现在 /models？</summary><div class="a"><p>模型键必须等于 <code>GET /v1/models</code> 里的准确 ID，且改配置后需重启 opencode。</p></div></details><details><summary>怎么让 key 不进文件？</summary><div class="a"><p>在 <code>options.apiKey</code> 引用环境变量，并导出 <code>DAOXE_API_KEY</code>。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#opencode-daoxe">为什么让 opencode 走 DaoXE</a></li><li><a href="#opencode">在 opencode 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-aider/"><div class="r-k">在 Aider 里用 DaoXE</div><div class="r-d">Aider 走 OPENAI_API_BASE + openai/ 前缀。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-zed/"><div class="r-k">在 Zed 里用 DaoXE</div><div class="r-d">Zed 走 language_models.openai_compatible。</div></a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor·Claude Code</div><div class="r-d">把 Cursor 和 Claude Code 指向更便宜的 endpoint。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

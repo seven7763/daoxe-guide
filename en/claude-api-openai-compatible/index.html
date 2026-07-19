@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude API access, OpenAI-compatible — plus native Messages | DaoXE</title>
+  <meta name="description" content="Reach Claude (Opus/Sonnet/Haiku) through DaoXE two ways: the OpenAI-compatible chat path and native Anthropic Messages for Claude Code. Exact IDs, code, and how to verify the real model.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/claude-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/claude-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Claude API access, OpenAI-compatible — plus native Messages | DaoXE">
+  <meta property="og:description" content="Reach Claude (Opus/Sonnet/Haiku) through DaoXE two ways: the OpenAI-compatible chat path and native Anthropic Messages for Claude Code. Exact IDs, code, and how to verify the real model.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude API access, OpenAI-compatible — plus native Messages | DaoXE">
+  <meta name="twitter:description" content="Reach Claude (Opus/Sonnet/Haiku) through DaoXE two ways: the OpenAI-compatible chat path and native Anthropic Messages for Claude Code. Exact IDs, code, and how to verify the real model.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/#article", "headline": "Claude API access — OpenAI-compatible, and native for Claude Code", "name": "Claude API access, OpenAI-compatible — plus native Messages | DaoXE", "description": "Reach Claude (Opus/Sonnet/Haiku) through DaoXE two ways: the OpenAI-compatible chat path and native Anthropic Messages for Claude Code. Exact IDs, code, and how to verify the real model.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Claude API (OpenAI-compatible)", "item": "https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/claude-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "Can I use Claude with the OpenAI SDK?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — set the base URL to https://daoxe.com/v1 and call /v1/chat/completions with a Claude model ID."}}, {"@type": "Question", "name": "Does Claude Code work through DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, natively via /v1/messages. Set ANTHROPIC_BASE_URL=https://daoxe.com (host root). Full steps in the Cursor & Claude Code guide."}}, {"@type": "Question", "name": "x-api-key or Bearer?", "acceptedAnswer": {"@type": "Answer", "text": "Native Messages uses x-api-key + anthropic-version; the OpenAI-compatible chat path uses a Bearer token."}}, {"@type": "Question", "name": "How much does Claude cost here?", "acceptedAnswer": {"@type": "Answer", "text": "Per-model, account-scoped — see live pricing. Current advantage vs official: see live pricing."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/claude-api-openai-compatible/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/claude-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/claude-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Claude API (OpenAI-compatible)</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Claude API access — OpenAI-compatible, and native for Claude Code</h1>
+      <p class="lead">Two ways to reach Claude through DaoXE: the OpenAI-compatible chat path, and the native Anthropic Messages path that Claude Code and the Anthropic SDKs speak.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Claude runs through DaoXE either with the OpenAI SDK (just change the base URL) or via native <code>/v1/messages</code>. Use Messages for Claude Code and Anthropic SDKs; use chat for OpenAI-shaped clients. Prices live on the pricing page — current advantage <span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">see live pricing</span>. Where savings really come from: the <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a>.</p><h2 id="call-claude-through-daoxe">Call Claude through DaoXE<a class="anchor" href="#call-claude-through-daoxe" aria-label="Link to section">#</a></h2><p>The OpenAI-compatible path is <code>/v1/chat/completions</code> with a <code>Bearer</code> key. The native path is <code>/v1/messages</code> with <code>x-api-key</code> and <code>anthropic-version</code> headers. For Claude Code, point <code>ANTHROPIC_BASE_URL</code> at the host root — it appends the path itself.</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/messages \
+  -H &quot;x-api-key: ${DAOXE_API_KEY}&quot; \
+  -H &quot;anthropic-version: 2023-06-01&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Reply with OK.&quot;}]
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code># Claude Code reads the host ROOT; it appends /v1/messages itself
+export ANTHROPIC_BASE_URL=&quot;https://daoxe.com&quot;
+export ANTHROPIC_AUTH_TOKEN=&quot;your_api_key&quot;   # some builds read ANTHROPIC_API_KEY
+# optional: pin exact catalog IDs from GET /v1/models
+export ANTHROPIC_MODEL=&quot;paste_exact_model_id_here&quot;
+export ANTHROPIC_SMALL_FAST_MODEL=&quot;paste_small_model_id_here&quot;
+
+claude</code></pre></div><h2 id="claude-specific-notes">Claude-specific notes<a class="anchor" href="#claude-specific-notes" aria-label="Link to section">#</a></h2><ul><li><strong>Claude Code uses the host ROOT</strong> (<code>https://daoxe.com</code>), not <code>.../v1</code> — it appends <code>/v1/messages</code> itself. See the <a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor & Claude Code guide</a>.</li><li><strong>Native Messages headers differ:</strong> <code>x-api-key</code> + <code>anthropic-version</code>, not a <code>Bearer</code> token (that's the chat path).</li><li><strong>Extended thinking is opt-in.</strong> Enable it per request when you need visible reasoning; otherwise you get a normal answer.</li><li><strong>Use exact IDs</strong> from <code>GET /v1/models</code> — don't hardcode a version string copied from a blog post.</li></ul><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Run the same hard-reasoning prompt through DaoXE and the official Anthropic API at temperature 0 and diff the outputs — that's how you prove it's really Claude:</p><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Can I use Claude with the OpenAI SDK?</summary><div class="a"><p>Yes — set the base URL to <code>https://daoxe.com/v1</code> and call <code>/v1/chat/completions</code> with a Claude model ID.</p></div></details><details><summary>Does Claude Code work through DaoXE?</summary><div class="a"><p>Yes, natively via <code>/v1/messages</code>. Set <code>ANTHROPIC_BASE_URL=https://daoxe.com</code> (host root). Full steps in the <a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor & Claude Code guide</a>.</p></div></details><details><summary>x-api-key or Bearer?</summary><div class="a"><p>Native Messages uses <code>x-api-key</code> + <code>anthropic-version</code>; the OpenAI-compatible chat path uses a <code>Bearer</code> token.</p></div></details><details><summary>How much does Claude cost here?</summary><div class="a"><p>Per-model, account-scoped — see <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>. Current advantage vs official: <span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">see live pricing</span>.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#call-claude-through-daoxe">Call Claude through DaoXE</a></li><li><a href="#claude-specific-notes">Claude-specific notes</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor &amp; Claude Code</div><div class="r-d">Point Cursor and Claude Code at a cheaper endpoint.</div></a><a href="/daoxe-guide/en/gpt-api-openai-compatible/"><div class="r-k">GPT API (OpenAI-compatible)</div><div class="r-d">GPT via chat + Responses; drop-in OpenAI SDK.</div></a><a href="/daoxe-guide/en/gemini-api-openai-compatible/"><div class="r-k">Gemini API (OpenAI-compatible)</div><div class="r-d">Gemini via /v1/chat/completions; no Google key needed.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

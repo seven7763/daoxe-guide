@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 Open WebUI 里用 DaoXE —— OpenAI 连接、/v1 base URL</title>
+  <meta name="description" content="通过 OpenAI API 连接把 Open WebUI 接到 DaoXE：base URL 填 https://daoxe.com/v1、key、模型自动填充，以及任务模型设置。含注意点与验证步骤。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-open-webui/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 Open WebUI 里用 DaoXE —— OpenAI 连接、/v1 base URL">
+  <meta property="og:description" content="通过 OpenAI API 连接把 Open WebUI 接到 DaoXE：base URL 填 https://daoxe.com/v1、key、模型自动填充，以及任务模型设置。含注意点与验证步骤。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 Open WebUI 里用 DaoXE —— OpenAI 连接、/v1 base URL">
+  <meta name="twitter:description" content="通过 OpenAI API 连接把 Open WebUI 接到 DaoXE：base URL 填 https://daoxe.com/v1、key、模型自动填充，以及任务模型设置。含注意点与验证步骤。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/#article", "headline": "在 Open WebUI 里用 DaoXE", "name": "在 Open WebUI 里用 DaoXE —— OpenAI 连接、/v1 base URL", "description": "通过 OpenAI API 连接把 Open WebUI 接到 DaoXE：base URL 填 https://daoxe.com/v1、key、模型自动填充，以及任务模型设置。含注意点与验证步骤。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 Open WebUI 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-open-webui/#faq", "mainEntity": [{"@type": "Question", "name": "Open WebUI 需要什么 base URL？", "acceptedAnswer": {"@type": "Answer", "text": "用 OpenAI API 连接，base URL 填 https://daoxe.com/v1 —— Open WebUI 会补 /models 和 /chat/completions。"}}, {"@type": "Question", "name": "模型列表为空？", "acceptedAnswer": {"@type": "Answer", "text": "连接失败了。重查 base URL（到 /v1 为止）和 key；用 GET /v1/models 确认。"}}, {"@type": "Question", "name": "能用环境变量设置吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— 容器启动时 OPENAI_API_BASE_URL=https://daoxe.com/v1 与 OPENAI_API_KEY 同样有效。"}}, {"@type": "Question", "name": "怎么降低后台 token 成本？", "acceptedAnswer": {"@type": "Answer", "text": "在管理设置里把标题/标签/查询任务指向便宜的 DaoXE 模型；对话保留顶级模型。优势：见定价页。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-open-webui/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-open-webui/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-open-webui/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 Open WebUI 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 Open WebUI 里用 DaoXE</h1>
+      <p class="lead">Open WebUI 是自托管的聊天前端。把 DaoXE 加为 OpenAI API 连接，就能用一个 key 给整个实例提供 GPT、Claude、Gemini、DeepSeek 等。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Open WebUI 说 OpenAI API，所以 DaoXE 以<strong>连接（Connection）</strong>形式接入：填 base URL 和 key，它会自动列出你的模型。一个连接服务实例上的所有用户。用便宜模型跑后台任务、顶级模型跑对话，见<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>。</p><h2 id="open-webui-daoxe">为什么让 Open WebUI 走 DaoXE<a class="anchor" href="#open-webui-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>自托管、多用户。</strong> 一个 DaoXE 连接为整个团队的对话供能。</li><li><strong>一个 key，多种模型。</strong> GPT、Claude、Gemini、DeepSeek 从一个连接出现在模型选择器里。</li><li><strong>便宜的任务模型。</strong> 把标题/标签生成指向便宜的 DaoXE 模型，对话保留顶级模型。</li></ul><h2 id="open-webui">在 Open WebUI 里配置<a class="anchor" href="#open-webui" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">打开 Connections。</span> <strong>管理面板 → 设置 → 连接</strong>（个人使用可在个人资料的 Connections）。</li><li><span class="s-title">添加 OpenAI 连接。</span> API Base URL 填 <code>https://daoxe.com/v1</code>，粘贴 DaoXE key，保存。</li><li><span class="s-title">确认模型填充。</span> 打开模型选择器 —— 应出现 <code>GET /v1/models</code> 里的模型 ID。列表为空即连接失败。</li><li><span class="s-title">设任务模型（可选）。</span> 在管理设置里把标题/标签/自动补全任务指向便宜的 DaoXE 模型，降低后台成本。</li></ol><div class="callout warn"><p class="c-title">值得注意的坑</p><p>base URL 要填 <code>/v1</code> 根 —— Open WebUI 会自己补 <code>/models</code> 和 <code>/chat/completions</code>。<strong>模型列表为空 = 连接失败</strong>（URL 或 key 不对），而不是没有模型。也可在容器启动时用环境变量 <code>OPENAI_API_BASE_URL</code>/<code>OPENAI_API_KEY</code> 设置。注意后台功能（标题生成、RAG 查询改写、embedding）也耗 token —— 给它们配便宜模型。embedding 需要支持 embedding 的模型 ID。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先在 Open WebUI 之外独立验证端点，再在 temperature 0 下把固定 prompt 与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Open WebUI 需要什么 base URL？</summary><div class="a"><p>用 OpenAI API 连接，base URL 填 <code>https://daoxe.com/v1</code> —— Open WebUI 会补 <code>/models</code> 和 <code>/chat/completions</code>。</p></div></details><details><summary>模型列表为空？</summary><div class="a"><p>连接失败了。重查 base URL（到 <code>/v1</code> 为止）和 key；用 <code>GET /v1/models</code> 确认。</p></div></details><details><summary>能用环境变量设置吗？</summary><div class="a"><p>能 —— 容器启动时 <code>OPENAI_API_BASE_URL=https://daoxe.com/v1</code> 与 <code>OPENAI_API_KEY</code> 同样有效。</p></div></details><details><summary>怎么降低后台 token 成本？</summary><div class="a"><p>在管理设置里把标题/标签/查询任务指向便宜的 DaoXE 模型；对话保留顶级模型。优势：<span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">见定价页</span>。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#open-webui-daoxe">为什么让 Open WebUI 走 DaoXE</a></li><li><a href="#open-webui">在 Open WebUI 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-cherry-studio/"><div class="r-k">在 Cherry Studio 里用 DaoXE</div><div class="r-d">Cherry Studio 走 OpenAI 类型供应商。</div></a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/gpt-api-openai-compatible/"><div class="r-k">GPT API（OpenAI 兼容）</div><div class="r-d">GPT 走 chat + Responses；OpenAI SDK 即插即用。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

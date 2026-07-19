@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE vs LiteLLM — managed gateway vs self-hosted proxy</title>
+  <meta name="description" content="DaoXE vs LiteLLM compared honestly: managed model access vs an open-source proxy you self-host with your own vendor keys. Hosting, accounts, control — and when to combine them.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-litellm/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE vs LiteLLM — managed gateway vs self-hosted proxy">
+  <meta property="og:description" content="DaoXE vs LiteLLM compared honestly: managed model access vs an open-source proxy you self-host with your own vendor keys. Hosting, accounts, control — and when to combine them.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE vs LiteLLM — managed gateway vs self-hosted proxy">
+  <meta name="twitter:description" content="DaoXE vs LiteLLM compared honestly: managed model access vs an open-source proxy you self-host with your own vendor keys. Hosting, accounts, control — and when to combine them.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/#article", "headline": "DaoXE vs LiteLLM", "name": "DaoXE vs LiteLLM — managed gateway vs self-hosted proxy", "description": "DaoXE vs LiteLLM compared honestly: managed model access vs an open-source proxy you self-host with your own vendor keys. Hosting, accounts, control — and when to combine them.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE vs LiteLLM", "item": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-litellm/#faq", "mainEntity": [{"@type": "Question", "name": "Is LiteLLM a competitor or a complement?", "acceptedAnswer": {"@type": "Answer", "text": "Both. It's a self-hosted proxy; DaoXE is a managed model source. You can add DaoXE as an upstream in LiteLLM to reduce per-vendor signups."}}, {"@type": "Question", "name": "Do I need vendor accounts with LiteLLM?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — LiteLLM routes to upstreams using your own keys. DaoXE's single key already spans its model set."}}, {"@type": "Question", "name": "Does LiteLLM cost money?", "acceptedAnswer": {"@type": "Answer", "text": "The software is open source; you pay each upstream vendor directly and operate the infra. DaoXE is usage-based — see live pricing."}}, {"@type": "Question", "name": "Can I keep my OpenAI code either way?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — both are OpenAI-compatible. With DaoXE it's just a base-URL change; with LiteLLM you point at your proxy URL."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/daoxe-vs-litellm/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/daoxe-vs-litellm/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/daoxe-vs-litellm/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>DaoXE vs LiteLLM</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE vs LiteLLM</h1>
+      <p class="lead">LiteLLM is an open-source proxy you host with your own upstream keys; DaoXE is a managed gateway that already reaches the models. Different tools — here's the honest split, and how to combine them.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>This is a bit apples-to-oranges: LiteLLM is infrastructure you run (a proxy/SDK over 100+ providers, using your own vendor accounts), while DaoXE is a managed service that supplies the model access itself. You can even use both — put DaoXE as one upstream in LiteLLM. Verify current LiteLLM features in its docs.</p><h2 id="why-people-compare-them">Why people compare them<a class="anchor" href="#why-people-compare-them" aria-label="Link to section">#</a></h2><ul><li><strong>Both speak OpenAI.</strong> Either way your client code stays OpenAI-shaped, so teams weigh them against each other.</li><li><strong>Host vs managed.</strong> LiteLLM is something you deploy and operate; DaoXE is something you call. That's the core trade-off.</li><li><strong>Accounts.</strong> LiteLLM needs your own key per upstream vendor; DaoXE's one key already spans models.</li></ul><h2 id="head-to-head">Head-to-head<a class="anchor" href="#head-to-head" aria-label="Link to section">#</a></h2><div class="table-wrap"><table><thead><tr><th>Aspect</th><th>DaoXE</th><th>LiteLLM</th></tr></thead><tbody><tr><td>What it is</td><td>Managed OpenAI-compatible gateway</td><td>Open-source proxy + SDK you self-host</td></tr><tr><td>Hosting</td><td>Nothing to host</td><td>You deploy &amp; operate the proxy (often a DB too)</td></tr><tr><td>Upstream accounts</td><td>Included — one key spans models</td><td>You bring each vendor's own key/account</td></tr><tr><td>Native Anthropic Messages</td><td>Yes — <code>/v1/messages</code></td><td>Depends on your config/upstreams</td></tr><tr><td>Control &amp; observability</td><td>Vendor-managed; verify by benchmark</td><td>Full control of keys, spend, logs — you run it</td></tr><tr><td>Best for</td><td>No-infra access without per-vendor signups</td><td>Teams wanting a self-hosted control plane</td></tr><tr><td>Region</td><td>Overseas-ready; <strong>not for mainland China</strong></td><td>Runs wherever you host it</td></tr><tr><td>Cost model</td><td>Usage-based — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a></td><td>Free software; you pay each upstream vendor</td></tr></tbody><caption>Directional comparison — confirm current LiteLLM capabilities in its docs.</caption></table></div><h2 id="which-one-fits-you">Which one fits you<a class="anchor" href="#which-one-fits-you" aria-label="Link to section">#</a></h2><ul><li><strong>Pick LiteLLM</strong> if you already have vendor accounts and want to self-host a control plane with full logging, budgets and key management.</li><li><strong>Pick DaoXE</strong> if you don't want to run infra or open accounts with each vendor, and want one key that already reaches the models.</li><li><strong>Combine them</strong> if you like LiteLLM's control plane but want fewer upstream signups — add DaoXE as an OpenAI-compatible upstream.</li></ul><h2 id="try-it-in-minutes">Try it in minutes<a class="anchor" href="#try-it-in-minutes" aria-label="Link to section">#</a></h2><p>No proxy to deploy — point your OpenAI SDK at DaoXE and you're calling models immediately:</p><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>from openai import OpenAI
+# DaoXE: nothing to host; one key already spans GPT / Claude / Gemini / DeepSeek...
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Is LiteLLM a competitor or a complement?</summary><div class="a"><p>Both. It's a self-hosted proxy; DaoXE is a managed model source. You can add DaoXE as an upstream in LiteLLM to reduce per-vendor signups.</p></div></details><details><summary>Do I need vendor accounts with LiteLLM?</summary><div class="a"><p>Yes — LiteLLM routes to upstreams using your own keys. DaoXE's single key already spans its model set.</p></div></details><details><summary>Does LiteLLM cost money?</summary><div class="a"><p>The software is open source; you pay each upstream vendor directly and operate the infra. DaoXE is usage-based — see <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>.</p></div></details><details><summary>Can I keep my OpenAI code either way?</summary><div class="a"><p>Yes — both are OpenAI-compatible. With DaoXE it's just a base-URL change; with LiteLLM you point at your proxy URL.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-people-compare-them">Why people compare them</a></li><li><a href="#head-to-head">Head-to-head</a></li><li><a href="#which-one-fits-you">Which one fits you</a></li><li><a href="#try-it-in-minutes">Try it in minutes</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/daoxe-vs-openrouter/"><div class="r-k">DaoXE vs OpenRouter</div><div class="r-d">OpenRouter — broad hosted multi-provider router.</div></a><a href="/daoxe-guide/en/daoxe-vs-oneapi/"><div class="r-k">DaoXE vs One API / New API</div><div class="r-d">One API / New API — self-hosted relay &amp;amp; key-management panels.</div></a><a href="/daoxe-guide/en/openrouter-alternative/"><div class="r-k">OpenRouter alternative</div><div class="r-d">A multi-model gateway you can benchmark — with native Claude protocol.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

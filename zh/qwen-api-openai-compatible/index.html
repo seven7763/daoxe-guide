@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qwen（通义千问）API 的 OpenAI 兼容接入 —— enable_thinking 开关 | DaoXE</title>
+  <meta name="description" content="通过 DaoXE 的 OpenAI 兼容端点调 Qwen（通义千问）—— 无需阿里云/DashScope 账号。讲清 Qwen3 的 enable_thinking 开关、开源与商用版本差异，以及如何验证。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/qwen-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Qwen（通义千问）API 的 OpenAI 兼容接入 —— enable_thinking 开关 | DaoXE">
+  <meta property="og:description" content="通过 DaoXE 的 OpenAI 兼容端点调 Qwen（通义千问）—— 无需阿里云/DashScope 账号。讲清 Qwen3 的 enable_thinking 开关、开源与商用版本差异，以及如何验证。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Qwen（通义千问）API 的 OpenAI 兼容接入 —— enable_thinking 开关 | DaoXE">
+  <meta name="twitter:description" content="通过 DaoXE 的 OpenAI 兼容端点调 Qwen（通义千问）—— 无需阿里云/DashScope 账号。讲清 Qwen3 的 enable_thinking 开关、开源与商用版本差异，以及如何验证。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/#article", "headline": "Qwen（通义千问）API 的 OpenAI 兼容接入 —— 以及 enable_thinking 开关", "name": "Qwen（通义千问）API 的 OpenAI 兼容接入 —— enable_thinking 开关 | DaoXE", "description": "通过 DaoXE 的 OpenAI 兼容端点调 Qwen（通义千问）—— 无需阿里云/DashScope 账号。讲清 Qwen3 的 enable_thinking 开关、开源与商用版本差异，以及如何验证。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "Qwen API（OpenAI 兼容）", "item": "https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/qwen-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "需要阿里云/DashScope 账号吗？", "acceptedAnswer": {"@type": "Answer", "text": "不需要 —— 通过 DaoXE，Qwen 在你的同一个 DaoXE key 后面，免去 DashScope 注册。"}}, {"@type": "Question", "name": "怎么关掉 Qwen3 的「思考」？", "acceptedAnswer": {"@type": "Answer", "text": "在请求体里发 enable_thinking: false。它是非标准字段，必要时用你 SDK 的 extra-body 选项。"}}, {"@type": "Question", "name": "为什么只收到流式响应？", "acceptedAnswer": {"@type": "Answer", "text": "部分 Qwen 版本在开思考时要求流式。做简单调用就关思考，或处理流。"}}, {"@type": "Question", "name": "这里 Qwen 多少钱？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、按账号 —— 见实时定价。相对官方优势：见定价页。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/qwen-api-openai-compatible/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/qwen-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/qwen-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>Qwen API（OpenAI 兼容）</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Qwen（通义千问）API 的 OpenAI 兼容接入 —— 以及 enable_thinking 开关</h1>
+      <p class="lead">Qwen 是阿里的模型家族：强、便宜，但海外注册麻烦。通过 DaoXE 就是一次普通的 OpenAI 兼容调用，藏在你的一个 key 后面，还有个 Qwen3 特有的思考开关值得知道。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Qwen 既有开源版本（Qwen2.5、Qwen3），也有商用档位（qwen-max / plus / turbo）。无需 DashScope key 和阿里云控制台，DaoXE 把 Qwen 放在与 GPT、Claude、DeepSeek 同一个 key 后面。用 <code>qwen-*</code> ID 调 <code>/v1/chat/completions</code>；如何做成本分工见<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>。</p><h2 id="daoxe-qwen">通过 DaoXE 调用 Qwen<a class="anchor" href="#daoxe-qwen" aria-label="Link to section">#</a></h2><p>用 <code>/v1/chat/completions</code>，模型填 <code>GET /v1/models</code> 里的准确 <code>qwen-*</code> ID。Qwen3 有混合推理模式，由非标准字段 <code>enable_thinking</code> 控制 —— 设 <code>false</code> 得普通输出；开启时部分版本要求流式。</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># Qwen3 &quot;thinking&quot; is toggled by enable_thinking (an extra field, not standard
+# OpenAI). Turn it OFF for plain, cheaper output; some builds require streaming
+# when thinking is ON.
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Reply with OK.&quot;}],
+    &quot;enable_thinking&quot;: false
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><h2 id="qwen">Qwen 特有的注意点<a class="anchor" href="#qwen" aria-label="Link to section">#</a></h2><ul><li><strong>enable_thinking 是非标准字段。</strong> 它超出 OpenAI 规范；不是每个客户端都会转发。请放进请求体，或用你 SDK 的 extra-body 通道。</li><li><strong>思考可能强制流式。</strong> 开思考时部分 Qwen 版本只走流式返回 —— 要么处理流，要么关思考做简单调用。</li><li><strong>开源与商用版本不同。</strong> qwen-max/plus/turbo 与开源 Qwen2.5/Qwen3 在行为和价格上都不同 —— 有意识地选。</li><li><strong>只用准确 ID。</strong> 从 <code>GET /v1/models</code> 读取 <code>qwen-*</code>，别照搬博客的版本串。</li></ul><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先确认连通，再在 temperature 0 下把高难度 prompt 与官方 Qwen/DashScope API 对比，确认模型档位：</p><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>需要阿里云/DashScope 账号吗？</summary><div class="a"><p>不需要 —— 通过 DaoXE，Qwen 在你的同一个 DaoXE key 后面，免去 DashScope 注册。</p></div></details><details><summary>怎么关掉 Qwen3 的「思考」？</summary><div class="a"><p>在请求体里发 <code>enable_thinking: false</code>。它是非标准字段，必要时用你 SDK 的 extra-body 选项。</p></div></details><details><summary>为什么只收到流式响应？</summary><div class="a"><p>部分 Qwen 版本在开思考时要求流式。做简单调用就关思考，或处理流。</p></div></details><details><summary>这里 Qwen 多少钱？</summary><div class="a"><p>按模型、按账号 —— 见<a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>。相对官方优势：<span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">见定价页</span>。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#daoxe-qwen">通过 DaoXE 调用 Qwen</a></li><li><a href="#qwen">Qwen 特有的注意点</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/deepseek-api-openai-compatible/"><div class="r-k">DeepSeek API（OpenAI 兼容）</div><div class="r-d">DeepSeek 走 /v1/chat/completions；注意 reasoning_content。</div></a><a href="/daoxe-guide/zh/kimi-api-openai-compatible/"><div class="r-k">Kimi API（OpenAI 兼容）</div><div class="r-d">Kimi 走 /v1/chat/completions；要普通输出就关思考。</div></a><a href="/daoxe-guide/zh/doubao-api-openai-compatible/"><div class="r-k">Doubao API（OpenAI 兼容）</div><div class="r-d">Doubao 走 /v1/chat/completions；用目录 ID，免 ep- 配置。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

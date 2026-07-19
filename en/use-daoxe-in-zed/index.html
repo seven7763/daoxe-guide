@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use DaoXE in Zed — openai_compatible provider in settings.json</title>
+  <meta name="description" content="Add DaoXE to Zed&#x27;s Agent as an OpenAI-compatible provider: api_url, available_models, the env-var API key rule, reasoning-model settings, plus a verify step.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-zed/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Use DaoXE in Zed — openai_compatible provider in settings.json">
+  <meta property="og:description" content="Add DaoXE to Zed&#x27;s Agent as an OpenAI-compatible provider: api_url, available_models, the env-var API key rule, reasoning-model settings, plus a verify step.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Use DaoXE in Zed — openai_compatible provider in settings.json">
+  <meta name="twitter:description" content="Add DaoXE to Zed&#x27;s Agent as an OpenAI-compatible provider: api_url, available_models, the env-var API key rule, reasoning-model settings, plus a verify step.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/#article", "headline": "Use DaoXE in Zed", "name": "Use DaoXE in Zed — openai_compatible provider in settings.json", "description": "Add DaoXE to Zed's Agent as an OpenAI-compatible provider: api_url, available_models, the env-var API key rule, reasoning-model settings, plus a verify step.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Use DaoXE in Zed", "item": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-zed/#faq", "mainEntity": [{"@type": "Question", "name": "How does Zed store my API key?", "acceptedAnswer": {"@type": "Answer", "text": "Not in settings.json. Use the UI or set DAOXE_API_KEY — Zed derives the var from the provider name (UPPER + _API_KEY)."}}, {"@type": "Question", "name": "What goes in api_url?", "acceptedAnswer": {"@type": "Answer", "text": "https://daoxe.com/v1. It must include /v1."}}, {"@type": "Question", "name": "Do I have to list models?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — add exact IDs under available_models with a max_tokens (context window)."}}, {"@type": "Question", "name": "Reasoning model won't think — why?", "acceptedAnswer": {"@type": "Answer", "text": "Set reasoning_effort and the appropriate capabilities in the model entry."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-zed/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-zed/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-zed/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Use DaoXE in Zed</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Use DaoXE in Zed</h1>
+      <p class="lead">Zed's Agent supports custom OpenAI-compatible providers. Add DaoXE under <code>language_models.openai_compatible</code> and you get GPT, Claude, Gemini, DeepSeek and more in a fast native editor — from one key.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Zed lets you register an OpenAI-compatible provider from the Agent settings UI or directly in <code>settings.json</code>. Set <code>api_url</code> to DaoXE and list the models you want; the key stays out of the file (env or UI). One key then spans every vendor — see the <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a>.</p><h2 id="why-route-zed-through-daoxe">Why route Zed through DaoXE<a class="anchor" href="#why-route-zed-through-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>Native, fast editor.</strong> Zed's Agent panel drives edits with your DaoXE model.</li><li><strong>Declared models.</strong> You list exact IDs and context windows in <code>available_models</code>.</li><li><strong>One key, many vendors.</strong> No separate GPT/Claude/Gemini/DeepSeek accounts.</li></ul><h2 id="set-it-up-in-zed">Set it up in Zed<a class="anchor" href="#set-it-up-in-zed" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Open Agent settings.</span> Run <code>agent: open settings</code> and click <strong>Add Provider</strong> in LLM Providers — or edit <code>settings.json</code> directly.</li><li><span class="s-title">Set api_url + models.</span> Under <code>language_models.openai_compatible</code>, add a provider with <code>api_url: https://daoxe.com/v1</code> and an <code>available_models</code> entry (exact ID + max_tokens).</li><li><span class="s-title">Provide the key safely.</span> Enter it in the UI, or set env <code>DAOXE_API_KEY</code> — Zed derives the var from the provider name.</li><li><span class="s-title">Select and test.</span> Pick the model in the Agent panel and run a small edit to confirm it works.</li></ol><div class="code"><span class="lang-tag">json</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>// Zed settings.json  (agent: open settings -&gt; Add Provider, or edit directly)
+{
+  &quot;language_models&quot;: {
+    &quot;openai_compatible&quot;: {
+      &quot;DaoXE&quot;: {
+        &quot;api_url&quot;: &quot;https://daoxe.com/v1&quot;,
+        &quot;available_models&quot;: [
+          { &quot;name&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;, &quot;display_name&quot;: &quot;DaoXE model&quot;, &quot;max_tokens&quot;: 128000 }
+        ]
+      }
+    }
+  }
+}
+// Key is NOT stored here. Set it in the UI, or as env DAOXE_API_KEY
+// (Zed derives &lt;PROVIDER_ID_UPPERCASE&gt;_API_KEY from the provider name).</code></pre></div><div class="callout warn"><p class="c-title">Caveats worth knowing</p><p>Never put the API key in <code>settings.json</code> — Zed reads an environment variable named <code>&lt;PROVIDER_ID_UPPERCASE&gt;_API_KEY</code>, so provider <code>DaoXE</code> maps to <code>DAOXE_API_KEY</code>. The <code>api_url</code> must include <code>/v1</code>. For reasoning models set <code>reasoning_effort</code> and the right <code>capabilities</code>. IDs are account-scoped — read them from <code>GET /v1/models</code>.</p></div><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Prove the endpoint independently of Zed, then diff a fixed prompt against the official API at temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>How does Zed store my API key?</summary><div class="a"><p>Not in <code>settings.json</code>. Use the UI or set <code>DAOXE_API_KEY</code> — Zed derives the var from the provider name (UPPER + _API_KEY).</p></div></details><details><summary>What goes in api_url?</summary><div class="a"><p><code>https://daoxe.com/v1</code>. It must include <code>/v1</code>.</p></div></details><details><summary>Do I have to list models?</summary><div class="a"><p>Yes — add exact IDs under <code>available_models</code> with a <code>max_tokens</code> (context window).</p></div></details><details><summary>Reasoning model won't think — why?</summary><div class="a"><p>Set <code>reasoning_effort</code> and the appropriate <code>capabilities</code> in the model entry.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-route-zed-through-daoxe">Why route Zed through DaoXE</a></li><li><a href="#set-it-up-in-zed">Set it up in Zed</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/use-daoxe-in-continue/"><div class="r-k">Use DaoXE in Continue</div><div class="r-d">Continue via config.yaml apiBase.</div></a><a href="/daoxe-guide/en/use-daoxe-in-opencode/"><div class="r-k">Use DaoXE in opencode</div><div class="r-d">opencode via a custom provider in opencode.json.</div></a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor &amp; Claude Code</div><div class="r-d">Point Cursor and Claude Code at a cheaper endpoint.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE vs One API / New API — managed access vs a self-hosted relay panel</title>
+  <meta name="description" content="DaoXE vs One API / New API (the self-hosted 中转 relay panels): what each actually is, who hosts it, who sources the upstream channels, and where model-swapping risk lives.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE vs One API / New API — managed access vs a self-hosted relay panel">
+  <meta property="og:description" content="DaoXE vs One API / New API (the self-hosted 中转 relay panels): what each actually is, who hosts it, who sources the upstream channels, and where model-swapping risk lives.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE vs One API / New API — managed access vs a self-hosted relay panel">
+  <meta name="twitter:description" content="DaoXE vs One API / New API (the self-hosted 中转 relay panels): what each actually is, who hosts it, who sources the upstream channels, and where model-swapping risk lives.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/#article", "headline": "DaoXE vs One API / New API", "name": "DaoXE vs One API / New API — managed access vs a self-hosted relay panel", "description": "DaoXE vs One API / New API (the self-hosted 中转 relay panels): what each actually is, who hosts it, who sources the upstream channels, and where model-swapping risk lives.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE vs One API / New API", "item": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/daoxe-vs-oneapi/#faq", "mainEntity": [{"@type": "Question", "name": "Are One API / New API model providers?", "acceptedAnswer": {"@type": "Answer", "text": "No — they're self-hosted relay/management panels. You still supply the upstream channels. DaoXE is the managed access itself."}}, {"@type": "Question", "name": "Do these panels prevent model swapping?", "acceptedAnswer": {"@type": "Answer", "text": "They don't guarantee it — a relay is only as honest as its upstream channels. Always benchmark and detect model swapping, whatever the panel."}}, {"@type": "Question", "name": "Do I have to host anything with DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "No — DaoXE is managed. One API/New API require you to deploy and maintain the panel plus its upstreams."}}, {"@type": "Question", "name": "Can I put DaoXE behind One API / New API?", "acceptedAnswer": {"@type": "Answer", "text": "You can add an OpenAI-compatible upstream channel — but if you just want access, calling DaoXE directly is simpler."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/daoxe-vs-oneapi/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/daoxe-vs-oneapi/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/daoxe-vs-oneapi/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>DaoXE vs One API / New API</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE vs One API / New API</h1>
+      <p class="lead">One API and New API are open-source relay/management panels you self-host and plug upstream channels into. DaoXE is managed model access. Here's the honest difference — and why the upstream you plug in is where model-swapping risk lives.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>One API and its popular fork New API are open-source panels for <em>relaying and managing</em> LLM API keys: you self-host the panel, add upstream <strong>channels</strong> (each with its own source key/base URL), and it exposes a unified OpenAI-compatible endpoint with tokens, quotas and multi-user billing. Crucially, the panel is not itself a model source — it's only as honest and reliable as the channels you plug in, which is exactly where quiet model-swapping can happen. DaoXE, by contrast, is the managed access itself. Verify current panel features in their repos.</p><h2 id="why-people-compare-them">Why people compare them<a class="anchor" href="#why-people-compare-them" aria-label="Link to section">#</a></h2><ul><li><strong>Unified OpenAI endpoint.</strong> Both end up as one OpenAI-compatible URL for many models, so they get compared.</li><li><strong>Panel vs access.</strong> One API/New API is a management/reselling layer you host; DaoXE is the model access underneath.</li><li><strong>Where swapping hides.</strong> A relay panel is only as trustworthy as its upstream channels — so verification matters even more. Learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a>.</li></ul><h2 id="head-to-head">Head-to-head<a class="anchor" href="#head-to-head" aria-label="Link to section">#</a></h2><div class="table-wrap"><table><thead><tr><th>Aspect</th><th>DaoXE</th><th>One API / New API</th></tr></thead><tbody><tr><td>What it is</td><td>Managed model access</td><td>Self-hosted relay/key-management panel</td></tr><tr><td>Hosting</td><td>Nothing to host</td><td>You deploy the panel (Docker) &amp; keep it updated</td></tr><tr><td>Upstream channels</td><td>Not applicable — DaoXE is the source</td><td>You source &amp; configure each upstream channel</td></tr><tr><td>Model-swap risk</td><td>Vendor invites benchmark verification</td><td>As trustworthy as the channels you plug in — <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a></td></tr><tr><td>Native Anthropic Messages</td><td>Yes — <code>/v1/messages</code></td><td>Depends on channel/version support</td></tr><tr><td>Best for</td><td>Direct managed access, no ops</td><td>Teams reselling/managing keys across upstreams</td></tr><tr><td>Region</td><td>Overseas-ready; <strong>not for mainland China</strong></td><td>Runs wherever you host it</td></tr><tr><td>Cost model</td><td>Usage-based — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a></td><td>Free software; you pay/operate the upstreams</td></tr></tbody><caption>Directional comparison — confirm current One API / New API features in their repositories.</caption></table></div><h2 id="which-one-fits-you">Which one fits you<a class="anchor" href="#which-one-fits-you" aria-label="Link to section">#</a></h2><ul><li><strong>Pick One API / New API</strong> if you want to self-host a panel to manage or resell keys across upstream channels you already have.</li><li><strong>Pick DaoXE</strong> if you want actual managed access without hosting a panel or sourcing upstreams — from a vendor that invites benchmark verification.</li><li><strong>Whatever you relay through, verify.</strong> With any panel, quietly-swapped models are the risk; diff at temperature 0 and <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a>.</li></ul><h2 id="try-it-in-minutes">Try it in minutes<a class="anchor" href="#try-it-in-minutes" aria-label="Link to section">#</a></h2><p>No panel to deploy or channels to source — point your OpenAI SDK at DaoXE and call a model:</p><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>from openai import OpenAI
+# DaoXE: nothing to host; one key already spans GPT / Claude / Gemini / DeepSeek...
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Are One API / New API model providers?</summary><div class="a"><p>No — they're self-hosted relay/management panels. You still supply the upstream channels. DaoXE is the managed access itself.</p></div></details><details><summary>Do these panels prevent model swapping?</summary><div class="a"><p>They don't guarantee it — a relay is only as honest as its upstream channels. Always benchmark and <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a>, whatever the panel.</p></div></details><details><summary>Do I have to host anything with DaoXE?</summary><div class="a"><p>No — DaoXE is managed. One API/New API require you to deploy and maintain the panel plus its upstreams.</p></div></details><details><summary>Can I put DaoXE behind One API / New API?</summary><div class="a"><p>You can add an OpenAI-compatible upstream channel — but if you just want access, calling DaoXE directly is simpler.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-people-compare-them">Why people compare them</a></li><li><a href="#head-to-head">Head-to-head</a></li><li><a href="#which-one-fits-you">Which one fits you</a></li><li><a href="#try-it-in-minutes">Try it in minutes</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/daoxe-vs-litellm/"><div class="r-k">DaoXE vs LiteLLM</div><div class="r-d">LiteLLM — self-hosted OpenAI-compatible proxy.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a><a href="/daoxe-guide/en/openrouter-alternative/"><div class="r-k">OpenRouter alternative</div><div class="r-d">A multi-model gateway you can benchmark — with native Claude protocol.</div></a><a href="/daoxe-guide/en/daoxe-vs-openrouter/"><div class="r-k">DaoXE vs OpenRouter</div><div class="r-d">OpenRouter — broad hosted multi-provider router.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

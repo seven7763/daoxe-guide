@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use DaoXE in Cline — one OpenAI-compatible key, many models</title>
+  <meta name="description" content="Set up Cline (the VS Code coding agent) with DaoXE&#x27;s OpenAI-compatible endpoint: base URL, exact model IDs, the Verify step, and how to confirm you get the real model.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-cline/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-cline/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Use DaoXE in Cline — one OpenAI-compatible key, many models">
+  <meta property="og:description" content="Set up Cline (the VS Code coding agent) with DaoXE&#x27;s OpenAI-compatible endpoint: base URL, exact model IDs, the Verify step, and how to confirm you get the real model.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Use DaoXE in Cline — one OpenAI-compatible key, many models">
+  <meta name="twitter:description" content="Set up Cline (the VS Code coding agent) with DaoXE&#x27;s OpenAI-compatible endpoint: base URL, exact model IDs, the Verify step, and how to confirm you get the real model.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/#article", "headline": "Use DaoXE in Cline", "name": "Use DaoXE in Cline — one OpenAI-compatible key, many models", "description": "Set up Cline (the VS Code coding agent) with DaoXE's OpenAI-compatible endpoint: base URL, exact model IDs, the Verify step, and how to confirm you get the real model.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Use DaoXE in Cline", "item": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-cline/#faq", "mainEntity": [{"@type": "Question", "name": "Does Cline work with DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — choose the OpenAI Compatible provider, set the base URL to https://daoxe.com/v1, and paste your key plus an exact model ID."}}, {"@type": "Question", "name": "Why does my Model ID say 'not found'?", "acceptedAnswer": {"@type": "Answer", "text": "The ID must match a string from GET /v1/models for your account. Copy it verbatim; IDs are account-scoped."}}, {"@type": "Question", "name": "Can I use Claude and GPT in the same setup?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — add several model IDs and switch between them on one balance. Current price advantage: see live pricing."}}, {"@type": "Question", "name": "Agent edits don't apply — why?", "acceptedAnswer": {"@type": "Answer", "text": "Use a model with native tool calling and set a large enough context window in Model Configuration."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-cline/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-cline/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-cline/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Use DaoXE in Cline</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Use DaoXE in Cline</h1>
+      <p class="lead">Cline is an autonomous coding agent for VS Code. Point it at DaoXE's OpenAI-compatible endpoint and drive its file edits and tool use with GPT, Claude, Gemini, DeepSeek and more — from one key.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Cline speaks to any OpenAI-compatible endpoint, so switching it to DaoXE is a base-URL-and-key change — no proxy, no fork. The payoff: one key for the <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a> across vendors, and an agent that can plan on a frontier model and edit on a cheaper one.</p><h2 id="why-route-cline-through-daoxe">Why route Cline through DaoXE<a class="anchor" href="#why-route-cline-through-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>One key, many models.</strong> Swap the agent's model without juggling per-vendor accounts, cards or bills.</li><li><strong>Route by cost.</strong> A small model for routine edits, a frontier model for planning — all on one balance.</li><li><strong>Native tool calling.</strong> Cline's agentic edits and command runs behave as expected when the model supports tools.</li></ul><h2 id="set-it-up-in-cline">Set it up in Cline<a class="anchor" href="#set-it-up-in-cline" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Open the provider settings.</span> In the Cline panel, click the settings gear and set <strong>API Provider</strong> to <strong>OpenAI Compatible</strong>.</li><li><span class="s-title">Set the Base URL.</span> Enter <code>https://daoxe.com/v1</code> — end it at <code>/v1</code>, not <code>/chat/completions</code> (Cline appends the path itself).</li><li><span class="s-title">Paste your key and Model ID.</span> Add your DaoXE key, then a <strong>Model ID</strong> copied verbatim from <code>GET /v1/models</code>. Guessed names fail.</li><li><span class="s-title">Click Verify.</span> Cline sends one live request; once it passes, run a small task to confirm edits and tool use work.</li></ol><div class="callout warn"><p class="c-title">Caveats worth knowing</p><p>The Base URL must end at <code>/v1</code> — a trailing <code>/chat/completions</code> yields malformed URLs. Model IDs are account-scoped, so read them from <code>GET /v1/models</code>. Agent mode needs a model with real tool-calling; if edits stall, switch to a tool-capable model and set an adequate context window under Model Configuration. More clients in the <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">client setup notes</a>.</p></div><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>A cheaper endpoint is only a saving if it serves the real model. Prove connectivity first, then diff outputs against the official API at temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Does Cline work with DaoXE?</summary><div class="a"><p>Yes — choose the OpenAI Compatible provider, set the base URL to <code>https://daoxe.com/v1</code>, and paste your key plus an exact model ID.</p></div></details><details><summary>Why does my Model ID say 'not found'?</summary><div class="a"><p>The ID must match a string from <code>GET /v1/models</code> for your account. Copy it verbatim; IDs are account-scoped.</p></div></details><details><summary>Can I use Claude and GPT in the same setup?</summary><div class="a"><p>Yes — add several model IDs and switch between them on one balance. Current price advantage: <span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">see live pricing</span>.</p></div></details><details><summary>Agent edits don't apply — why?</summary><div class="a"><p>Use a model with native tool calling and set a large enough context window in Model Configuration.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-route-cline-through-daoxe">Why route Cline through DaoXE</a></li><li><a href="#set-it-up-in-cline">Set it up in Cline</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor &amp; Claude Code</div><div class="r-d">Point Cursor and Claude Code at a cheaper endpoint.</div></a><a href="/daoxe-guide/en/use-daoxe-in-roo-code/"><div class="r-k">Use DaoXE in Roo Code</div><div class="r-d">Roo Code via OpenAI Compatible, per-mode models.</div></a><a href="/daoxe-guide/en/use-daoxe-in-continue/"><div class="r-k">Use DaoXE in Continue</div><div class="r-d">Continue via config.yaml apiBase.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

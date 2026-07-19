@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doubao（豆包）API 的 OpenAI 兼容接入 —— 免 ep- 端点 ID | DaoXE</title>
+  <meta name="description" content="通过 DaoXE 的 OpenAI 兼容端点调 Doubao（字节/火山引擎）—— 免去火山方舟的 ep- 推理端点创建，用目录模型 ID 和你的一个 key 即可。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/doubao-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Doubao（豆包）API 的 OpenAI 兼容接入 —— 免 ep- 端点 ID | DaoXE">
+  <meta property="og:description" content="通过 DaoXE 的 OpenAI 兼容端点调 Doubao（字节/火山引擎）—— 免去火山方舟的 ep- 推理端点创建，用目录模型 ID 和你的一个 key 即可。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Doubao（豆包）API 的 OpenAI 兼容接入 —— 免 ep- 端点 ID | DaoXE">
+  <meta name="twitter:description" content="通过 DaoXE 的 OpenAI 兼容端点调 Doubao（字节/火山引擎）—— 免去火山方舟的 ep- 推理端点创建，用目录模型 ID 和你的一个 key 即可。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/#article", "headline": "Doubao（豆包）API 的 OpenAI 兼容接入 —— 无需 ep- 端点 ID", "name": "Doubao（豆包）API 的 OpenAI 兼容接入 —— 免 ep- 端点 ID | DaoXE", "description": "通过 DaoXE 的 OpenAI 兼容端点调 Doubao（字节/火山引擎）—— 免去火山方舟的 ep- 推理端点创建，用目录模型 ID 和你的一个 key 即可。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "Doubao API（OpenAI 兼容）", "item": "https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "需要火山账号或 ep- 端点吗？", "acceptedAnswer": {"@type": "Answer", "text": "不需要 —— 通过 DaoXE，Doubao 在你的单一 key 后面，用普通目录 ID；没有端点创建步骤。"}}, {"@type": "Question", "name": "我有一个 ep-… ID，要用它吗？", "acceptedAnswer": {"@type": "Answer", "text": "不要。那是火山的原生标识。这里请用 GET /v1/models 里的目录模型 ID。"}}, {"@type": "Question", "name": "Doubao 能收图片吗？", "acceptedAnswer": {"@type": "Answer", "text": "支持视觉的 ID 可以 —— 用消息里的 OpenAI 风格 content 数组。"}}, {"@type": "Question", "name": "这里 Doubao 多少钱？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、按账号 —— 见实时定价。相对官方优势：见定价页。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/doubao-api-openai-compatible/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/doubao-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/doubao-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>Doubao API（OpenAI 兼容）</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Doubao（豆包）API 的 OpenAI 兼容接入 —— 无需 ep- 端点 ID</h1>
+      <p class="lead">Doubao 是字节跳动的模型家族，通常经火山引擎方舟（Ark）用创建好的推理端点 ID 调用。通过 DaoXE 你可以跳过这步，用一个 key 调普通目录模型 ID。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>原生上，火山方舟要你先创建<strong>推理端点</strong>并调用形如 <code>ep-…</code> 的 ID。通过 DaoXE，Doubao 与 GPT、Claude、DeepSeek 共用同一个 OpenAI 兼容 key —— 你直接调 <code>GET /v1/models</code> 里的普通目录 ID，无需火山控制台。成本分流见<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>。</p><h2 id="daoxe-doubao">通过 DaoXE 调用 Doubao<a class="anchor" href="#daoxe-doubao" aria-label="Link to section">#</a></h2><p>用 <code>/v1/chat/completions</code>，模型填 <code>GET /v1/models</code> 里的准确 Doubao ID。这里没有端点创建步骤：目录 ID 取代了原生的 <code>ep-…</code> 标识。支持视觉的版本用 OpenAI 风格 content 数组收图片。</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># Doubao (Volcengine Ark) natively wants endpoint IDs like &quot;ep-2024...&quot;.
+# Through DaoXE you use the catalog model ID from GET /v1/models instead —
+# no endpoint provisioning, no separate Volcengine console.
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Reply with OK.&quot;}]
+  }&#x27;</code></pre></div><h2 id="doubao">Doubao 特有的注意点<a class="anchor" href="#doubao" aria-label="Link to section">#</a></h2><ul><li><strong>这里不用 ep- ID。</strong> 别粘贴火山的 <code>ep-…</code> 字符串；改用 <code>GET /v1/models</code> 里的目录模型 ID。</li><li><strong>版本有别。</strong> Doubao 有 lite/pro 与视觉档位，上下文与价格不同 —— 有意识地选 ID。</li><li><strong>多模态走 content 数组。</strong> 在支持视觉的 ID 上，用 OpenAI 风格 content 数组发图片。</li><li><strong>只用准确 ID。</strong> 从 <code>GET /v1/models</code> 读取 Doubao ID；与账号绑定。</li></ul><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先确认连通，再在 temperature 0 下把固定 prompt 与官方火山/方舟 API 对比，确认模型档位：</p><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>需要火山账号或 ep- 端点吗？</summary><div class="a"><p>不需要 —— 通过 DaoXE，Doubao 在你的单一 key 后面，用普通目录 ID；没有端点创建步骤。</p></div></details><details><summary>我有一个 ep-… ID，要用它吗？</summary><div class="a"><p>不要。那是火山的原生标识。这里请用 <code>GET /v1/models</code> 里的目录模型 ID。</p></div></details><details><summary>Doubao 能收图片吗？</summary><div class="a"><p>支持视觉的 ID 可以 —— 用消息里的 OpenAI 风格 content 数组。</p></div></details><details><summary>这里 Doubao 多少钱？</summary><div class="a"><p>按模型、按账号 —— 见<a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>。相对官方优势：<span class="ph" data-fill="PRICE_ADVANTAGE" title="Placeholder — replace before publishing (search data-fill=&quot;PRICE_ADVANTAGE&quot;)">见定价页</span>。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#daoxe-doubao">通过 DaoXE 调用 Doubao</a></li><li><a href="#doubao">Doubao 特有的注意点</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/qwen-api-openai-compatible/"><div class="r-k">Qwen API（OpenAI 兼容）</div><div class="r-d">Qwen 走 /v1/chat/completions；注意 enable_thinking。</div></a><a href="/daoxe-guide/zh/deepseek-api-openai-compatible/"><div class="r-k">DeepSeek API（OpenAI 兼容）</div><div class="r-d">DeepSeek 走 /v1/chat/completions；注意 reasoning_content。</div></a><a href="/daoxe-guide/zh/kimi-api-openai-compatible/"><div class="r-k">Kimi API（OpenAI 兼容）</div><div class="r-d">Kimi 走 /v1/chat/completions；要普通输出就关思考。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

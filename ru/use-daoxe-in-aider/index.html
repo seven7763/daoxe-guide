@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE в Aider — OPENAI_API_BASE + модель openai/</title>
+  <meta name="description" content="Запустите Aider (парный программист в терминале) на DaoXE: OPENAI_API_BASE, префикс openai/ у модели, дешёвая weak-модель, нюансы и шаг проверки.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-aider/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-aider/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE в Aider — OPENAI_API_BASE + модель openai/">
+  <meta property="og:description" content="Запустите Aider (парный программист в терминале) на DaoXE: OPENAI_API_BASE, префикс openai/ у модели, дешёвая weak-модель, нюансы и шаг проверки.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE в Aider — OPENAI_API_BASE + модель openai/">
+  <meta name="twitter:description" content="Запустите Aider (парный программист в терминале) на DaoXE: OPENAI_API_BASE, префикс openai/ у модели, дешёвая weak-модель, нюансы и шаг проверки.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/#article", "headline": "DaoXE в Aider", "name": "DaoXE в Aider — OPENAI_API_BASE + модель openai/", "description": "Запустите Aider (парный программист в терминале) на DaoXE: OPENAI_API_BASE, префикс openai/ у модели, дешёвая weak-модель, нюансы и шаг проверки.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE в Aider", "item": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-aider/#faq", "mainEntity": [{"@type": "Question", "name": "Зачем префикс openai/?", "acceptedAnswer": {"@type": "Answer", "text": "Aider использует LiteLLM; openai/ указывает на OpenAI-совместимый маршрут к вашему OPENAI_API_BASE (DaoXE)."}}, {"@type": "Question", "name": "Где задать base URL?", "acceptedAnswer": {"@type": "Answer", "text": "Экспортируйте OPENAI_API_BASE=https://daoxe.com/v1 и OPENAI_API_KEY (ключ DaoXE)."}}, {"@type": "Question", "name": "Дешёвая модель на коммиты?", "acceptedAnswer": {"@type": "Answer", "text": "Да — --weak-model openai/&lt;small-id&gt;; Aider использует её для сообщений коммитов и резюме."}}, {"@type": "Question", "name": "Какие ID моделей подойдут?", "acceptedAnswer": {"@type": "Answer", "text": "Любой точный ID из GET /v1/models вашего аккаунта, с префиксом openai/."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-aider/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-aider/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-aider/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>DaoXE в Aider</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE в Aider</h1>
+      <p class="lead">Aider — парный программист в терминале, знающий git. Задайте две переменные окружения и префикс <code>openai/</code> у модели, чтобы запустить его на DaoXE — GPT, Claude, Gemini, DeepSeek и другие одним ключом.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Aider читает <code>OPENAI_API_BASE</code> и <code>OPENAI_API_KEY</code> для OpenAI-совместимых эндпоинтов. Направьте базу на DaoXE и добавьте префикс <code>openai/</code>, чтобы Aider пошёл по OpenAI-совместимому пути. Дешёвая <code>--weak-model</code> — на сообщения коммитов, сильная — на правки; см. <a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">гайд по дешёвым API</a>.</p><h2 id="aider-daoxe">Зачем направлять Aider через DaoXE<a class="anchor" href="#aider-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>Терминал + git.</strong> Aider сам коммитит диффы; DaoXE лишь даёт модель.</li><li><strong>Сильная + слабая.</strong> Топ-модель на правки, дешёвая на коммиты, один ключ.</li><li><strong>Без залипания.</strong> Две переменные; откат в любой момент.</li></ul><h2 id="aider">Настройка в Aider<a class="anchor" href="#aider" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Экспортируйте эндпоинт.</span> <code>OPENAI_API_BASE=https://daoxe.com/v1</code> и <code>OPENAI_API_KEY</code> = ваш ключ DaoXE.</li><li><span class="s-title">Запуск с моделью openai/.</span> <code>aider --model openai/YOUR_EXACT_MODEL_ID</code> — префикс <code>openai/</code> обязателен.</li><li><span class="s-title">Слабая модель (опц.).</span> <code>--weak-model openai/YOUR_SMALL_MODEL_ID</code> для дешёвых коммитов и резюме.</li><li><span class="s-title">Зафиксируйте (опц.).</span> Переменные в <code>.env</code> или модель в <code>.aider.conf.yml</code>, чтобы не вводить заново.</li></ol><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>export OPENAI_API_BASE=&quot;https://daoxe.com/v1&quot;
+export OPENAI_API_KEY=&quot;your_api_key&quot;
+
+# The openai/ prefix tells Aider to use the OpenAI-compatible path
+aider --model openai/YOUR_EXACT_MODEL_ID
+
+# optional: a cheaper model for commit messages / summaries
+#   --weak-model openai/YOUR_SMALL_MODEL_ID</code></pre></div><div class="callout warn"><p class="c-title">Что важно учесть</p><p>Префикс <code>openai/</code> важен: под капотом Aider использует LiteLLM, и префикс выбирает OpenAI-совместимый маршрут к вашему <code>OPENAI_API_BASE</code>. Берите точные ID из <code>GET /v1/models</code>. Некоторым reasoning-моделям нужны доп. флаги — см. настройки моделей Aider. Не держите конфликтующий реальный <code>OPENAI_API_KEY</code> в шелле.</p></div><h2 id="sec-3">Убедитесь, что отдают настоящую модель<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>Сначала проверьте эндпоинт, а не клиент — если это не работает, настройки не помогут:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Проверьте эндпоинт отдельно, затем сравните фиксированный промпт с официальным API при temperature 0, прежде чем доверять крупные рефакторинги:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Проверяйте нас, а не верьте на слово</p><p>Направьте <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a> на DaoXE и на официальный API и сравните при temperature 0. Затем изучите, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, чтобы дешёвый эндпоинт не подменил вам модель на меньшую.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Зачем префикс openai/?</summary><div class="a"><p>Aider использует LiteLLM; <code>openai/</code> указывает на OpenAI-совместимый маршрут к вашему <code>OPENAI_API_BASE</code> (DaoXE).</p></div></details><details><summary>Где задать base URL?</summary><div class="a"><p>Экспортируйте <code>OPENAI_API_BASE=https://daoxe.com/v1</code> и <code>OPENAI_API_KEY</code> (ключ DaoXE).</p></div></details><details><summary>Дешёвая модель на коммиты?</summary><div class="a"><p>Да — <code>--weak-model openai/&lt;small-id&gt;</code>; Aider использует её для сообщений коммитов и резюме.</p></div></details><details><summary>Какие ID моделей подойдут?</summary><div class="a"><p>Любой точный ID из <code>GET /v1/models</code> вашего аккаунта, с префиксом <code>openai/</code>.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#aider-daoxe">Зачем направлять Aider через DaoXE</a></li><li><a href="#aider">Настройка в Aider</a></li><li><a href="#sec-3">Убедитесь, что отдают настоящую модель</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/"><div class="r-k">В ваших инструментах</div><div class="r-d">Индекс всех интеграций DaoXE + таблица выбора.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-continue/"><div class="r-k">DaoXE в Continue</div><div class="r-d">Continue через apiBase в config.yaml.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-opencode/"><div class="r-k">DaoXE в opencode</div><div class="r-d">opencode через кастомный провайдер в opencode.json.</div></a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/"><div class="r-k">Проверка подмены</div><div class="r-d">Ловите даунгрейд, квантизацию и обрезку контекста в любом прокси.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
