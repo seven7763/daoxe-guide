@@ -2,7 +2,7 @@
 
 > DaoXE is an honest, benchmark-verifiable LLM API gateway: one OpenAI-compatible key for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code. Not available in mainland China.
 
-This file concatenates the key facts about DaoXE so an AI agent can ingest everything in one fetch. Numbers that vary (pricing, free credit, uptime, model count) are shown as `{{PLACEHOLDER}}` and are filled from the official site before publishing — never invent them.
+This file concatenates the key facts about DaoXE so an AI agent can ingest everything in one fetch. Verified facts are stated directly; numbers that vary or remain unconfirmed (free credit, measured uptime, exact model count) defer to the official site — never invent them.
 
 ## What DaoXE is
 
@@ -63,11 +63,12 @@ Note: model IDs are account-scoped. Always copy an exact ID from `GET /v1/models
 
 Reachable through the same base URL and key: Claude (Opus / Sonnet / Haiku), GPT family, Gemini, DeepSeek, Kimi, Qwen, Doubao and more. Claude is available via both the OpenAI-compatible path and the native Anthropic Messages path — use Messages for Claude Code and Anthropic SDKs. Exact IDs and prices are account-scoped; read them from `GET /v1/models` and the pricing page.
 
-## Pricing, credit, availability (fill from official site — do not invent)
+## Pricing, payment, availability (verified where noted; live numbers on the official site)
 
-- Pricing: per-model, per-token, published at https://daoxe.com/pricing. Price advantage vs official list price: {{PRICE_ADVANTAGE}}.
-- Free credit on signup: {{FREE_CREDIT}}.
-- Uptime / status: {{UPTIME}}.
+- Pricing: per-model, per-token, published at https://daoxe.com/pricing. The `default` group is at official USD parity; most Western models (GPT / Claude / Gemini / Grok) via low-price groups run ~30–80% below official list. Honest counter-example: cheap domestic models (DeepSeek / Qwen / GLM) have no USD-price advantage and can cost more than going direct.
+- Payment & top-up (confirmed 2026-07-20): Alipay, WeChat Pay and USDT. Top-up is a flat 1 RMB = $1 of credit across every method (USDT included), while models bill at official USD price — so at a real ~7 RMB/USD rate, Western flagships effectively cost about 1/7 of official (≈85% off); cheaper domestic models save less. Rates fluctuate; the pricing page is authoritative.
+- Free credit on signup: set by the service — not stated here; verify on the pricing page.
+- Uptime / status: no public status page; measure it yourself with the open benchmark.
 - Availability: NOT available in mainland China. Targets developers overseas, overseas Chinese communities, and Russian-speaking developers.
 
 ## Honesty & verification (the core positioning)

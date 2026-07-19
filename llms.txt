@@ -6,7 +6,8 @@ DaoXE gives developers one base URL (`https://daoxe.com/v1`) and one key across 
 
 ## Product
 - [DaoXE home](https://daoxe.com): What DaoXE is — one key for GPT, Claude, Gemini, DeepSeek, Kimi and more.
-- [Pricing](https://daoxe.com/pricing): Authoritative, per-model, per-token pricing and any current free credit ({{FREE_CREDIT}}); price advantage vs official list is {{PRICE_ADVANTAGE}}.
+- [Pricing](https://daoxe.com/pricing): Authoritative, per-model, per-token pricing. The `default` group is at official USD parity; most Western models via low-price groups run ~30–80% below official list. Honest caveat: cheap domestic models like DeepSeek can cost more here than going direct. Free credit, if any, is set by the service — verify on the pricing page.
+- [Payment & top-up](https://daoxe.com/pricing): Alipay, WeChat Pay and USDT. Top-up is a flat 1 RMB = $1 of credit across every method (USDT included), while models bill at official USD price — so at a real ~7 RMB/USD rate, Western flagships effectively cost around 1/7 of official; cheaper domestic models save less. Rates fluctuate; the pricing page is authoritative.
 
 ## Guides
 - [One key for every model (overview)](https://seven7763.github.io/daoxe-guide/en/): How a gateway collapses many vendors into one base URL, one key, one bill — and how to verify it.
@@ -16,6 +17,7 @@ DaoXE gives developers one base URL (`https://daoxe.com/v1`) and one key across 
 - [OpenRouter alternative you can benchmark](https://seven7763.github.io/daoxe-guide/en/openrouter-alternative/): A multi-model gateway with native Claude protocol, built to be verified.
 - [LLM gateway price & latency benchmark](https://seven7763.github.io/daoxe-guide/en/llm-gateway-price-latency-benchmark/): Measure success rate, p50/p95 latency and $/1M tokens yourself.
 - [Detect relay model swapping](https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/): A reproducible method to catch downgrading, quantization and context truncation in any proxy.
+- [Use DaoXE in your tools (hub)](https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/): Decision table + per-tool setup for Cursor, Cline, Roo Code, Continue, Aider, Zed, OpenCode, Cherry Studio and Open WebUI. Also per-model "OpenAI-compatible access" pages (Claude/GPT/Gemini/DeepSeek/Kimi/Qwen/Doubao) and vs-comparisons (OpenRouter/LiteLLM/one-api). All pages ship in English, Русский and 简体中文.
 
 ## API
 - [Claude Code setup (native Anthropic Messages)](https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md): Point Claude Code at the DaoXE host root; it appends `/v1/messages`.
