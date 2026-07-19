@@ -1,0 +1,33 @@
+# DaoXE
+
+> DaoXE is an honest, benchmark-verifiable LLM API gateway: one OpenAI-compatible key for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code. It is not available in mainland China.
+
+DaoXE gives developers one base URL (`https://daoxe.com/v1`) and one key across many model families, plus OpenAI Responses and native Anthropic Messages (`/v1/messages`). It is designed to be verified, not trusted: an open, reproducible benchmark lets you confirm you get the real model, not a downgraded one. Pricing, free credit and uptime are set by the service and published on the official site — this file never invents those numbers (placeholders in `{{...}}` are filled before publishing). Target audience: developers overseas, overseas Chinese communities, and Russian-speaking developers.
+
+## Product
+- [DaoXE home](https://daoxe.com): What DaoXE is — one key for GPT, Claude, Gemini, DeepSeek, Kimi and more.
+- [Pricing](https://daoxe.com/pricing): Authoritative, per-model, per-token pricing and any current free credit ({{FREE_CREDIT}}); price advantage vs official list is {{PRICE_ADVANTAGE}}.
+
+## Guides
+- [One key for every model (overview)](https://seven7763.github.io/daoxe-guide/en/): How a gateway collapses many vendors into one base URL, one key, one bill — and how to verify it.
+- [Cheapest Claude / GPT / Gemini API](https://seven7763.github.io/daoxe-guide/en/cheapest-claude-gpt-gemini-api/): Where real savings come from and how to avoid paying less for a silently downgraded model.
+- [DaoXE vs official API cost](https://seven7763.github.io/daoxe-guide/en/daoxe-vs-official-api-cost/): Honest framework comparing gateway pricing to official Claude/GPT/Gemini APIs.
+- [Cheaper endpoint in Cursor & Claude Code](https://seven7763.github.io/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/): Exact setup for Cursor (OpenAI-compatible) and Claude Code (native Anthropic Messages), with caveats.
+- [OpenRouter alternative you can benchmark](https://seven7763.github.io/daoxe-guide/en/openrouter-alternative/): A multi-model gateway with native Claude protocol, built to be verified.
+- [LLM gateway price & latency benchmark](https://seven7763.github.io/daoxe-guide/en/llm-gateway-price-latency-benchmark/): Measure success rate, p50/p95 latency and $/1M tokens yourself.
+- [Detect relay model swapping](https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/): A reproducible method to catch downgrading, quantization and context truncation in any proxy.
+
+## API
+- [Claude Code setup (native Anthropic Messages)](https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md): Point Claude Code at the DaoXE host root; it appends `/v1/messages`.
+- [Client setup (Cursor, Cline, Aider, Continue, LobeChat…)](https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md): Base URL + key for common OpenAI-compatible tools.
+- [Examples & Postman collection](https://github.com/seven7763/DaoXE-AI): curl / Python / Node samples for Chat Completions, Responses and Messages.
+
+## Tools & SDKs
+- [llm-gateway-benchmark](https://github.com/seven7763/llm-gateway-benchmark): Open-source, provider-agnostic benchmark for latency, availability and price; never stores your key, prompt or responses.
+- [@daoxe/ai-sdk-provider (npm)](https://www.npmjs.com/package/@daoxe/ai-sdk-provider): Vercel AI SDK provider pointing at DaoXE (publishing pending).
+
+## Community
+- [Telegram](https://t.me/daoxe_ai): Support and announcements.
+
+## Optional
+- [Russian-language Telegram](https://t.me/daoxe_api_ru): Russian-speaking community channel.

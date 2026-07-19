@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to tell if an LLM relay is swapping or downgrading your model | DaoXE</title>
+  <meta name="description" content="A reproducible method — and a free, open-source tool — to catch model downgrading, quantization and context truncation in any OpenAI-/Anthropic-compatible proxy. Test any provider, including us.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="How to tell if an LLM relay is swapping or downgrading your model | DaoXE">
+  <meta property="og:description" content="A reproducible method — and a free, open-source tool — to catch model downgrading, quantization and context truncation in any OpenAI-/Anthropic-compatible proxy. Test any provider, including us.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to tell if an LLM relay is swapping or downgrading your model | DaoXE">
+  <meta name="twitter:description" content="A reproducible method — and a free, open-source tool — to catch model downgrading, quantization and context truncation in any OpenAI-/Anthropic-compatible proxy. Test any provider, including us.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/#article", "headline": "Is your “Claude” or GPT API real? How to detect relay model swapping", "name": "How to tell if an LLM relay is swapping or downgrading your model | DaoXE", "description": "A reproducible method — and a free, open-source tool — to catch model downgrading, quantization and context truncation in any OpenAI-/Anthropic-compatible proxy. Test any provider, including us.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Detect relay model swapping", "item": "https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/#faq", "mainEntity": [{"@type": "Question", "name": "Can you prove which model a proxy runs?", "acceptedAnswer": {"@type": "Answer", "text": "Not cryptographically from the outside. But capability probes and side-by-side diffs against the official API give strong, reproducible signals of swapping or downgrading."}}, {"@type": "Question", "name": "Isn't checking the response headers enough?", "acceptedAnswer": {"@type": "Answer", "text": "No — headers and any self-identification can be forged by the relay. Test behavior instead."}}, {"@type": "Question", "name": "Does the verification tool see my key?", "acceptedAnswer": {"@type": "Answer", "text": "No. The open benchmark runs locally and never transmits or stores your key, prompt or responses."}}, {"@type": "Question", "name": "Can I test providers other than DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — that's the point. It's provider-agnostic, so test the official API and any gateway, including us."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/" aria-current="page">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/detect-relay-model-swapping/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Detect relay model swapping</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Is your “Claude” or GPT API real? How to detect relay model swapping</h1>
+      <p class="lead">Some relays quietly serve a smaller, quantized, or fallback model — often weeks after you sign up. Here's a reproducible way to catch downgrading, quantization and context truncation in any proxy.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><h2 id="what-swapping-and-downgrading-mean">What “swapping” and “downgrading” mean<a class="anchor" href="#what-swapping-and-downgrading-mean" aria-label="Link to section">#</a></h2><ul><li><strong>Model swap:</strong> you ask for a frontier model, the relay serves a cheaper one.</li><li><strong>Quantization/downgrade:</strong> the same family, but a lower-precision or distilled variant that reasons worse.</li><li><strong>Context truncation:</strong> your long prompt is silently cut, so recall drops.</li><li><strong>Silent drift:</strong> it's fine at signup, then degrades once you've committed.</li></ul><h2 id="why-what-model-are-you-doesn-t-work">Why “what model are you?” doesn't work<a class="anchor" href="#why-what-model-are-you-doesn-t-work" aria-label="Link to section">#</a></h2><p>Asking the model to identify itself is trivially spoofed — a relay can inject any system prompt or rewrite the answer. You can't detect a swap by asking; you detect it by <strong>testing capability</strong> and comparing against a known-good reference.</p><div class="callout warn"><p class="c-title">Test behavior, not self-reports</p><p>Identity strings, headers, and “model” fields can all be forged. Only reproducible capability tests and side-by-side diffs are reliable signals.</p></div><h2 id="the-method">The method<a class="anchor" href="#the-method" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Fix a probe set.</span> Multi-step reasoning, long-context needle recall, strict JSON formatting, and refusal behavior.</li><li><span class="s-title">Pin parameters.</span> <code>temperature=0</code>, same <code>max_tokens</code>, same system prompt — remove randomness.</li><li><span class="s-title">Measure.</span> p50/p95 latency and error rate over several runs.</li><li><span class="s-title">Diff against the official API.</span> Same probes, same params, same day.</li><li><span class="s-title">Re-run weekly.</span> Silent downgrades happen over time, not on day one.</li></ol><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code># Capability probe, not &quot;what model are you?&quot; (that is trivially spoofed).
+# Pin temperature=0 and diff the output against the official API.
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)
+probe = &quot;Return only JSON: {\&quot;sum\&quot;: &lt;2147483647 + 1&gt;}&quot;
+r = client.chat.completions.create(
+    model=&quot;YOUR_EXACT_MODEL_ID&quot;,
+    temperature=0,
+    max_tokens=32,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: probe}],
+)
+print(r.choices[0].message.content)  # compare across providers / over time</code></pre></div><h2 id="red-flag-checklist">Red-flag checklist<a class="anchor" href="#red-flag-checklist" aria-label="Link to section">#</a></h2><ul><li>Output quality on hard reasoning drops versus the official API at <code>temperature=0</code>.</li><li>Long-context recall fails where the official model succeeds (possible truncation).</li><li>Token accounting looks implausibly low for the output produced.</li><li>Latency and behavior change suddenly weeks after signup.</li><li>The provider is evasive when you ask to benchmark it.</li></ul><h2 id="how-daoxe-is-built-to-pass-this-test">How DaoXE is built to pass this test<a class="anchor" href="#how-daoxe-is-built-to-pass-this-test" aria-label="Link to section">#</a></h2><ul><li>An <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open, reproducible benchmark</a> you can point at DaoXE and the official API.</li><li>Account-scoped <code>/v1/models</code> — the list you see is the list you can call.</li><li>Native Anthropic Messages, so Claude behaves like Claude (tool use, streaming).</li><li>Transparent, per-model usage you can reconcile.</li></ul><div class="callout ok"><p class="c-title">Verify us the same way</p><p>Run the <a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">benchmark</a> against DaoXE and the official API and compare. We publish the tool precisely so you don't have to trust us on faith.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Can you prove which model a proxy runs?</summary><div class="a"><p>Not cryptographically from the outside. But capability probes and side-by-side diffs against the official API give strong, reproducible signals of swapping or downgrading.</p></div></details><details><summary>Isn't checking the response headers enough?</summary><div class="a"><p>No — headers and any self-identification can be forged by the relay. Test behavior instead.</p></div></details><details><summary>Does the verification tool see my key?</summary><div class="a"><p>No. The open benchmark runs locally and never transmits or stores your key, prompt or responses.</p></div></details><details><summary>Can I test providers other than DaoXE?</summary><div class="a"><p>Yes — that's the point. It's provider-agnostic, so test the official API and any gateway, including us.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#what-swapping-and-downgrading-mean">What “swapping” and “downgrading” mean</a></li><li><a href="#why-what-model-are-you-doesn-t-work">Why “what model are you?” doesn&#x27;t work</a></li><li><a href="#the-method">The method</a></li><li><a href="#red-flag-checklist">Red-flag checklist</a></li><li><a href="#how-daoxe-is-built-to-pass-this-test">How DaoXE is built to pass this test</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/"><div class="r-k">Cost vs official</div><div class="r-d">How gateway pricing compares to official APIs, honestly.</div></a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor &amp; Claude Code</div><div class="r-d">Point Cursor and Claude Code at a cheaper endpoint.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

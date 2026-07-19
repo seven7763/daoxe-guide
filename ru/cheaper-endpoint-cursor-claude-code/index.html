@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Дешёвый endpoint в Cursor и Claude Code (настройка) | DaoXE</title>
+  <meta name="description" content="Направьте Cursor и Claude Code на более дешёвый OpenAI-/Anthropic-совместимый endpoint за один шаг: точная настройка, честные оговорки и проверка на подмену.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Дешёвый endpoint в Cursor и Claude Code (настройка) | DaoXE">
+  <meta property="og:description" content="Направьте Cursor и Claude Code на более дешёвый OpenAI-/Anthropic-совместимый endpoint за один шаг: точная настройка, честные оговорки и проверка на подмену.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Дешёвый endpoint в Cursor и Claude Code (настройка) | DaoXE">
+  <meta name="twitter:description" content="Направьте Cursor и Claude Code на более дешёвый OpenAI-/Anthropic-совместимый endpoint за один шаг: точная настройка, честные оговорки и проверка на подмену.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/#article", "headline": "Дешёвый endpoint в Cursor и Claude Code", "name": "Дешёвый endpoint в Cursor и Claude Code (настройка) | DaoXE", "description": "Направьте Cursor и Claude Code на более дешёвый OpenAI-/Anthropic-совместимый endpoint за один шаг: точная настройка, честные оговорки и проверка на подмену.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "Cursor и Claude Code", "item": "https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/#faq", "mainEntity": [{"@type": "Question", "name": "Сломается ли мой текущий Cursor?", "acceptedAnswer": {"@type": "Answer", "text": "Нет — это смена base URL и ключа, откатывается в любой момент. Учтите, что часть функций Cursor всё равно использует встроенные модели."}}, {"@type": "Question", "name": "Почему Claude Code использует корень хоста, а не /v1?", "acceptedAnswer": {"@type": "Answer", "text": "Claude Code сам строит путь /v1/messages, поэтому ANTHROPIC_BASE_URL должен быть https://daoxe.com. Указание .../v1 даёт 404."}}, {"@type": "Question", "name": "ANTHROPIC_AUTH_TOKEN или ANTHROPIC_API_KEY?", "acceptedAnswer": {"@type": "Answer", "text": "Зависит от версии Claude Code. Если одно не авторизует — экспортируйте обе переменные на тот же ключ."}}, {"@type": "Question", "name": "Какие модели доступны?", "acceptedAnswer": {"@type": "Answer", "text": "Те, что отдаёт ваш аккаунт в GET /v1/models — GPT, Claude, Gemini, DeepSeek и другие. Используйте точные ID."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/" aria-current="page">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>Cursor и Claude Code</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Дешёвый endpoint в Cursor и Claude Code</h1>
+      <p class="lead">Поменяйте base URL и ключ — и продолжайте работать. Вот точная настройка Cursor (OpenAI-совместимо) и Claude Code (нативный Anthropic Messages), оговорки, о которых молчат, и шаг проверки.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><h2 id="cursor-openai">Cursor (OpenAI-совместимо)<a class="anchor" href="#cursor-openai" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Откройте Cursor Settings → Models.</span> В API Keys включите <strong>OpenAI API Key</strong> и вставьте ключ DaoXE.</li><li><span class="s-title">Переопределите base URL.</span> Включите <strong>Override OpenAI Base URL</strong> и укажите <code>https://daoxe.com/v1</code>.</li><li><span class="s-title">Добавьте точные ID моделей.</span> В Model Names добавьте точные ID из <code>GET /v1/models</code>. Угаданные имена молча не работают.</li><li><span class="s-title">Verify и тест.</span> Нажмите Verify (отправит один живой запрос), затем проверьте обычным сообщением в чате.</li></ol><div class="callout warn"><p class="c-title">Важные оговорки</p><p>Cursor всё равно проксирует запросы через свои серверы даже с вашим ключом (вопрос приватности/задержки). Tab-автодополнение и часть функций могут по-прежнему использовать встроенные модели Cursor. UI Models меняется между версиями — сверяйтесь с <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">заметками по настройке клиентов</a>.</p></div><h2 id="claude-code-anthropic-messages">Claude Code (нативный Anthropic Messages)<a class="anchor" href="#claude-code-anthropic-messages" aria-label="Link to section">#</a></h2><p>Claude Code говорит на Anthropic Messages, а не на OpenAI chat. DaoXE отдаёт этот протокол нативно на <code>/v1/messages</code>, поэтому вызов инструментов и стриминг работают. Достаточно двух переменных окружения — без прокси и роутера.</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code># Claude Code берёт КОРЕНЬ хоста и сам добавляет /v1/messages
+export ANTHROPIC_BASE_URL=&quot;https://daoxe.com&quot;
+export ANTHROPIC_AUTH_TOKEN=&quot;ваш_ключ&quot;   # в части версий читается ANTHROPIC_API_KEY
+# опционально: точные ID из GET /v1/models
+export ANTHROPIC_MODEL=&quot;точный_id_модели&quot;
+export ANTHROPIC_SMALL_FAST_MODEL=&quot;точный_id_быстрой_модели&quot;
+
+claude</code></pre></div><div class="callout warn"><p class="c-title">Две ловушки</p><p>1) <strong>Base URL — это корень хоста</strong> (<code>https://daoxe.com</code>), а не <code>.../v1</code>: путь <code>/v1/messages</code> Claude Code добавит сам. 2) <strong>Форма заголовка авторизации</strong>: часть версий читает <code>ANTHROPIC_AUTH_TOKEN</code>, другие — <code>ANTHROPIC_API_KEY</code>; при ошибке экспортируйте оба. Полный разбор: <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">гайд по Claude Code</a>.</p></div><p>Проверьте протокол сырым запросом до настройки Claude Code — если он падает, правка настроек клиента не поможет:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/messages \
+  -H &quot;x-api-key: ${DAOXE_API_KEY}&quot; \
+  -H &quot;anthropic-version: 2023-06-01&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;ТОЧНЫЙ_ID_МОДЕЛИ&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Ответь OK.&quot;}]
+  }&#x27;</code></pre></div><h2 id="sec-3">Другие инструменты — та же идея<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><div class="table-wrap"><table><thead><tr><th>Инструмент</th><th>Где указать</th><th>Значение</th></tr></thead><tbody><tr><td>Cline / Roo Code</td><td>Провайдер OpenAI Compatible</td><td><code>https://daoxe.com/v1</code></td></tr><tr><td>Aider</td><td><code>OPENAI_API_BASE</code></td><td><code>https://daoxe.com/v1</code> + <code>--model openai/&lt;id&gt;</code></td></tr><tr><td>Continue</td><td><code>apiBase</code> в config.yaml</td><td><code>https://daoxe.com/v1</code></td></tr><tr><td>LobeChat / Open WebUI</td><td>OpenAI-совместимое подключение</td><td><code>https://daoxe.com/v1</code></td></tr></tbody><caption>Больше клиентов (Continue, Kilo, OpenCode, LibreChat…) — в документе по настройке.</caption></table></div><h2 id="sec-4">Проверьте, что вас не даунгрейдят<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><p>Дешёвые релеи иногда отдают меньшую модель или режут контекст — обычно спустя недели. Гоняйте фиксированный набор проб при <code>temperature=0</code> и сравнивайте с официальным API по расписанию. См. <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как распознать подмену модели</a> и <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a>.</p><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Сломается ли мой текущий Cursor?</summary><div class="a"><p>Нет — это смена base URL и ключа, откатывается в любой момент. Учтите, что часть функций Cursor всё равно использует встроенные модели.</p></div></details><details><summary>Почему Claude Code использует корень хоста, а не /v1?</summary><div class="a"><p>Claude Code сам строит путь <code>/v1/messages</code>, поэтому <code>ANTHROPIC_BASE_URL</code> должен быть <code>https://daoxe.com</code>. Указание <code>.../v1</code> даёт 404.</p></div></details><details><summary>ANTHROPIC_AUTH_TOKEN или ANTHROPIC_API_KEY?</summary><div class="a"><p>Зависит от версии Claude Code. Если одно не авторизует — экспортируйте обе переменные на тот же ключ.</p></div></details><details><summary>Какие модели доступны?</summary><div class="a"><p>Те, что отдаёт ваш аккаунт в <code>GET /v1/models</code> — GPT, Claude, Gemini, DeepSeek и другие. Используйте точные ID.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#cursor-openai">Cursor (OpenAI-совместимо)</a></li><li><a href="#claude-code-anthropic-messages">Claude Code (нативный Anthropic Messages)</a></li><li><a href="#sec-3">Другие инструменты — та же идея</a></li><li><a href="#sec-4">Проверьте, что вас не даунгрейдят</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/"><div class="r-k">Цена vs официал</div><div class="r-d">Как честно сравнить цену шлюза и официальных API.</div></a><a href="/daoxe-guide/ru/openrouter-alternative/"><div class="r-k">Альтернатива OpenRouter</div><div class="r-d">Мультимодельный шлюз, который можно проверить — с нативным протоколом Claude.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

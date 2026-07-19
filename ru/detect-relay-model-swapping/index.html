@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Как распознать подмену или даунгрейд модели у релея | DaoXE</title>
+  <meta name="description" content="Воспроизводимый метод и бесплатный открытый инструмент, чтобы поймать даунгрейд, квантизацию и обрезку контекста в любом OpenAI-/Anthropic-совместимом прокси. Тестируйте любого, включая нас.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Как распознать подмену или даунгрейд модели у релея | DaoXE">
+  <meta property="og:description" content="Воспроизводимый метод и бесплатный открытый инструмент, чтобы поймать даунгрейд, квантизацию и обрезку контекста в любом OpenAI-/Anthropic-совместимом прокси. Тестируйте любого, включая нас.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Как распознать подмену или даунгрейд модели у релея | DaoXE">
+  <meta name="twitter:description" content="Воспроизводимый метод и бесплатный открытый инструмент, чтобы поймать даунгрейд, квантизацию и обрезку контекста в любом OpenAI-/Anthropic-совместимом прокси. Тестируйте любого, включая нас.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/#article", "headline": "Ваш «Claude» или GPT настоящий? Как распознать подмену модели", "name": "Как распознать подмену или даунгрейд модели у релея | DaoXE", "description": "Воспроизводимый метод и бесплатный открытый инструмент, чтобы поймать даунгрейд, квантизацию и обрезку контекста в любом OpenAI-/Anthropic-совместимом прокси. Тестируйте любого, включая нас.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "Как распознать подмену модели", "item": "https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/#faq", "mainEntity": [{"@type": "Question", "name": "Можно доказать, какую модель гоняет прокси?", "acceptedAnswer": {"@type": "Answer", "text": "Криптографически снаружи — нет. Но пробы способностей и сравнение с официальным API дают сильные воспроизводимые сигналы подмены или даунгрейда."}}, {"@type": "Question", "name": "Разве проверки заголовков недостаточно?", "acceptedAnswer": {"@type": "Answer", "text": "Нет — заголовки и любую самоидентификацию релей может подделать. Проверяйте поведение."}}, {"@type": "Question", "name": "Инструмент проверки видит мой ключ?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Открытый бенчмарк работает локально и не передаёт и не хранит ключ, промпт и ответы."}}, {"@type": "Question", "name": "Можно тестировать не только DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Да — в этом и смысл. Он провайдер-независимый: тестируйте официальный API и любой шлюз, включая нас."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/" aria-current="page">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/detect-relay-model-swapping/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>Как распознать подмену модели</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Ваш «Claude» или GPT настоящий? Как распознать подмену модели</h1>
+      <p class="lead">Некоторые релеи тихо отдают меньшую, квантизованную или запасную модель — часто спустя недели после регистрации. Вот воспроизводимый способ поймать даунгрейд, квантизацию и обрезку контекста в любом прокси.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><h2 id="sec-1">Что такое «подмена» и «даунгрейд»<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><ul><li><strong>Подмена модели:</strong> вы просите топовую модель, релей отдаёт дешевле.</li><li><strong>Квантизация/даунгрейд:</strong> то же семейство, но менее точный или дистиллированный вариант, который хуже рассуждает.</li><li><strong>Обрезка контекста:</strong> ваш длинный промпт тихо режется, и recall падает.</li><li><strong>Тихий дрейф:</strong> при регистрации всё хорошо, затем деградирует, когда вы уже привязались.</li></ul><h2 id="sec-2">Почему «какая ты модель?» не работает<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><p>Просьба к модели представиться легко подделывается — релей может подставить любой системный промпт или переписать ответ. Подмену нельзя поймать вопросом; её ловят <strong>проверкой способностей</strong> и сравнением с эталоном.</p><div class="callout warn"><p class="c-title">Проверяйте поведение, а не самоотчёты</p><p>Строки идентификации, заголовки и поле «model» подделываются. Надёжны только воспроизводимые пробы способностей и сравнение бок о бок.</p></div><h2 id="sec-3">Метод<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Зафиксируйте набор проб.</span> Многошаговое рассуждение, recall «иголки» в длинном контексте, строгий JSON и поведение при отказе.</li><li><span class="s-title">Зафиксируйте параметры.</span> <code>temperature=0</code>, тот же <code>max_tokens</code>, тот же системный промпт — уберите случайность.</li><li><span class="s-title">Измерьте.</span> p50/p95 задержку и долю ошибок за несколько прогонов.</li><li><span class="s-title">Сравните с официальным API.</span> Те же пробы, те же параметры, в тот же день.</li><li><span class="s-title">Перезапускайте еженедельно.</span> Тихий даунгрейд случается со временем, а не в первый день.</li></ol><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code># Проверяем СПОСОБНОСТИ, а не &quot;какая ты модель?&quot; (это легко подделать).
+# Ставим temperature=0 и сравниваем вывод с официальным API.
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;ВАШ_КЛЮЧ_DAOXE&quot;)
+probe = &quot;Верни только JSON: {\&quot;sum\&quot;: &lt;2147483647 + 1&gt;}&quot;
+r = client.chat.completions.create(
+    model=&quot;ТОЧНЫЙ_ID_МОДЕЛИ&quot;,
+    temperature=0,
+    max_tokens=32,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: probe}],
+)
+print(r.choices[0].message.content)  # сравните между провайдерами / во времени</code></pre></div><h2 id="sec-4">Чек-лист тревожных признаков<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><ul><li>Качество на сложных рассуждениях ниже, чем у официального API при <code>temperature=0</code>.</li><li>Recall длинного контекста падает там, где официальная модель справляется (возможна обрезка).</li><li>Учёт токенов выглядит неправдоподобно низким для выданного объёма.</li><li>Задержка и поведение резко меняются спустя недели после регистрации.</li><li>Провайдер уходит от вопроса о бенчмарке.</li></ul><h2 id="daoxe">Почему DaoXE проходит этот тест<a class="anchor" href="#daoxe" aria-label="Link to section">#</a></h2><ul><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый воспроизводимый бенчмарк</a>, который можно направить на DaoXE и официальный API.</li><li>Список моделей по аккаунту <code>/v1/models</code> — что видите, то и вызываете.</li><li>Нативный Anthropic Messages, поэтому Claude ведёт себя как Claude (инструменты, стриминг).</li><li>Прозрачный расход по моделям, который можно сверить.</li></ul><div class="callout ok"><p class="c-title">Проверяйте и нас так же</p><p>Прогоните <a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">бенчмарк</a> против DaoXE и официального API и сравните. Мы публикуем инструмент именно чтобы нам не верили на слово.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Можно доказать, какую модель гоняет прокси?</summary><div class="a"><p>Криптографически снаружи — нет. Но пробы способностей и сравнение с официальным API дают сильные воспроизводимые сигналы подмены или даунгрейда.</p></div></details><details><summary>Разве проверки заголовков недостаточно?</summary><div class="a"><p>Нет — заголовки и любую самоидентификацию релей может подделать. Проверяйте поведение.</p></div></details><details><summary>Инструмент проверки видит мой ключ?</summary><div class="a"><p>Нет. Открытый бенчмарк работает локально и не передаёт и не хранит ключ, промпт и ответы.</p></div></details><details><summary>Можно тестировать не только DaoXE?</summary><div class="a"><p>Да — в этом и смысл. Он провайдер-независимый: тестируйте официальный API и любой шлюз, включая нас.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#sec-1">Что такое «подмена» и «даунгрейд»</a></li><li><a href="#sec-2">Почему «какая ты модель?» не работает</a></li><li><a href="#sec-3">Метод</a></li><li><a href="#sec-4">Чек-лист тревожных признаков</a></li><li><a href="#daoxe">Почему DaoXE проходит этот тест</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/"><div class="r-k">Цена vs официал</div><div class="r-d">Как честно сравнить цену шлюза и официальных API.</div></a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor и Claude Code</div><div class="r-d">Направьте Cursor и Claude Code на дешёвый endpoint.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

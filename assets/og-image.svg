@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="DaoXE  one key, many models">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0d14"/>
+      <stop offset="1" stop-color="#161a2e"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#0ea5a4"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="18%" cy="12%" r="60%">
+      <stop offset="0" stop-color="#4f46e5" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#4f46e5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <g transform="translate(80,86)">
+      <rect width="76" height="76" rx="18" fill="url(#mark)"/>
+      <path d="M26 22 L42 38 L26 54" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="44" y="49" width="16" height="6" rx="3" fill="#fff"/>
+      <text x="98" y="52" font-size="42" font-weight="700" fill="#eef1f8">DaoXE</text>
+    </g>
+    <text x="80" y="290" font-size="66" font-weight="800" fill="#ffffff">One key. Many models.</text>
+    <text x="80" y="366" font-size="66" font-weight="800" fill="#a5a1ff">Verifiable by benchmark.</text>
+    <text x="80" y="430" font-size="30" fill="#b9c0d0">OpenAI-compatible gateway · native Anthropic Messages for Claude Code</text>
+    <g transform="translate(80,486)" font-size="24" fill="#cdd2ea">
+      <rect x="0" y="0" width="250" height="46" rx="23" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="24" y="30">GPT · Claude · Gemini</text>
+      <rect x="270" y="0" width="250" height="46" rx="23" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="294" y="30">DeepSeek · Kimi · Qwen</text>
+      <rect x="540" y="0" width="270" height="46" rx="23" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="564" y="30">daoxe.com/v1 · one bill</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLM 网关价格 / 延迟基准（自己跑）| DaoXE</title>
+  <meta name="description" content="面向 OpenAI 兼容 LLM 网关的可复现延迟、可用率、价格基准。开源、零依赖、安全 —— 从不存储你的 key、prompt 与响应。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/llm-gateway-price-latency-benchmark/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="LLM 网关价格 / 延迟基准（自己跑）| DaoXE">
+  <meta property="og:description" content="面向 OpenAI 兼容 LLM 网关的可复现延迟、可用率、价格基准。开源、零依赖、安全 —— 从不存储你的 key、prompt 与响应。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LLM 网关价格 / 延迟基准（自己跑）| DaoXE">
+  <meta name="twitter:description" content="面向 OpenAI 兼容 LLM 网关的可复现延迟、可用率、价格基准。开源、零依赖、安全 —— 从不存储你的 key、prompt 与响应。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/#article", "headline": "LLM 网关价格与延迟基准 —— 自己跑", "name": "LLM 网关价格 / 延迟基准（自己跑）| DaoXE", "description": "面向 OpenAI 兼容 LLM 网关的可复现延迟、可用率、价格基准。开源、零依赖、安全 —— 从不存储你的 key、prompt 与响应。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "网关价格 / 延迟基准", "item": "https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/#faq", "mainEntity": [{"@type": "Question", "name": "benchmark 会看到我的 key 吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。它本地运行，从不打印或存储你的 key、prompt 或模型响应 —— 只有脱敏指标。"}}, {"@type": "Question", "name": "能测 DaoXE 以外的供应商吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— 它与供应商无关。对准官方 API 和任何 OpenAI 兼容网关做对比即可。"}}, {"@type": "Question", "name": "为什么 leaderboard 数字标着「示例」？", "acceptedAnswer": {"@type": "Answer", "text": "为了零花费也能渲染表格。只有在你跑了真实测量并从官方页填入价格后，才会出现真数字。"}}, {"@type": "Question", "name": "一次运行能当作质量判决吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能 —— 它只是极小请求的快照。请按计划重跑，并结合能力探针综合判断。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/" aria-current="page">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>网关价格 / 延迟基准</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>LLM 网关价格与延迟基准 —— 自己跑</h1>
+      <p class="lead">「又快又稳」是说法；能重跑的数字才是证据。这里教你如何在 OpenAI 兼容网关上测连通率、p50/p95 延迟和每百万 token 价格 —— 可复现且安全。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><h2 id="sec-1">它测什么<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><div class="cards"><div class="card"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><h3>可用率</h3><p>N 次重复中 HTTP 200 的占比 —— 连通率。</p></div><div class="card"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14 20 6"/><path d="M4 20a8 8 0 1 1 16 0"/></svg></span><h3>延迟</h3><p>一个极小固定请求的 p50 / p95 / 平均往返时间。</p></div><div class="card"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82"/></svg></span><h3>价格</h3><p>每百万输入/输出 token 的美元价，来自你从官方页填写的价格文件。</p></div></div><h2 id="sec-2">它如何保持诚实（方法论）<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><ul><li><strong>结构上就已脱敏。</strong> 一条记录只含：模型 id、ok 标志、HTTP 状态、延迟（毫秒）、token 总数与粗粒度错误分类。你的 key、prompt 与响应文本从不打印或存储。</li><li><strong>可复现。</strong> 任何人都能对着自己的账户与模型重跑。</li><li><strong>是快照，不是判决。</strong> 某时点的极小请求不代表总体质量或长期可靠性。</li><li><strong>设计上公平。</strong> 可加入任何其他 OpenAI 兼容网关并排对比。</li></ul><h2 id="leaderboard">示例 leaderboard（仅示意）<a class="anchor" href="#leaderboard" aria-label="Link to section">#</a></h2><div class="callout warn"><p class="c-title">这些是「示例」数字，不是测量</p><p>下表数值只是为了在花钱前能把表格渲染出来。带 <code>~</code> 的是示意值；价格单元格保持占位符，直到你从 <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=bench_sample&utm_term=zh" target="_blank" rel="noopener">daoxe.com/pricing</a> 填入。跑一次真实测量才有真数字。</p></div><div class="table-wrap"><table><thead><tr><th>模型（示例 id）</th><th>成功率 %</th><th>p50 ms</th><th>p95 ms</th><th>$/1M 输入</th><th>$/1M 输出</th></tr></thead><tbody><tr><td>example/gemini-2.5-flash</td><td><span class="ph" data-fill="SUCCESS_RATE" title="Placeholder — replace before publishing (search data-fill=&quot;SUCCESS_RATE&quot;)">示例</span></td><td>~350</td><td>~430</td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">见定价</span></td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">见定价</span></td></tr><tr><td>example/gpt-4o-mini</td><td><span class="ph" data-fill="SUCCESS_RATE" title="Placeholder — replace before publishing (search data-fill=&quot;SUCCESS_RATE&quot;)">示例</span></td><td>~390</td><td>~470</td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">见定价</span></td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">见定价</span></td></tr><tr><td>example/claude-haiku</td><td><span class="ph" data-fill="SUCCESS_RATE" title="Placeholder — replace before publishing (search data-fill=&quot;SUCCESS_RATE&quot;)">示例</span></td><td>~430</td><td>~520</td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">见定价</span></td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">见定价</span></td></tr></tbody><caption>对照开源 leaderboard 的示意样例 —— 请用你自己的运行结果替换。</caption></table></div><h2 id="sec-4">怎么跑<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><p>每个数据点是一个极小的 <code>POST /v1/chat/completions</code>，固定 prompt，<code>max_tokens=8</code>、<code>temperature=0</code>、<code>stream=false</code>。克隆 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">llm-gateway-benchmark</a> 仓库后：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># 刷新「示例」leaderboard（无需 key、零花费）
+npm run sample
+
+# 真实测量（发送实时、可能计费的请求）
+export DAOXE_API_KEY=&quot;你的key&quot;
+export DAOXE_MODELS=&quot;id-1,id-2&quot;
+npm run measure &amp;&amp; npm run aggregate</code></pre></div><div class="callout info"><p class="c-title">成本与预算</p><p>一次真实运行会发送 模型数 × 重复次数 个请求（默认 5 次），每个上限 8 个输出 token。先查当前价格与余额。测试预算：<span class="ph" data-fill="FREE_CREDIT" title="Placeholder — replace before publishing (search data-fill=&quot;FREE_CREDIT&quot;)">待确认</span>。</p></div><h2 id="sec-5">加入另一个网关<a class="anchor" href="#sec-5" aria-label="Link to section">#</a></h2><p>任何 OpenAI 兼容 endpoint 都行：填它的 <code>/v1</code> base URL 和模型 ID，并加一列清楚标注的数据。诚实对比才是全部意义 —— 包括把 DaoXE 和官方 API 对比。</p><div class="callout ok"><p class="c-title">从说法到数字</p><p>跑过之后，你就不必再信任何人的营销 —— 包括我们的。把它和<a href="/daoxe-guide/zh/detect-relay-model-swapping/">掉包鉴别</a>结合，就能同时检查模型真伪，而不只是速度。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>benchmark 会看到我的 key 吗？</summary><div class="a"><p>不会。它本地运行，从不打印或存储你的 key、prompt 或模型响应 —— 只有脱敏指标。</p></div></details><details><summary>能测 DaoXE 以外的供应商吗？</summary><div class="a"><p>能 —— 它与供应商无关。对准官方 API 和任何 OpenAI 兼容网关做对比即可。</p></div></details><details><summary>为什么 leaderboard 数字标着「示例」？</summary><div class="a"><p>为了零花费也能渲染表格。只有在你跑了真实测量并从官方页填入价格后，才会出现真数字。</p></div></details><details><summary>一次运行能当作质量判决吗？</summary><div class="a"><p>不能 —— 它只是极小请求的快照。请按计划重跑，并结合能力探针综合判断。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#sec-1">它测什么</a></li><li><a href="#sec-2">它如何保持诚实（方法论）</a></li><li><a href="#leaderboard">示例 leaderboard（仅示意）</a></li><li><a href="#sec-4">怎么跑</a></li><li><a href="#sec-5">加入另一个网关</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/"><div class="r-k">成本对比</div><div class="r-d">诚实地比较网关与官方 API 的成本。</div></a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor·Claude Code</div><div class="r-d">把 Cursor 和 Claude Code 指向更便宜的 endpoint。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

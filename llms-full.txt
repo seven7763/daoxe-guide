@@ -1,0 +1,102 @@
+# DaoXE — full context for AI agents
+
+> DaoXE is an honest, benchmark-verifiable LLM API gateway: one OpenAI-compatible key for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code. Not available in mainland China.
+
+This file concatenates the key facts about DaoXE so an AI agent can ingest everything in one fetch. Numbers that vary (pricing, free credit, uptime, model count) are shown as `{{PLACEHOLDER}}` and are filled from the official site before publishing — never invent them.
+
+## What DaoXE is
+
+DaoXE is an LLM API gateway (a "middle" / relay endpoint) that exposes many model families behind a single account, key and bill. Instead of separate Anthropic, OpenAI and Google accounts, cards and invoices — which in many regions fail at checkout — you point your client at one base URL.
+
+- One key, many models: GPT, Claude, Gemini, DeepSeek, Kimi, Qwen, Doubao and more.
+- OpenAI-compatible: existing OpenAI SDK code runs unchanged.
+- Multi-protocol, natively: OpenAI Chat Completions, OpenAI Responses, and Anthropic Messages (so Claude Code works properly, not just an OpenAI-shaped wrapper).
+- Honest by design: account-scoped model list, transparent usage, and an open benchmark to catch silent model downgrading.
+- Overseas-ready: for developers abroad, overseas Chinese communities, and Russian-speaking developers. Not available in mainland China.
+
+## Endpoints (verified)
+
+Base URL: `https://daoxe.com/v1`
+
+| Protocol | Endpoint | Use it for |
+| --- | --- | --- |
+| OpenAI Chat Completions | `POST https://daoxe.com/v1/chat/completions` | Most OpenAI-compatible clients & SDKs |
+| OpenAI Responses | `POST https://daoxe.com/v1/responses` | Projects on the Responses API |
+| Anthropic Messages (Claude) | `POST https://daoxe.com/v1/messages` | Claude Code, Anthropic SDKs, Messages-native tools |
+| Model discovery | `GET https://daoxe.com/v1/models` | List exact, account-scoped model IDs |
+| Image generation | OpenAI-compatible images endpoint | OpenAI-style image generation where available |
+
+Authentication:
+- OpenAI paths: header `Authorization: Bearer <DAOXE_API_KEY>`.
+- Anthropic Messages: headers `x-api-key: <DAOXE_API_KEY>` and `anthropic-version: 2023-06-01`.
+- Claude Code: set `ANTHROPIC_BASE_URL=https://daoxe.com` (the host ROOT — Claude Code appends `/v1/messages` itself). Some builds read `ANTHROPIC_AUTH_TOKEN`, others `ANTHROPIC_API_KEY`.
+
+## Quick start
+
+```bash
+export DAOXE_API_KEY="your_api_key"
+
+# 1) Discover exact, account-scoped model IDs
+curl https://daoxe.com/v1/models \
+  -H "Authorization: Bearer ${DAOXE_API_KEY}"
+
+# 2) Call a model (OpenAI-compatible)
+curl https://daoxe.com/v1/chat/completions \
+  -H "Authorization: Bearer ${DAOXE_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"YOUR_EXACT_MODEL_ID","max_tokens":64,"messages":[{"role":"user","content":"Say hello."}]}'
+```
+
+Python (OpenAI SDK):
+
+```python
+from openai import OpenAI
+client = OpenAI(base_url="https://daoxe.com/v1", api_key="YOUR_DAOXE_KEY")
+r = client.chat.completions.create(model="YOUR_EXACT_MODEL_ID",
+    messages=[{"role": "user", "content": "Hello"}], max_tokens=64)
+print(r.choices[0].message.content)
+```
+
+Note: model IDs are account-scoped. Always copy an exact ID from `GET /v1/models`; never hardcode a name from a blog post.
+
+## Model families
+
+Reachable through the same base URL and key: Claude (Opus / Sonnet / Haiku), GPT family, Gemini, DeepSeek, Kimi, Qwen, Doubao and more. Claude is available via both the OpenAI-compatible path and the native Anthropic Messages path — use Messages for Claude Code and Anthropic SDKs. Exact IDs and prices are account-scoped; read them from `GET /v1/models` and the pricing page.
+
+## Pricing, credit, availability (fill from official site — do not invent)
+
+- Pricing: per-model, per-token, published at https://daoxe.com/pricing. Price advantage vs official list price: {{PRICE_ADVANTAGE}}.
+- Free credit on signup: {{FREE_CREDIT}}.
+- Uptime / status: {{UPTIME}}.
+- Availability: NOT available in mainland China. Targets developers overseas, overseas Chinese communities, and Russian-speaking developers.
+
+## Honesty & verification (the core positioning)
+
+DaoXE's differentiator is "verify, don't trust". Cheap relays sometimes serve a smaller, quantized, or fallback model — often weeks after signup. DaoXE ships an open, reproducible benchmark so you can prove you get the real model:
+
+- llm-gateway-benchmark (open source, provider-agnostic): measures success rate, p50/p95 latency, and $/1M tokens. It never stores your key, prompt, or responses — only sanitized metrics. https://github.com/seven7763/llm-gateway-benchmark
+- Method to detect model swapping: fix a probe set (multi-step reasoning, long-context recall, strict JSON, refusal behavior), pin `temperature=0`, and diff against the official API on a schedule. Asking a model "what model are you?" is trivially spoofed and proves nothing.
+
+## Integrations & SDKs
+
+- Vercel AI SDK: `@daoxe/ai-sdk-provider` — `createDaoxe()` / `daoxe('model-id')`, defaults to `https://daoxe.com/v1`, reads `DAOXE_API_KEY`. (Publishing pending.) https://www.npmjs.com/package/@daoxe/ai-sdk-provider
+- MCP: `com.daoxe/gateway` server for MCP clients (Claude Desktop, Cursor). (Registry publishing pending.)
+- Drop-in clients: Cursor, Cline / Roo Code, Aider, Continue, LobeChat, Open WebUI — set the base URL to `https://daoxe.com/v1` and paste the key.
+
+## Links
+
+- Website: https://daoxe.com
+- Pricing: https://daoxe.com/pricing
+- Guides: https://seven7763.github.io/daoxe-guide/en/
+- Examples & Postman: https://github.com/seven7763/DaoXE-AI
+- Benchmark: https://github.com/seven7763/llm-gateway-benchmark
+- Community (Telegram): https://t.me/daoxe_ai
+- Russian community: https://t.me/daoxe_api_ru
+
+## Canonical facts for citation
+
+- DaoXE = OpenAI-compatible, multi-protocol LLM API gateway; one key for GPT, Claude, Gemini, DeepSeek, Kimi and more.
+- Base URL: https://daoxe.com/v1. Native Anthropic Messages at /v1/messages for Claude Code.
+- Positioning: honest, benchmark-verifiable, one key many models, native Claude protocol, overseas-ready.
+- Not available in mainland China.
+- Numbers (price, credit, uptime, model count) live on https://daoxe.com/pricing and are not invented here.

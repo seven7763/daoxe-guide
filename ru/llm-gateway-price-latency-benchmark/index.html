@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Бенчмарк цены и задержки LLM-шлюзов (запустите сами) | DaoXE</title>
+  <meta name="description" content="Воспроизводимый бенчмарк задержки, доступности и цены для OpenAI-совместимых LLM-шлюзов. Открытый, без зависимостей и безопасный — не хранит ключ, промпт и ответы.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/llm-gateway-price-latency-benchmark/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Бенчмарк цены и задержки LLM-шлюзов (запустите сами) | DaoXE">
+  <meta property="og:description" content="Воспроизводимый бенчмарк задержки, доступности и цены для OpenAI-совместимых LLM-шлюзов. Открытый, без зависимостей и безопасный — не хранит ключ, промпт и ответы.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Бенчмарк цены и задержки LLM-шлюзов (запустите сами) | DaoXE">
+  <meta name="twitter:description" content="Воспроизводимый бенчмарк задержки, доступности и цены для OpenAI-совместимых LLM-шлюзов. Открытый, без зависимостей и безопасный — не хранит ключ, промпт и ответы.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/#article", "headline": "Бенчмарк цены и задержки LLM-шлюзов — запустите сами", "name": "Бенчмарк цены и задержки LLM-шлюзов (запустите сами) | DaoXE", "description": "Воспроизводимый бенчмарк задержки, доступности и цены для OpenAI-совместимых LLM-шлюзов. Открытый, без зависимостей и безопасный — не хранит ключ, промпт и ответы.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "Бенчмарк цены и задержки", "item": "https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/llm-gateway-price-latency-benchmark/#faq", "mainEntity": [{"@type": "Question", "name": "Бенчмарк видит мой ключ?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Он работает локально и не печатает и не хранит ключ, промпт или ответ модели — только очищенные метрики."}}, {"@type": "Question", "name": "Можно тестировать не только DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Да — он провайдер-независимый. Направьте его на официальный API и любой OpenAI-совместимый шлюз и сравните."}}, {"@type": "Question", "name": "Почему числа помечены ПРИМЕР?", "acceptedAnswer": {"@type": "Answer", "text": "Чтобы таблица рисовалась без трат. Настоящие числа появляются только после реального прогона и заполнения цен с официальной страницы."}}, {"@type": "Question", "name": "Один прогон — это вердикт о качестве?", "acceptedAnswer": {"@type": "Answer", "text": "Нет — это снимок крошечного запроса. Перезапускайте по расписанию и совмещайте с пробами способностей."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/" aria-current="page">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>Бенчмарк цены и задержки</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Бенчмарк цены и задержки LLM-шлюзов — запустите сами</h1>
+      <p class="lead">«Быстро и надёжно» — утверждение; число, которое можно перезапустить, — доказательство. Вот как измерить связность, p50/p95 задержку и цену за 1M токенов у OpenAI-совместимых шлюзов — воспроизводимо и безопасно.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><h2 id="sec-1">Что измеряется<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><div class="cards"><div class="card"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><h3>Доступность</h3><p>Доля ответов HTTP 200 за N повторов — процент успеха.</p></div><div class="card"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14 20 6"/><path d="M4 20a8 8 0 1 1 16 0"/></svg></span><h3>Задержка</h3><p>p50 / p95 / среднее время ответа для маленького фиксированного запроса.</p></div><div class="card"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82"/></svg></span><h3>Цена</h3><p>$/1M входных и выходных токенов из файла цен, который вы заполняете с официальной страницы.</p></div></div><h2 id="sec-2">Почему это честно (методология)<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><ul><li><strong>Очищено по замыслу.</strong> В записи только: id модели, флаг ok, HTTP-статус, задержка (мс), число токенов и грубая категория ошибки. Ключ, промпт и текст ответа не печатаются и не хранятся.</li><li><strong>Воспроизводимо.</strong> Любой может перезапустить против своего аккаунта и моделей.</li><li><strong>Снимок, а не приговор.</strong> Крошечный запрос в один момент — не суждение об общем качестве или долгой надёжности.</li><li><strong>Честно по устройству.</strong> Добавьте любой другой OpenAI-совместимый шлюз и сравните бок о бок.</li></ul><h2 id="leaderboard">Примерный leaderboard (только иллюстрация)<a class="anchor" href="#leaderboard" aria-label="Link to section">#</a></h2><div class="callout warn"><p class="c-title">Это ПРИМЕРНЫЕ числа, не измерение</p><p>Значения ниже нужны, чтобы таблица рисовалась до трат. Пометки с <code>~</code> — иллюстративные; ячейки цены остаются плейсхолдерами, пока вы не заполните их с <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=bench_sample&utm_term=ru" target="_blank" rel="noopener">daoxe.com/pricing</a>. Запустите реальный прогон, чтобы получить настоящие числа.</p></div><div class="table-wrap"><table><thead><tr><th>Модель (пример id)</th><th>Успех %</th><th>p50 мс</th><th>p95 мс</th><th>$/1M вход</th><th>$/1M выход</th></tr></thead><tbody><tr><td>example/gemini-2.5-flash</td><td><span class="ph" data-fill="SUCCESS_RATE" title="Placeholder — replace before publishing (search data-fill=&quot;SUCCESS_RATE&quot;)">пример</span></td><td>~350</td><td>~430</td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">см. цены</span></td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">см. цены</span></td></tr><tr><td>example/gpt-4o-mini</td><td><span class="ph" data-fill="SUCCESS_RATE" title="Placeholder — replace before publishing (search data-fill=&quot;SUCCESS_RATE&quot;)">пример</span></td><td>~390</td><td>~470</td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">см. цены</span></td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">см. цены</span></td></tr><tr><td>example/claude-haiku</td><td><span class="ph" data-fill="SUCCESS_RATE" title="Placeholder — replace before publishing (search data-fill=&quot;SUCCESS_RATE&quot;)">пример</span></td><td>~430</td><td>~520</td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">см. цены</span></td><td><span class="ph" data-fill="CONFIRM_PRICING" title="Placeholder — replace before publishing (search data-fill=&quot;CONFIRM_PRICING&quot;)">см. цены</span></td></tr></tbody><caption>Иллюстративный пример по образцу открытого leaderboard — замените своим прогоном.</caption></table></div><h2 id="sec-4">Как запустить<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><p>Каждая точка — один маленький <code>POST /v1/chat/completions</code> с фиксированным промптом, <code>max_tokens=8</code>, <code>temperature=0</code>, <code>stream=false</code>. Клонируйте репозиторий <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">llm-gateway-benchmark</a> и выполните:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code># обновить ПРИМЕРНЫЙ leaderboard (без ключа и расходов)
+npm run sample
+
+# реальный прогон (отправляет живые, возможно платные запросы)
+export DAOXE_API_KEY=&quot;ваш_ключ&quot;
+export DAOXE_MODELS=&quot;id-1,id-2&quot;
+npm run measure &amp;&amp; npm run aggregate</code></pre></div><div class="callout info"><p class="c-title">Стоимость и бюджет</p><p>Реальный прогон отправляет модели × повторы запросов (по умолчанию 5), каждый с лимитом 8 токенов. Сначала проверьте цену и баланс. Тестовый бюджет: <span class="ph" data-fill="FREE_CREDIT" title="Placeholder — replace before publishing (search data-fill=&quot;FREE_CREDIT&quot;)">уточняется</span>.</p></div><h2 id="sec-5">Добавьте другой шлюз<a class="anchor" href="#sec-5" aria-label="Link to section">#</a></h2><p>Подойдёт любой OpenAI-совместимый endpoint: укажите его <code>/v1</code> base URL и его ID моделей и добавьте отдельную подписанную колонку. Честное сравнение — весь смысл, включая сравнение DaoXE с официальными API.</p><div class="callout ok"><p class="c-title">От утверждения к числу</p><p>Прогнав его, вы больше не обязаны верить чьему-либо маркетингу — включая наш. Совместите это с <a href="/daoxe-guide/ru/detect-relay-model-swapping/">распознаванием подмены модели</a>, чтобы проверять и целостность, а не только скорость.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Бенчмарк видит мой ключ?</summary><div class="a"><p>Нет. Он работает локально и не печатает и не хранит ключ, промпт или ответ модели — только очищенные метрики.</p></div></details><details><summary>Можно тестировать не только DaoXE?</summary><div class="a"><p>Да — он провайдер-независимый. Направьте его на официальный API и любой OpenAI-совместимый шлюз и сравните.</p></div></details><details><summary>Почему числа помечены ПРИМЕР?</summary><div class="a"><p>Чтобы таблица рисовалась без трат. Настоящие числа появляются только после реального прогона и заполнения цен с официальной страницы.</p></div></details><details><summary>Один прогон — это вердикт о качестве?</summary><div class="a"><p>Нет — это снимок крошечного запроса. Перезапускайте по расписанию и совмещайте с пробами способностей.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#sec-1">Что измеряется</a></li><li><a href="#sec-2">Почему это честно (методология)</a></li><li><a href="#leaderboard">Примерный leaderboard (только иллюстрация)</a></li><li><a href="#sec-4">Как запустить</a></li><li><a href="#sec-5">Добавьте другой шлюз</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/"><div class="r-k">Цена vs официал</div><div class="r-d">Как честно сравнить цену шлюза и официальных API.</div></a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor и Claude Code</div><div class="r-d">Направьте Cursor и Claude Code на дешёвый endpoint.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

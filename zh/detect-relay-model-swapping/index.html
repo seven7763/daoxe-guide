@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>如何鉴别中转掉包 / 降级（可复现方法）| DaoXE</title>
+  <meta name="description" content="一套可复现方法 + 免费开源工具，在任何 OpenAI/Anthropic 兼容中转里抓出掉包、量化降级与上下文截断。可测任何供应商，包括我们。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/detect-relay-model-swapping/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="如何鉴别中转掉包 / 降级（可复现方法）| DaoXE">
+  <meta property="og:description" content="一套可复现方法 + 免费开源工具，在任何 OpenAI/Anthropic 兼容中转里抓出掉包、量化降级与上下文截断。可测任何供应商，包括我们。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="如何鉴别中转掉包 / 降级（可复现方法）| DaoXE">
+  <meta name="twitter:description" content="一套可复现方法 + 免费开源工具，在任何 OpenAI/Anthropic 兼容中转里抓出掉包、量化降级与上下文截断。可测任何供应商，包括我们。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/#article", "headline": "你的「Claude」或 GPT 是真的吗？如何鉴别中转掉包", "name": "如何鉴别中转掉包 / 降级（可复现方法）| DaoXE", "description": "一套可复现方法 + 免费开源工具，在任何 OpenAI/Anthropic 兼容中转里抓出掉包、量化降级与上下文截断。可测任何供应商，包括我们。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "如何鉴别中转掉包", "item": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/#faq", "mainEntity": [{"@type": "Question", "name": "能证明一个中转到底跑的哪个模型吗？", "acceptedAnswer": {"@type": "Answer", "text": "从外部无法密码学证明。但能力探针与对官方 API 的并排 diff，能给出强而可复现的掉包/降级信号。"}}, {"@type": "Question", "name": "查响应头不就够了？", "acceptedAnswer": {"@type": "Answer", "text": "不够 —— 响应头与任何自报身份都能被中转伪造。请测行为。"}}, {"@type": "Question", "name": "验证工具会看到我的 key 吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。开源 benchmark 本地运行，从不传输或存储你的 key、prompt 与响应。"}}, {"@type": "Question", "name": "能测 DaoXE 以外的供应商吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— 这正是重点。它与供应商无关，可测官方 API 和任何网关，包括我们。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/" aria-current="page">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/detect-relay-model-swapping/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>如何鉴别中转掉包</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>你的「Claude」或 GPT 是真的吗？如何鉴别中转掉包</h1>
+      <p class="lead">有些中转会悄悄给你换更小、量化或降级的模型 —— 常常在注册数周之后。这里给出一套可复现方法，抓出任何中转里的掉包、量化降级与上下文截断。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><h2 id="sec-1">「掉包」和「降级」是什么<a class="anchor" href="#sec-1" aria-label="Link to section">#</a></h2><ul><li><strong>模型掉包：</strong> 你要旗舰模型，中转给你便宜的。</li><li><strong>量化 / 降级：</strong> 同一家族，但更低精度或蒸馏版本，推理更差。</li><li><strong>上下文截断：</strong> 你的长 prompt 被悄悄截断，召回下降。</li><li><strong>悄悄漂移：</strong> 注册时正常，等你上了车再降级。</li></ul><h2 id="sec-2">为什么「你是什么模型」没用<a class="anchor" href="#sec-2" aria-label="Link to section">#</a></h2><p>让模型自报身份极易被伪造 —— 中转可以注入任意系统 prompt 或改写答案。掉包不能靠问出来；要靠<strong>测能力</strong>并与已知良好的基准对比。</p><div class="callout warn"><p class="c-title">测行为，别信自报</p><p>身份字符串、响应头、`model` 字段都能伪造。只有可复现的能力探针和并排 diff 才是可靠信号。</p></div><h2 id="sec-3">方法<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">固定一套探针。</span> 多步推理、长上下文「针」召回、严格 JSON 格式，以及拒答行为。</li><li><span class="s-title">固定参数。</span> <code>temperature=0</code>、相同 <code>max_tokens</code>、相同系统 prompt —— 去掉随机性。</li><li><span class="s-title">测量。</span> 多次运行的 p50/p95 延迟与错误率。</li><li><span class="s-title">与官方 API 做 diff。</span> 相同探针、相同参数、同一天。</li><li><span class="s-title">每周重跑。</span> 悄悄降级是随时间发生的，不在第一天。</li></ol><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># 测「能力」，而不是问「你是什么模型」（后者极易被伪造）。
+# 固定 temperature=0，把输出和官方 API 做 diff。
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;你的DaoXE_key&quot;)
+probe = &quot;只返回 JSON: {\&quot;sum\&quot;: &lt;2147483647 + 1&gt;}&quot;
+r = client.chat.completions.create(
+    model=&quot;你的准确模型ID&quot;,
+    temperature=0,
+    max_tokens=32,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: probe}],
+)
+print(r.choices[0].message.content)  # 跨供应商 / 跨时间对比</code></pre></div><h2 id="sec-4">红旗自查清单<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><ul><li>在 <code>temperature=0</code> 下，难推理题的质量低于官方 API。</li><li>官方模型能做到的长上下文召回，这里做不到（可能被截断）。</li><li>相对产出的 token 计量低得不合理。</li><li>注册数周后延迟与行为突然变化。</li><li>你要求 benchmark 时，供应商躲闪。</li></ul><h2 id="daoxe">DaoXE 为通过此测试而设计<a class="anchor" href="#daoxe" aria-label="Link to section">#</a></h2><ul><li>一个<a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源可复现 benchmark</a>，可对准 DaoXE 和官方 API。</li><li>账户维度 <code>/v1/models</code> —— 你看到的就是你能调的。</li><li>原生 Anthropic Messages，因此 Claude 表现得像 Claude（工具、流式）。</li><li>透明的按模型用量，可对账。</li></ul><div class="callout ok"><p class="c-title">用同样方法验我们</p><p>把 <a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">benchmark</a> 对准 DaoXE 和官方 API 做对比。我们公开工具，正是为了不让你只能靠信任。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>能证明一个中转到底跑的哪个模型吗？</summary><div class="a"><p>从外部无法密码学证明。但能力探针与对官方 API 的并排 diff，能给出强而可复现的掉包/降级信号。</p></div></details><details><summary>查响应头不就够了？</summary><div class="a"><p>不够 —— 响应头与任何自报身份都能被中转伪造。请测行为。</p></div></details><details><summary>验证工具会看到我的 key 吗？</summary><div class="a"><p>不会。开源 benchmark 本地运行，从不传输或存储你的 key、prompt 与响应。</p></div></details><details><summary>能测 DaoXE 以外的供应商吗？</summary><div class="a"><p>能 —— 这正是重点。它与供应商无关，可测官方 API 和任何网关，包括我们。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#sec-1">「掉包」和「降级」是什么</a></li><li><a href="#sec-2">为什么「你是什么模型」没用</a></li><li><a href="#sec-3">方法</a></li><li><a href="#sec-4">红旗自查清单</a></li><li><a href="#daoxe">DaoXE 为通过此测试而设计</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/"><div class="r-k">成本对比</div><div class="r-d">诚实地比较网关与官方 API 的成本。</div></a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor·Claude Code</div><div class="r-d">把 Cursor 和 Claude Code 指向更便宜的 endpoint。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

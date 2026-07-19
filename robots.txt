@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://seven7763.github.io/daoxe-guide/sitemap.xml
