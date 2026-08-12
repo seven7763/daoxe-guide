@@ -6,8 +6,8 @@ DaoXE gives developers one base URL (`https://daoxe.com/v1`) and one key across 
 
 ## Product
 - [DaoXE home](https://daoxe.com): What DaoXE is — one key for GPT, Claude, Gemini, DeepSeek, Kimi and more.
-- [Pricing](https://daoxe.com/pricing): Authoritative, per-model, per-token pricing. The `default` group is at official USD parity; most Western models via low-price groups run ~30–80% below official list. Honest caveat: cheap domestic models like DeepSeek can cost more here than going direct. Free credit, if any, is set by the service — verify on the pricing page.
-- [Payment & top-up](https://daoxe.com/pricing): Alipay, WeChat Pay and USDT. Top-up is a flat 1 RMB = $1 of credit across every method (USDT included), while models bill at official USD price — so at a real ~7 RMB/USD rate, Western flagships effectively cost around 1/7 of official; cheaper domestic models save less. Rates fluctuate; the pricing page is authoritative.
+- [Pricing](https://daoxe.com/pricing): Authoritative, per-model, per-token pricing. Rates are account- and group-scoped and they change, so no figure is quoted here or anywhere in this guide — read your model's live rate on the pricing page. Free credit, if any, is set by the service; verify it there too.
+- [Payment & top-up](https://daoxe.com/pricing): Alipay, WeChat Pay, USDT, bank card (Visa · Mastercard), Apple Pay and Google Pay. Top-up is a flat 1 RMB = $1 of credit on every method, and each model then bills at its own USD rate. Which methods appear at checkout can depend on your region; the pricing and checkout pages are authoritative.
 
 ## Guides
 - [One key for every model (overview)](https://seven7763.github.io/daoxe-guide/en/): How a gateway collapses many vendors into one base URL, one key, one bill — and how to verify it.

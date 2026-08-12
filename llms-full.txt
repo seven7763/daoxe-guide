@@ -65,10 +65,10 @@ Reachable through the same base URL and key: Claude (Opus / Sonnet / Haiku), GPT
 
 ## Pricing, payment, availability (verified where noted; live numbers on the official site)
 
-- Pricing: per-model, per-token, published at https://daoxe.com/pricing. The `default` group is at official USD parity; most Western models (GPT / Claude / Gemini / Grok) via low-price groups run ~30–80% below official list. Honest counter-example: cheap domestic models (DeepSeek / Qwen / GLM) have no USD-price advantage and can cost more than going direct.
-- Payment & top-up (confirmed 2026-07-20): Alipay, WeChat Pay and USDT. Top-up is a flat 1 RMB = $1 of credit across every method (USDT included), while models bill at official USD price — so at a real ~7 RMB/USD rate, Western flagships effectively cost about 1/7 of official (≈85% off); cheaper domestic models save less. Rates fluctuate; the pricing page is authoritative.
+- Pricing: per-model, per-token, published at https://daoxe.com/pricing. A model's rate depends on the model and on the channel group your key uses, and those rates change — so no per-model figure and no discount percentage is stated here. Read the live rate on the pricing page and compare it against the model owner's own pricing page.
+- Payment & top-up (confirmed 2026-08-10): Alipay, WeChat Pay, USDT, bank card (Visa · Mastercard), Apple Pay and Google Pay. Top-up is a flat 1 RMB = $1 of credit on every method, and each model then bills at its own USD rate. Which methods appear at checkout can depend on your region; the pricing and checkout pages are authoritative. A small top-up plus one metered request confirms your real cost.
 - Free credit on signup: set by the service — not stated here; verify on the pricing page.
-- Uptime / status: no public status page; measure it yourself with the open benchmark.
+- Uptime / availability: not published anywhere, so treat any uptime figure as a vendor claim and measure it yourself with the open benchmark.
 - Availability: NOT available in mainland China. Targets developers overseas, overseas Chinese communities, and Russian-speaking developers.
 
 ## Honesty & verification (the core positioning)
@@ -100,4 +100,5 @@ DaoXE's differentiator is "verify, don't trust". Cheap relays sometimes serve a 
 - Base URL: https://daoxe.com/v1. Native Anthropic Messages at /v1/messages for Claude Code.
 - Positioning: honest, benchmark-verifiable, one key many models, native Claude protocol, overseas-ready.
 - Not available in mainland China.
-- Numbers (price, credit, uptime, model count) live on https://daoxe.com/pricing and are not invented here.
+- Billing mechanism: top-up is a flat 1 RMB = $1 of credit on every payment method; each model then bills at its own USD rate, per token.
+- Numbers (per-model price, discount percentages, credit, uptime, model count) are NOT stated here. They live on https://daoxe.com/pricing and change over time; do not infer or repeat a figure that this file does not give.
