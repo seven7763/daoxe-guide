@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use DaoXE in goose — an OpenAI-compatible endpoint for Block&#x27;s agent</title>
+  <meta name="description" content="Point goose (the open-source local agent) at DaoXE: custom provider base URL, key, exact model IDs, plus the tool-calling requirement and the prompt-caching caveat on the generic OpenAI path.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-goose/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-goose/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Use DaoXE in goose — an OpenAI-compatible endpoint for Block&#x27;s agent">
+  <meta property="og:description" content="Point goose (the open-source local agent) at DaoXE: custom provider base URL, key, exact model IDs, plus the tool-calling requirement and the prompt-caching caveat on the generic OpenAI path.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Use DaoXE in goose — an OpenAI-compatible endpoint for Block&#x27;s agent">
+  <meta name="twitter:description" content="Point goose (the open-source local agent) at DaoXE: custom provider base URL, key, exact model IDs, plus the tool-calling requirement and the prompt-caching caveat on the generic OpenAI path.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/#article", "headline": "Use DaoXE in goose", "name": "Use DaoXE in goose — an OpenAI-compatible endpoint for Block's agent", "description": "Point goose (the open-source local agent) at DaoXE: custom provider base URL, key, exact model IDs, plus the tool-calling requirement and the prompt-caching caveat on the generic OpenAI path.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Use DaoXE in goose", "item": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-goose/#faq", "mainEntity": [{"@type": "Question", "name": "Does goose work with DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — goose's OpenAI provider takes a custom host. Set it to https://daoxe.com/v1 with your key and an exact model ID."}}, {"@type": "Question", "name": "Why does my session stall or error on tool calls?", "acceptedAnswer": {"@type": "Answer", "text": "The selected model lacks usable function calling. Switch to a tool-capable model ID from GET /v1/models."}}, {"@type": "Question", "name": "Does Claude through goose get prompt caching?", "acceptedAnswer": {"@type": "Answer", "text": "Not automatically — goose's automatic cache markers only apply on its Anthropic/Bedrock/OpenRouter/LiteLLM providers, not the generic OpenAI-compatible path. Expect plain-input billing."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Per-model and account-scoped — see live pricing; top-up is a flat 1 RMB = $1 of credit on every payment method."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-goose/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-goose/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-goose/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Use DaoXE in goose</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Use DaoXE in goose</h1>
+      <p class="lead">goose is a local-first, extensible open-source agent. Its OpenAI provider accepts any compatible endpoint — point it at DaoXE and one key drives its planner, edits and MCP tool calls across vendors.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>goose talks to any OpenAI-compatible endpoint through its OpenAI provider (or the custom-provider flow in <code>goose configure</code>), so DaoXE is a base-URL-and-key change. The payoff is role-splitting the goose way: plan on a frontier model, run tool-heavy steps on a cheaper one, <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a>.</p><h2 id="why-route-goose-through-daoxe">Why route goose through DaoXE<a class="anchor" href="#why-route-goose-through-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>One key across the catalogue.</strong> Switch the agent's model without separate vendor accounts — <code>GET /v1/models</code> is the live list.</li><li><strong>Role-split by cost.</strong> Expensive reasoning for planning, cheap models for repetitive tool steps.</li><li><strong>Extensions cost tokens.</strong> Every connected MCP server is per-turn context — a flat balance makes tuning that painless.</li></ul><h2 id="set-it-up-in-goose">Set it up in goose<a class="anchor" href="#set-it-up-in-goose" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Open provider setup.</span> In goose Desktop use the <strong>Models</strong> tab; in the CLI run <code>goose configure</code> and choose <strong>Configure Providers</strong>.</li><li><span class="s-title">Choose the OpenAI provider.</span> Paste your DaoXE key, and when asked for the host / base path enter <code>https://daoxe.com/v1</code> — end it at <code>/v1</code>.</li><li><span class="s-title">Set the model.</span> Enter an exact model ID copied from <code>GET /v1/models</code>. Goose won't infer it for you on a custom host.</li><li><span class="s-title">Run a real task.</span> Send a small edit request and watch the tool calls — that's the check that both routing and capabilities are right.</li></ol><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code># CLI: env-based setup for the OpenAI provider
+cat &gt;&gt; ~/.config/goose/config/.env &lt;&lt;&#x27;EOF&#x27;
+OPENAI_HOST=https://daoxe.com/v1
+OPENAI_API_KEY=sk-you…-key
+EOF
+goose</code></pre></div><div class="callout warn"><p class="c-title">Caveats worth knowing</p><p><strong>Tool calling is mandatory</strong> — goose drives everything through it, and its own docs exclude tool-incapable models; pick a model with real function calling. <strong>Prompt caching caveat:</strong> goose adds <code>cache_control</code> markers automatically only on its Anthropic, Bedrock, Databricks, OpenRouter and LiteLLM providers — on the generic OpenAI-compatible path there is no automatic caching, so long sessions bill as plain input. Base URL ends at <code>/v1</code>; model IDs are account-scoped. More clients: <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">client setup notes</a>.</p></div><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>An OpenAI-shaped endpoint that never marks cache breakpoints is exactly the kind of thing to check — prove connectivity, then diff a hard prompt against the official API at temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Does goose work with DaoXE?</summary><div class="a"><p>Yes — goose's OpenAI provider takes a custom host. Set it to <code>https://daoxe.com/v1</code> with your key and an exact model ID.</p></div></details><details><summary>Why does my session stall or error on tool calls?</summary><div class="a"><p>The selected model lacks usable function calling. Switch to a tool-capable model ID from <code>GET /v1/models</code>.</p></div></details><details><summary>Does Claude through goose get prompt caching?</summary><div class="a"><p>Not automatically — goose's automatic cache markers only apply on its Anthropic/Bedrock/OpenRouter/LiteLLM providers, not the generic OpenAI-compatible path. Expect plain-input billing.</p></div></details><details><summary>What does it cost?</summary><div class="a"><p>Per-model and account-scoped — see <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>; top-up is a flat 1 RMB = $1 of credit on every payment method.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-route-goose-through-daoxe">Why route goose through DaoXE</a></li><li><a href="#set-it-up-in-goose">Set it up in goose</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/use-daoxe-in-open-webui/"><div class="r-k">Use DaoXE in Open WebUI</div><div class="r-d">Open WebUI via an OpenAI API connection.</div></a><a href="/daoxe-guide/en/use-daoxe-in-roo-code/"><div class="r-k">Use DaoXE in Roo Code</div><div class="r-d">Roo Code via OpenAI Compatible, per-mode models.</div></a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/"><div class="r-k">Cursor &amp; Claude Code</div><div class="r-d">Point Cursor and Claude Code at a cheaper endpoint.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
