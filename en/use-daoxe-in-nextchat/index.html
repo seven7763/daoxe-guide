@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use DaoXE in NextChat — env vars or settings, one key many models</title>
+  <meta name="description" content="Wire DaoXE into NextChat (formerly ChatGPT-Next-Web): API endpoint override in Settings or OPENAI_BASE_URL for self-hosting, CUSTOM_MODELS to shape the picker, and the /v1 suffix gotcha.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-nextchat/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-nextchat/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Use DaoXE in NextChat — env vars or settings, one key many models">
+  <meta property="og:description" content="Wire DaoXE into NextChat (formerly ChatGPT-Next-Web): API endpoint override in Settings or OPENAI_BASE_URL for self-hosting, CUSTOM_MODELS to shape the picker, and the /v1 suffix gotcha.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Use DaoXE in NextChat — env vars or settings, one key many models">
+  <meta name="twitter:description" content="Wire DaoXE into NextChat (formerly ChatGPT-Next-Web): API endpoint override in Settings or OPENAI_BASE_URL for self-hosting, CUSTOM_MODELS to shape the picker, and the /v1 suffix gotcha.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/#article", "headline": "Use DaoXE in NextChat", "name": "Use DaoXE in NextChat — env vars or settings, one key many models", "description": "Wire DaoXE into NextChat (formerly ChatGPT-Next-Web): API endpoint override in Settings or OPENAI_BASE_URL for self-hosting, CUSTOM_MODELS to shape the picker, and the /v1 suffix gotcha.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Use DaoXE in NextChat", "item": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-nextchat/#faq", "mainEntity": [{"@type": "Question", "name": "Does NextChat work with DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — it's an OpenAI-compatible endpoint swap: key + https://daoxe.com/v1, in Settings or via OPENAI_BASE_URL."}}, {"@type": "Question", "name": "Why do some picker models error?", "acceptedAnswer": {"@type": "Answer", "text": "They're built-in names your key can't call. Hide them: CUSTOM_MODELS=-gpt-4o,… and list only IDs from GET /v1/models."}}, {"@type": "Question", "name": "Self-hosted or Vercel?", "acceptedAnswer": {"@type": "Answer", "text": "Both take the same env vars. For shared deployments keep the key server-side (API mode), not in visitors' browsers."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Per-model, account-scoped — live pricing; top-up is a flat 1 RMB = $1 of credit on every payment method."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-nextchat/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-nextchat/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-nextchat/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Use DaoXE in NextChat</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Use DaoXE in NextChat</h1>
+      <p class="lead">NextChat (the project formerly known as ChatGPT-Next-Web) is a self-hostable chat UI whose OpenAI provider takes a custom endpoint. Point it at DaoXE and one key fills its picker with your whole catalogue.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>NextChat speaks OpenAI-compatible HTTP, so DaoXE is an endpoint swap — in the Settings UI or via <code>OPENAI_BASE_URL</code> when you self-host. Its <code>CUSTOM_MODELS</code> list then shapes exactly which account-scoped IDs appear (<a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a>).</p><h2 id="why-route-nextchat-through-daoxe">Why route NextChat through DaoXE<a class="anchor" href="#why-route-nextchat-through-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>Self-hosted in minutes.</strong> Docker + two env vars; your conversations live on your server.</li><li><strong>The picker is your catalogue.</strong> <code>CUSTOM_MODELS</code> whitelists (or <code>-</code>-prefixes away) real IDs from <code>GET /v1/models</code>.</li><li><strong>One key for the whole instance.</strong> Every user of your NextChat deployment shares the DaoXE balance.</li></ul><h2 id="set-it-up-in-nextchat">Set it up in NextChat<a class="anchor" href="#set-it-up-in-nextchat" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Hosted app: Settings.</span> Open <strong>Settings → Model Provider → OpenAI</strong>, paste the DaoXE key, and set the API endpoint to <code>https://daoxe.com/v1</code>.</li><li><span class="s-title">Self-hosted: env.</span> Set <code>OPENAI_API_KEY</code> and <code>OPENAI_BASE_URL=https://daoxe.com/v1</code> in docker-compose / Vercel env.</li><li><span class="s-title">Shape the model list.</span> Use <code>CUSTOM_MODELS</code> to list exact IDs (prefix <code>-</code> to hide built-ins you can't call).</li><li><span class="s-title">Send a test message.</span> Then check the response's model field — it should echo the ID you picked.</li></ol><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code># self-hosted: docker-compose env
+OPENAI_API_KEY=sk-you…-key
+OPENAI_BASE_URL=https://daoxe.com/v1
+CUSTOM_MODELS=glm-5.3-flash,-gpt-4o</code></pre></div><div class="callout warn"><p class="c-title">Caveats worth knowing</p><p><code>OPENAI_BASE_URL</code> ends at <code>/v1</code> — NextChat appends <code>/chat/completions</code>; a missing suffix is the classic 404. Built-in model names that your key can't call must be hidden via <code>CUSTOM_MODELS=-name</code> or the picker will offer dead entries. Server-side vs client-side API mode changes where the key lives — keep it server-side for shared deployments. More clients: <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">client setup notes</a>.</p></div><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Verify the endpoint before wiring the UI, then diff a hard prompt against the official API at temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Does NextChat work with DaoXE?</summary><div class="a"><p>Yes — it's an OpenAI-compatible endpoint swap: key + <code>https://daoxe.com/v1</code>, in Settings or via <code>OPENAI_BASE_URL</code>.</p></div></details><details><summary>Why do some picker models error?</summary><div class="a"><p>They're built-in names your key can't call. Hide them: <code>CUSTOM_MODELS=-gpt-4o,…</code> and list only IDs from <code>GET /v1/models</code>.</p></div></details><details><summary>Self-hosted or Vercel?</summary><div class="a"><p>Both take the same env vars. For shared deployments keep the key server-side (API mode), not in visitors' browsers.</p></div></details><details><summary>What does it cost?</summary><div class="a"><p>Per-model, account-scoped — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>; top-up is a flat 1 RMB = $1 of credit on every payment method.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-route-nextchat-through-daoxe">Why route NextChat through DaoXE</a></li><li><a href="#set-it-up-in-nextchat">Set it up in NextChat</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/use-daoxe-in-chatbox/"><div class="r-k">Use DaoXE in Chatbox</div><div class="r-d">Chatbox via Custom Provider (API host + key).</div></a><a href="/daoxe-guide/en/use-daoxe-in-open-webui/"><div class="r-k">Use DaoXE in Open WebUI</div><div class="r-d">Open WebUI via an OpenAI API connection.</div></a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
