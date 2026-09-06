@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 Obsidian Copilot 里用 DaoXE —— 给你的笔记库加一个 BYOK 自定义供应商</title>
+  <meta name="description" content="把 Obsidian Copilot 的 BYOK 自定义供应商指向 DaoXE：base URL、存在 Obsidian Keychain 里的 key、经 /v1/models 发现模型，以及 CORS 开关与 agent 路由的注意点。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-obsidian-copilot/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-obsidian-copilot/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-obsidian-copilot/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 Obsidian Copilot 里用 DaoXE —— 给你的笔记库加一个 BYOK 自定义供应商">
+  <meta property="og:description" content="把 Obsidian Copilot 的 BYOK 自定义供应商指向 DaoXE：base URL、存在 Obsidian Keychain 里的 key、经 /v1/models 发现模型，以及 CORS 开关与 agent 路由的注意点。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 Obsidian Copilot 里用 DaoXE —— 给你的笔记库加一个 BYOK 自定义供应商">
+  <meta name="twitter:description" content="把 Obsidian Copilot 的 BYOK 自定义供应商指向 DaoXE：base URL、存在 Obsidian Keychain 里的 key、经 /v1/models 发现模型，以及 CORS 开关与 agent 路由的注意点。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/#article", "headline": "在 Obsidian Copilot 里用 DaoXE", "name": "在 Obsidian Copilot 里用 DaoXE —— 给你的笔记库加一个 BYOK 自定义供应商", "description": "把 Obsidian Copilot 的 BYOK 自定义供应商指向 DaoXE：base URL、存在 Obsidian Keychain 里的 key、经 /v1/models 发现模型，以及 CORS 开关与 agent 路由的注意点。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 Obsidian Copilot 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/#faq", "mainEntity": [{"@type": "Question", "name": "Obsidian Copilot 能接 DaoXE 吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— BYOK → Add a custom provider：base URL 填 https://daoxe.com/v1，加 key 和精确模型 ID。"}}, {"@type": "Question", "name": "Test 通过但聊天失败？", "acceptedAnswer": {"@type": "Answer", "text": "这是 CORS 情形：在供应商设置里开 Enable CORS。之后响应改为非流式整体返回。"}}, {"@type": "Question", "name": "key 存在哪？", "acceptedAnswer": {"@type": "Answer", "text": "本设备的 Obsidian Keychain —— 不在 data.json 里，所以同步笔记库不会复制 key。"}}, {"@type": "Question", "name": "怎么收费？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、随账号 —— 实时定价；充值统一 1 元 = $1 额度。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-obsidian-copilot/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-obsidian-copilot/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-obsidian-copilot/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 Obsidian Copilot 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 Obsidian Copilot 里用 DaoXE</h1>
+      <p class="lead">Copilot 是 Obsidian 安装量最大的 AI 插件。它的 BYOK 流程接受任何 OpenAI 兼容端点作为自定义供应商 —— 一个 DaoXE key 就能让笔记库聊天与 agent 功能变成多厂商配置。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Copilot 的 <strong>Settings → Copilot → BYOK → Add a provider → Add a custom provider</strong> 只要 base URL、key 和模型 ID —— 这正是 DaoXE 的形态。配一次，Quick Chat 和 agent 功能就能在一个余额里触达 GPT、Claude、Gemini、DeepSeek 和你账号目录里的其余模型（<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>）。</p><h2 id="obsidian-copilot-daoxe">为什么让 Obsidian Copilot 走 DaoXE<a class="anchor" href="#obsidian-copilot-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>AI 在笔记旁边。</strong> 聊天、改写、总结直接对着笔记库，不用把文字搬到别的应用。</li><li><strong>一个 key，多家厂商。</strong> 插件里不用塞各家账号。</li><li><strong>key 存在 Keychain。</strong> BYOK key 存在本设备的 Obsidian Keychain，不进笔记库的 <code>data.json</code> —— 同步笔记库不会带走凭证。</li></ul><h2 id="obsidian-copilot">在 Obsidian Copilot 里配置<a class="anchor" href="#obsidian-copilot" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">打开 BYOK 设置。</span> Obsidian → <strong>Settings → Copilot → BYOK</strong> → <strong>Add a provider</strong> → <strong>Add a custom provider</strong>。</li><li><span class="s-title">填 base URL 和 key。</span> 填 <code>https://daoxe.com/v1</code> 和你的 DaoXE key。base URL 到 <code>/v1</code> 为止，路径插件自己补。</li><li><span class="s-title">填精确模型 ID。</span> 模型发现走端点的 <code>/v1/models</code>；如果列表拉不下来，就从 <code>GET /v1/models</code> 原样粘贴一个 ID —— 猜的名字会失败。</li><li><span class="s-title">Test 后整理列表。</span> 点 <strong>Test</strong> 和 <strong>Save</strong>。新模型默认对 Quick Chat 和 agent 功能启用；列表在 <strong>Basic → Agents</strong> 里整理。</li></ol><div class="callout warn"><p class="c-title">值得注意的坑</p><p><strong>CORS 开关：</strong>如果 <em>Test</em> 通过但聊天发不出去，编辑供应商并打开 <strong>Enable CORS</strong> —— 之后响应会在完成后整体到达，而不是逐 token 流式。<strong>Agent 路由：</strong>Copilot 在启动时把保存的 key 传给 agent 后端；后端路由不了的模型不会出现在 agent 列表，但仍可能用于 Quick Chat。<strong>key 存储：</strong>key 在本设备 Keychain，删除入口在 <strong>Advanced → API Key Storage</strong>。模型 ID 与账号绑定。更多客户端见<a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">客户端设置说明</a>。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先在客户端之外验证端点，再在 temperature 0 下把难题与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Obsidian Copilot 能接 DaoXE 吗？</summary><div class="a"><p>能 —— BYOK → Add a custom provider：base URL 填 <code>https://daoxe.com/v1</code>，加 key 和精确模型 ID。</p></div></details><details><summary>Test 通过但聊天失败？</summary><div class="a"><p>这是 CORS 情形：在供应商设置里开 <strong>Enable CORS</strong>。之后响应改为非流式整体返回。</p></div></details><details><summary>key 存在哪？</summary><div class="a"><p>本设备的 Obsidian Keychain —— 不在 <code>data.json</code> 里，所以同步笔记库不会复制 key。</p></div></details><details><summary>怎么收费？</summary><div class="a"><p>按模型、随账号 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>；充值统一 1 元 = $1 额度。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#obsidian-copilot-daoxe">为什么让 Obsidian Copilot 走 DaoXE</a></li><li><a href="#obsidian-copilot">在 Obsidian Copilot 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-chatbox/"><div class="r-k">在 Chatbox 里用 DaoXE</div><div class="r-d">Chatbox 走 Custom Provider（API host + key）。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-cherry-studio/"><div class="r-k">在 Cherry Studio 里用 DaoXE</div><div class="r-d">Cherry Studio 走 OpenAI 类型供应商。</div></a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
