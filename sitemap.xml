@@ -362,6 +362,16 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
   </url>
   <url>
+    <loc>https://seven7763.github.io/daoxe-guide/en/glm-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/glm-api-openai-compatible/"/>
+  </url>
+  <url>
     <loc>https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -722,6 +732,16 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
   </url>
   <url>
+    <loc>https://seven7763.github.io/daoxe-guide/ru/glm-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/glm-api-openai-compatible/"/>
+  </url>
+  <url>
     <loc>https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-your-tools/</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -1080,6 +1100,16 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/doubao-api-openai-compatible/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/doubao-api-openai-compatible/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/doubao-api-openai-compatible/"/>
+  </url>
+  <url>
+    <loc>https://seven7763.github.io/daoxe-guide/zh/glm-api-openai-compatible/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/glm-api-openai-compatible/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/glm-api-openai-compatible/"/>
   </url>
   <url>
     <loc>https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-your-tools/</loc>
