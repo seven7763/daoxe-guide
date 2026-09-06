@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 Raycast AI 里用 DaoXE —— providers.yaml 自定义供应商</title>
+  <meta name="description" content="把 Raycast 的 Custom Providers（providers.yaml）连到 DaoXE：base_url、key、模型 abilities 标志、配置热加载，以及 Pro 门槛与默认能力的坑。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-raycast-ai/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 Raycast AI 里用 DaoXE —— providers.yaml 自定义供应商">
+  <meta property="og:description" content="把 Raycast 的 Custom Providers（providers.yaml）连到 DaoXE：base_url、key、模型 abilities 标志、配置热加载，以及 Pro 门槛与默认能力的坑。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 Raycast AI 里用 DaoXE —— providers.yaml 自定义供应商">
+  <meta name="twitter:description" content="把 Raycast 的 Custom Providers（providers.yaml）连到 DaoXE：base_url、key、模型 abilities 标志、配置热加载，以及 Pro 门槛与默认能力的坑。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/#article", "headline": "在 Raycast AI 里用 DaoXE", "name": "在 Raycast AI 里用 DaoXE —— providers.yaml 自定义供应商", "description": "把 Raycast 的 Custom Providers（providers.yaml）连到 DaoXE：base_url、key、模型 abilities 标志、配置热加载，以及 Pro 门槛与默认能力的坑。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 Raycast AI 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/#faq", "mainEntity": [{"@type": "Question", "name": "Raycast AI 能接 DaoXE 吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— Custom Providers：在 providers.yaml 加一条 base_url: https://daoxe.com/v1，配上 key 和精确模型 ID。"}}, {"@type": "Question", "name": "需要 Raycast Pro 吗？", "acceptedAnswer": {"@type": "Answer", "text": "Custom Providers 需要。免费档的 AI 看不到这个区块。"}}, {"@type": "Question", "name": "为什么模型的 tools 不工作？", "acceptedAnswer": {"@type": "Answer", "text": "tools 和 vision 默认关闭 —— 只有模型真支持时才声明 supported: true。"}}, {"@type": "Question", "name": "怎么收费？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、随账号 —— 实时定价；充值统一 1 元 = $1 额度。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-raycast-ai/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-raycast-ai/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-raycast-ai/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 Raycast AI 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 Raycast AI 里用 DaoXE</h1>
+      <p class="lead">Raycast 启动器内置 AI 聊天、Quick AI 和 AI Extensions。它的 Custom Providers 通过一个 YAML 文件接受任何 OpenAI 兼容端点 —— 一个 DaoXE key 喂饱启动器里的所有 AI 入口。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Raycast 的 <strong>Custom Providers</strong> 读取 <code>~/.config/raycast/ai/providers.yaml</code>，把你声明的模型注册进所有 AI 功能 —— 聊天、Quick AI、AI Extensions。加一条 DaoXE 记录，启动器的模型选择器就能在一个余额里覆盖 GPT、Claude、Gemini、DeepSeek 和你账号的整个目录（<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>）。</p><h2 id="raycast-ai-daoxe">为什么让 Raycast AI 走 DaoXE<a class="anchor" href="#raycast-ai-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>AI 在按键层。</strong> Raycast 要模型的地方都是同一批 —— 不用来回切应用。</li><li><strong>一个 key，多家厂商。</strong> 跨厂商网关是官方明确支持的形态，不是偏方。</li><li><strong>直连路由。</strong> 请求从你的设备直达端点 —— Raycast 的服务器不在链路里。</li></ul><h2 id="raycast-ai">在 Raycast AI 里配置<a class="anchor" href="#raycast-ai" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">打开 Custom Providers。</span> Raycast → <strong>Settings → AI</strong> → 滚到 <strong>Custom Providers</strong> → <strong>Reveal Providers Config</strong>。把 <code>providers.template.yaml</code> 复制成 <code>providers.yaml</code>。</li><li><span class="s-title">声明供应商。</span> 加一条记录：<code>base_url: https://daoxe.com/v1</code>（不要带 <code>/chat/completions</code> 后缀），key 放 <code>api_keys</code>。</li><li><span class="s-title">注册精确模型 ID。</span> 每个模型要有从 <code>GET /v1/models</code> 原样复制的 <code>id</code>、显示用 <code>name</code>、符合实际的 <code>context</code>。猜的 ID 在请求时才失败。</li><li><span class="s-title">如实声明 abilities。</span> 声明模型真实支持的能力 —— AI Extensions 需要 <code>tools</code>，图片输入需要 <code>vision</code>。保存即热加载，不用重启。</li></ol><div class="code"><span class="lang-tag">yaml</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># ~/.config/raycast/ai/providers.yaml
+providers:
+  - id: daoxe
+    name: DaoXE
+    base_url: https://daoxe.com/v1
+    api_keys:
+      daoxe: sk-you…-key
+    models:
+      - id: &lt;exact-model-id&gt;
+        name: GLM 5.3 Flash
+        provider: daoxe
+        context: 128000
+        abilities:
+          tools: {supported: true}
+          vision: {supported: true}</code></pre></div><div class="callout warn"><p class="c-title">值得注意的坑</p><p><strong>需要 Pro。</strong> Custom Providers 是 Pro 档功能，免费档没有这个区块。<strong>默认能力会咬人：</strong>没声明的能力默认 system-message 和 temperature 开、tools 和 vision 关 —— 本来会工具调用的模型被静默阉割。<strong>校验徽标：</strong>YAML 写错时 Settings 里出现 <em>Invalid providers.yaml</em> 徽标，悬停看解析错误；修好之前已加载的模型照常工作。<strong>OpenAI API 不是标准：</strong>Raycast 文档明说无法保证所有供应商都兼容 —— 全面铺开前先测一条聊天。更多客户端见<a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">客户端设置说明</a>。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先在客户端之外验证端点，再在 temperature 0 下把难题与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Raycast AI 能接 DaoXE 吗？</summary><div class="a"><p>能 —— Custom Providers：在 providers.yaml 加一条 <code>base_url: https://daoxe.com/v1</code>，配上 key 和精确模型 ID。</p></div></details><details><summary>需要 Raycast Pro 吗？</summary><div class="a"><p>Custom Providers 需要。免费档的 AI 看不到这个区块。</p></div></details><details><summary>为什么模型的 tools 不工作？</summary><div class="a"><p><code>tools</code> 和 <code>vision</code> 默认关闭 —— 只有模型真支持时才声明 <code>supported: true</code>。</p></div></details><details><summary>怎么收费？</summary><div class="a"><p>按模型、随账号 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>；充值统一 1 元 = $1 额度。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#raycast-ai-daoxe">为什么让 Raycast AI 走 DaoXE</a></li><li><a href="#raycast-ai">在 Raycast AI 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-cline/"><div class="r-k">在 Cline 里用 DaoXE</div><div class="r-d">Cline 走 OpenAI Compatible 供应商。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-goose/"><div class="r-k">在 goose 里用 DaoXE</div><div class="r-d">goose 走 OpenAI 供应商的自定义 host。</div></a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE в Raycast AI — кастомный провайдер в providers.yaml</title>
+  <meta name="description" content="Подключение Custom Providers Raycast (providers.yaml) к DaoXE: base_url, ключи, флаги способностей моделей, hot-reload конфига, плюс требование Pro и подводный камень значений по умолчанию.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-raycast-ai/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-raycast-ai/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE в Raycast AI — кастомный провайдер в providers.yaml">
+  <meta property="og:description" content="Подключение Custom Providers Raycast (providers.yaml) к DaoXE: base_url, ключи, флаги способностей моделей, hot-reload конфига, плюс требование Pro и подводный камень значений по умолчанию.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE в Raycast AI — кастомный провайдер в providers.yaml">
+  <meta name="twitter:description" content="Подключение Custom Providers Raycast (providers.yaml) к DaoXE: base_url, ключи, флаги способностей моделей, hot-reload конфига, плюс требование Pro и подводный камень значений по умолчанию.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/#article", "headline": "DaoXE в Raycast AI", "name": "DaoXE в Raycast AI — кастомный провайдер в providers.yaml", "description": "Подключение Custom Providers Raycast (providers.yaml) к DaoXE: base_url, ключи, флаги способностей моделей, hot-reload конфига, плюс требование Pro и подводный камень значений по умолчанию.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE в Raycast AI", "item": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-raycast-ai/#faq", "mainEntity": [{"@type": "Question", "name": "Raycast AI умеет DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Да — Custom Providers: запись в providers.yaml с base_url: https://daoxe.com/v1, ключом и точными ID моделей."}}, {"@type": "Question", "name": "Нужен ли Raycast Pro?", "acceptedAnswer": {"@type": "Answer", "text": "Да, для Custom Providers. В бесплатном тарифе секция не отображается."}}, {"@type": "Question", "name": "Почему у модели не работают tools?", "acceptedAnswer": {"@type": "Answer", "text": "Способности tools и vision по умолчанию выключены — объявите supported: true, только если модель реально их поддерживает."}}, {"@type": "Question", "name": "Сколько стоит?", "acceptedAnswer": {"@type": "Answer", "text": "По моделям и аккаунту — актуальные цены; пополнение — фиксированные 1 ¥ = $1 квоты."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-raycast-ai/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-raycast-ai/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-raycast-ai/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>DaoXE в Raycast AI</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE в Raycast AI</h1>
+      <p class="lead">В лаунчере Raycast встроены AI-чат, Quick AI и AI Extensions. Custom Providers принимает любой OpenAI-совместимый эндпоинт через YAML-файл — один ключ DaoXE питает все AI-поверхности лаунчера.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p><strong>Custom Providers</strong> Raycast читает <code>~/.config/raycast/ai/providers.yaml</code> и регистрирует объявленные модели во всех AI-функциях — чат, Quick AI, AI Extensions. Одна запись на DaoXE, и выборщик моделей лаунчера охватывает GPT, Claude, Gemini, DeepSeek и весь каталог аккаунта на одном балансе (<a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">гайд по дешёвым API</a>).</p><h2 id="raycast-ai-daoxe">Зачем направлять Raycast AI через DaoXE<a class="anchor" href="#raycast-ai-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>AI в слое хоткеев.</strong> Одни и те же модели везде, где Raycast спрашивает модель — без переключения приложений.</li><li><strong>Один ключ, много вендоров.</strong> Кросс-вендорные шлюзы — явно поддерживаемый сценарий, а не хак.</li><li><strong>Прямая маршрутизация.</strong> Запросы идут с устройства прямо на эндпоинт — серверы Raycast вне пути.</li></ul><h2 id="raycast-ai">Настройка в Raycast AI<a class="anchor" href="#raycast-ai" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Откройте Custom Providers.</span> Raycast → <strong>Settings → AI</strong> → прокрутите до <strong>Custom Providers</strong> → <strong>Reveal Providers Config</strong>. Скопируйте <code>providers.template.yaml</code> в <code>providers.yaml</code>.</li><li><span class="s-title">Опишите провайдера.</span> Запись с <code>base_url: https://daoxe.com/v1</code> (без суффикса <code>/chat/completions</code>) и ваш ключ в <code>api_keys</code>.</li><li><span class="s-title">Зарегистрируйте точные ID.</span> Каждой модели нужен <code>id</code> из <code>GET /v1/models</code>, показываемое <code>name</code> и реалистичный <code>context</code>. Придуманные ID падают на запросе.</li><li><span class="s-title">Честно укажите abilities.</span> Объявляйте то, что модель реально умеет — <code>tools</code> для AI Extensions, <code>vision</code> для картинок. Сохраните; файл подхватывается без перезапуска.</li></ol><div class="code"><span class="lang-tag">yaml</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code># ~/.config/raycast/ai/providers.yaml
+providers:
+  - id: daoxe
+    name: DaoXE
+    base_url: https://daoxe.com/v1
+    api_keys:
+      daoxe: sk-you…-key
+    models:
+      - id: &lt;exact-model-id&gt;
+        name: GLM 5.3 Flash
+        provider: daoxe
+        context: 128000
+        abilities:
+          tools: {supported: true}
+          vision: {supported: true}</code></pre></div><div class="callout warn"><p class="c-title">Что важно учесть</p><p><strong>Нужен Pro.</strong> Custom Providers — функция тарифа Pro; в бесплатном секция не появится. <strong>Значения по умолчанию:</strong> необъявленная способность означает system-message и temperature включёнными, tools и vision выключенными — модель, которая умела tools, молча их не получит. <strong>Бейдж валидации:</strong> битый YAML показывает бейдж <em>Invalid providers.yaml</em> рядом с Providers Config; наведите для текста ошибки, а уже загруженные модели продолжают работать. <strong>OpenAI API — не стандарт:</strong> в доках Raycast прямо сказано, что совместимость с каждым провайдером не гарантируется — проверьте один чат перед раскаткой. Больше клиентов — в <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">заметки по настройке клиентов</a>.</p></div><h2 id="sec-3">Убедитесь, что отдают настоящую модель<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>Сначала проверьте эндпоинт, а не клиент — если это не работает, настройки не помогут:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Проверьте эндпоинт вне клиента, затем сравните сложный промпт с официальным API при temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Проверяйте нас, а не верьте на слово</p><p>Направьте <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a> на DaoXE и на официальный API и сравните при temperature 0. Затем изучите, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, чтобы дешёвый эндпоинт не подменил вам модель на меньшую.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Raycast AI умеет DaoXE?</summary><div class="a"><p>Да — Custom Providers: запись в providers.yaml с <code>base_url: https://daoxe.com/v1</code>, ключом и точными ID моделей.</p></div></details><details><summary>Нужен ли Raycast Pro?</summary><div class="a"><p>Да, для Custom Providers. В бесплатном тарифе секция не отображается.</p></div></details><details><summary>Почему у модели не работают tools?</summary><div class="a"><p>Способности <code>tools</code> и <code>vision</code> по умолчанию выключены — объявите <code>supported: true</code>, только если модель реально их поддерживает.</p></div></details><details><summary>Сколько стоит?</summary><div class="a"><p>По моделям и аккаунту — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=ru" target="_blank" rel="noopener">актуальные цены</a>; пополнение — фиксированные 1 ¥ = $1 квоты.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#raycast-ai-daoxe">Зачем направлять Raycast AI через DaoXE</a></li><li><a href="#raycast-ai">Настройка в Raycast AI</a></li><li><a href="#sec-3">Убедитесь, что отдают настоящую модель</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/"><div class="r-k">В ваших инструментах</div><div class="r-d">Индекс всех интеграций DaoXE + таблица выбора.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-cline/"><div class="r-k">DaoXE в Cline</div><div class="r-d">Cline через провайдер OpenAI Compatible.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-goose/"><div class="r-k">DaoXE в goose</div><div class="r-d">goose через кастомный host провайдера OpenAI.</div></a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/"><div class="r-k">Проверка подмены</div><div class="r-d">Ловите даунгрейд, квантизацию и обрезку контекста в любом прокси.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
