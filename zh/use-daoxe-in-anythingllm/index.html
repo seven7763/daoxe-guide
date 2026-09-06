@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 AnythingLLM 里用 DaoXE —— OpenAI Generic 供应商接文档问答</title>
+  <meta name="description" content="把 AnythingLLM 的 OpenAI (Generic) 供应商指向 DaoXE：到 /v1 为止的 base URL、key、模型下拉列表，以及最容易出错的 context window 与 max token 两个字段。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-anythingllm/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-anythingllm/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-anythingllm/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 AnythingLLM 里用 DaoXE —— OpenAI Generic 供应商接文档问答">
+  <meta property="og:description" content="把 AnythingLLM 的 OpenAI (Generic) 供应商指向 DaoXE：到 /v1 为止的 base URL、key、模型下拉列表，以及最容易出错的 context window 与 max token 两个字段。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 AnythingLLM 里用 DaoXE —— OpenAI Generic 供应商接文档问答">
+  <meta name="twitter:description" content="把 AnythingLLM 的 OpenAI (Generic) 供应商指向 DaoXE：到 /v1 为止的 base URL、key、模型下拉列表，以及最容易出错的 context window 与 max token 两个字段。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/#article", "headline": "在 AnythingLLM 里用 DaoXE", "name": "在 AnythingLLM 里用 DaoXE —— OpenAI Generic 供应商接文档问答", "description": "把 AnythingLLM 的 OpenAI (Generic) 供应商指向 DaoXE：到 /v1 为止的 base URL、key、模型下拉列表，以及最容易出错的 context window 与 max token 两个字段。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 AnythingLLM 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-anythingllm/#faq", "mainEntity": [{"@type": "Question", "name": "AnythingLLM 能接 DaoXE 吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— OpenAI (Generic) 供应商：base URL 填 https://daoxe.com/v1，加 key 和精确模型 ID。"}}, {"@type": "Question", "name": "为什么长对话忘了开头？", "acceptedAnswer": {"@type": "Answer", "text": "context window 字段填得比模型真实窗口大。改成真实值。"}}, {"@type": "Question", "name": "embedding 也能用吗？", "acceptedAnswer": {"@type": "Answer", "text": "AnythingLLM 的 embedding 模型单独配置 —— 在那里从目录选 embedding ID。"}}, {"@type": "Question", "name": "怎么收费？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、随账号 —— 实时定价；充值统一 1 元 = $1 额度。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-anythingllm/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-anythingllm/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-anythingllm/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 AnythingLLM 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 AnythingLLM 里用 DaoXE</h1>
+      <p class="lead">AnythingLLM 把文档变成可对话的知识库。它的 OpenAI (Generic) 供应商接受任何 OpenAI 兼容端点 —— 一个 DaoXE key 让整个账号目录成为文件 RAG 的后端。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>AnythingLLM 的 <strong>LLM Provider → OpenAI (Generic)</strong> 只要 base URL、key 和模型 —— 正是 DaoXE 的形态。配一次，文档聊天、agent、向量流程都从同一个账号取模型（<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>）。</p><h2 id="anythingllm-daoxe">为什么让 AnythingLLM 走 DaoXE<a class="anchor" href="#anythingllm-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>文档变知识库。</strong> 对 PDF 和笔记做 RAG 聊天，模型随选。</li><li><strong>一个 key，多家厂商。</strong> 换后端不用重新上传或重建索引。</li><li><strong>token 控制显式化。</strong> 上下文窗口和单次 max token 是一级设置，不是隐藏默认。</li></ul><h2 id="anythingllm">在 AnythingLLM 里配置<a class="anchor" href="#anythingllm" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">打开 LLM 设置。</span> <strong>Settings → AI Providers → LLM</strong> → 云供应商里选 <strong>OpenAI (Generic)</strong>。</li><li><span class="s-title">填 Base URL。</span> 填 <code>https://daoxe.com/v1</code> —— 底层 OpenAI SDK 自己补路径，所以 URL 必须到 <code>/v1</code> 为止。</li><li><span class="s-title">加 key、选模型。</span> 粘贴 DaoXE key；Chat Model 字段会列出账号 <code>/v1/models</code> 里的 ID —— 选一个精确的。</li><li><span class="s-title">填两个数字字段。</span> <strong>Model context window</strong> 填所选模型的真实窗口；<strong>Max Tokens</strong> 限制单次请求。填错不会报错，只会静默截断。</li></ol><div class="callout warn"><p class="c-title">值得注意的坑</p><p><strong>两个数字字段要命：</strong>context window 填得比模型真实窗口大，长对话会静默丢失早期历史；填小了浪费模型。<strong>面向开发者的选项：</strong>AnythingLLM 官方文档自己标注 Generic OpenAI 适合「清楚每个输入含义」的用户 —— 端点不是 OpenAI 形态时才优先考虑官方一方的供应商。<strong>精确 ID：</strong>从实时模型列表选择；猜的名字在第一条消息就失败。更多客户端见<a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">客户端设置说明</a>。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先在客户端之外验证端点，再在 temperature 0 下把难题与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>AnythingLLM 能接 DaoXE 吗？</summary><div class="a"><p>能 —— OpenAI (Generic) 供应商：base URL 填 <code>https://daoxe.com/v1</code>，加 key 和精确模型 ID。</p></div></details><details><summary>为什么长对话忘了开头？</summary><div class="a"><p>context window 字段填得比模型真实窗口大。改成真实值。</p></div></details><details><summary>embedding 也能用吗？</summary><div class="a"><p>AnythingLLM 的 embedding 模型单独配置 —— 在那里从目录选 embedding ID。</p></div></details><details><summary>怎么收费？</summary><div class="a"><p>按模型、随账号 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>；充值统一 1 元 = $1 额度。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#anythingllm-daoxe">为什么让 AnythingLLM 走 DaoXE</a></li><li><a href="#anythingllm">在 AnythingLLM 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-open-webui/"><div class="r-k">在 Open WebUI 里用 DaoXE</div><div class="r-d">Open WebUI 走 OpenAI API 连接。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-chatbox/"><div class="r-k">在 Chatbox 里用 DaoXE</div><div class="r-d">Chatbox 走 Custom Provider（API host + key）。</div></a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

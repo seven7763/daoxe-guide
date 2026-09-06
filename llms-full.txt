@@ -82,7 +82,7 @@ DaoXE's differentiator is "verify, don't trust". Cheap relays sometimes serve a 
 
 - Vercel AI SDK: `@daoxe/ai-sdk-provider` — `createDaoxe()` / `daoxe('model-id')`, defaults to `https://daoxe.com/v1`, reads `DAOXE_API_KEY`. (Publishing pending.) https://www.npmjs.com/package/@daoxe/ai-sdk-provider
 - MCP: `com.daoxe/gateway` server for MCP clients (Claude Desktop, Cursor). (Registry publishing pending.)
-- Drop-in clients: Cursor, Cline / Roo Code / Kilo Code, Aider, Continue, goose, LobeChat, Chatbox, NextChat, Open WebUI, n8n, Obsidian Copilot, Raycast AI, Obsidian Text Generator — set the base URL to `https://daoxe.com/v1` and paste the key. Per-tool setup guides: https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/
+- Drop-in clients: Cursor, Cline / Roo Code / Kilo Code, Aider, Continue, goose, LobeChat, Chatbox, NextChat, Open WebUI, n8n, Obsidian Copilot, Raycast AI, Obsidian Text Generator, AnythingLLM — set the base URL to `https://daoxe.com/v1` and paste the key. Per-tool setup guides: https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-your-tools/
 
 ## Links
 
