@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use DaoXE in Dify — the OpenAI-API-compatible provider for LLM apps</title>
+  <meta name="description" content="Add DaoXE to Dify via the OpenAI-API-compatible plugin: API Base URL with /v1, API key, per-model fields (context size, max tokens, function call type), and the /v1/v1 + tool-call gotchas.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-dify/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-dify/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Use DaoXE in Dify — the OpenAI-API-compatible provider for LLM apps">
+  <meta property="og:description" content="Add DaoXE to Dify via the OpenAI-API-compatible plugin: API Base URL with /v1, API key, per-model fields (context size, max tokens, function call type), and the /v1/v1 + tool-call gotchas.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Use DaoXE in Dify — the OpenAI-API-compatible provider for LLM apps">
+  <meta name="twitter:description" content="Add DaoXE to Dify via the OpenAI-API-compatible plugin: API Base URL with /v1, API key, per-model fields (context size, max tokens, function call type), and the /v1/v1 + tool-call gotchas.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/#article", "headline": "Use DaoXE in Dify", "name": "Use DaoXE in Dify — the OpenAI-API-compatible provider for LLM apps", "description": "Add DaoXE to Dify via the OpenAI-API-compatible plugin: API Base URL with /v1, API key, per-model fields (context size, max tokens, function call type), and the /v1/v1 + tool-call gotchas.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "Use DaoXE in Dify", "item": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-dify/#faq", "mainEntity": [{"@type": "Question", "name": "Which Dify provider do I pick?", "acceptedAnswer": {"@type": "Answer", "text": "Install the OpenAI-API-compatible plugin and add DaoXE as a customizable model with an exact model ID, key and API Base URL."}}, {"@type": "Question", "name": "Why does my endpoint 404 on embeddings?", "acceptedAnswer": {"@type": "Answer", "text": "For embedding/rerank/STT/TTS types the plugin appends the version path itself — use the bare host (no /v1) there, and keep /v1 only for LLM models."}}, {"@type": "Question", "name": "Why won't my Agent call tools?", "acceptedAnswer": {"@type": "Answer", "text": "Function Call Type on the model entry defaults to Not Support — set Tool Call, and use a model with real function calling."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Per-model, account-scoped — live pricing; top-up is a flat 1 RMB = $1 of credit on every payment method."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-dify/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-dify/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-dify/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>Use DaoXE in Dify</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Use DaoXE in Dify</h1>
+      <p class="lead">Dify is the open-source LLM app platform — chatflows, workflows and agents. Its OpenAI-API-compatible model provider takes any OpenAI-shaped endpoint, so one DaoXE key can power every model in every app on the workspace.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Dify sources models through provider plugins. Install the <strong>OpenAI-API-compatible</strong> plugin from the Marketplace, add it as a <strong>customizable model</strong>, and every Dify app — chat, workflow, agent — can call your DaoXE catalogue (<a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a>). Because each model is declared individually, the per-model fields are where the real setup happens.</p><h2 id="why-route-dify-through-daoxe">Why route Dify through DaoXE<a class="anchor" href="#why-route-dify-through-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>Apps inherit the model.</strong> One workspace-wide provider serves chatflows, workflows and Agent nodes.</li><li><strong>Per-model capability switches.</strong> Context size, function-call type and vision are declared per model — so apps know what they can do.</li><li><strong>Self-hosted or Cloud.</strong> Both take the same provider and the same endpoint.</li></ul><h2 id="set-it-up-in-dify">Set it up in Dify<a class="anchor" href="#set-it-up-in-dify" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Install the provider.</span> <strong>Integrations → Model Provider</strong> (or the Marketplace), install <strong>OpenAI-API-compatible</strong>.</li><li><span class="s-title">Add the model.</span> On the provider card click <strong>Add Model</strong>. <strong>Model Name</strong> must be an exact ID from <code>GET /v1/models</code>; <strong>Model Type</strong> = LLM.</li><li><span class="s-title">Set the API Base URL.</span> For LLM models enter <code>https://daoxe.com/v1</code>. <strong>For embedding/rerank types leave the <code>/v1</code> off</strong> — the plugin appends it internally and a full URL yields a doubled path.</li><li><span class="s-title">Fill the capability fields.</span> API Key = your DaoXE key; <strong>Completion mode</strong> = Chat; <strong>Model context size</strong> = the model's real window; <strong>Upper bound for max tokens</strong> = a sane cap; <strong>Function Call Type</strong> = Tool Call when the model supports it; <strong>Vision Support</strong> per the model.</li></ol><div class="callout warn"><p class="c-title">Caveats worth knowing</p><p><strong>The /v1 rule depends on model type:</strong> the plugin's own docs use a <code>/v1</code>-ending base URL for LLM models but a bare host for embedding/rerank/STT/TTS, because those paths are appended internally — the wrong choice produces a doubled path and 404s. <strong>Function Call Type defaults to Not Support:</strong> leave it and Agent nodes will never call tools — set Tool Call (and the tool-call stream field) for models that actually do it. <strong>Context size defaults to 4096:</strong> a window far smaller than the model's real one silently truncates long prompts. <strong>Agent needs native tool calling:</strong> Dify's own troubleshooting notes that OpenAI-compatible endpoints often lack full tool support — pick the model accordingly. <strong>Token parameter name:</strong> some newer models expect <code>max_completion_tokens</code>; if auto-detection guesses wrong, set it explicitly. More clients: <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">client setup notes</a>.</p></div><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Test the provider with one app before wiring workflows, then diff a hard prompt against the official API at temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Which Dify provider do I pick?</summary><div class="a"><p>Install the <strong>OpenAI-API-compatible</strong> plugin and add DaoXE as a customizable model with an exact model ID, key and API Base URL.</p></div></details><details><summary>Why does my endpoint 404 on embeddings?</summary><div class="a"><p>For embedding/rerank/STT/TTS types the plugin appends the version path itself — use the bare host (no <code>/v1</code>) there, and keep <code>/v1</code> only for LLM models.</p></div></details><details><summary>Why won't my Agent call tools?</summary><div class="a"><p><strong>Function Call Type</strong> on the model entry defaults to Not Support — set Tool Call, and use a model with real function calling.</p></div></details><details><summary>What does it cost?</summary><div class="a"><p>Per-model, account-scoped — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>; top-up is a flat 1 RMB = $1 of credit on every payment method.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#why-route-dify-through-daoxe">Why route Dify through DaoXE</a></li><li><a href="#set-it-up-in-dify">Set it up in Dify</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/use-daoxe-in-your-tools/"><div class="r-k">Use in your tools</div><div class="r-d">Index of every DaoXE integration + a decision table.</div></a><a href="/daoxe-guide/en/use-daoxe-in-n8n/"><div class="r-k">Use DaoXE in n8n</div><div class="r-d">n8n via the OpenAI credential&#x27;s Base URL.</div></a><a href="/daoxe-guide/en/use-daoxe-in-open-webui/"><div class="r-k">Use DaoXE in Open WebUI</div><div class="r-d">Open WebUI via an OpenAI API connection.</div></a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

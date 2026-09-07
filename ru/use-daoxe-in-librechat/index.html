@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE в LibreChat — endpoints.custom в librechat.yaml</title>
+  <meta name="description" content="Добавление DaoXE в LibreChat как кастомный эндпоинт в librechat.yaml: baseURL до /v1, apiKey через env, models.default + fetch, нюансы directEndpoint, titleModel и иконок.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-librechat/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-librechat/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-librechat/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE в LibreChat — endpoints.custom в librechat.yaml">
+  <meta property="og:description" content="Добавление DaoXE в LibreChat как кастомный эндпоинт в librechat.yaml: baseURL до /v1, apiKey через env, models.default + fetch, нюансы directEndpoint, titleModel и иконок.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE в LibreChat — endpoints.custom в librechat.yaml">
+  <meta name="twitter:description" content="Добавление DaoXE в LibreChat как кастомный эндпоинт в librechat.yaml: baseURL до /v1, apiKey через env, models.default + fetch, нюансы directEndpoint, titleModel и иконок.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/#article", "headline": "DaoXE в LibreChat", "name": "DaoXE в LibreChat — endpoints.custom в librechat.yaml", "description": "Добавление DaoXE в LibreChat как кастомный эндпоинт в librechat.yaml: baseURL до /v1, apiKey через env, models.default + fetch, нюансы directEndpoint, titleModel и иконок.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE в LibreChat", "item": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-librechat/#faq", "mainEntity": [{"@type": "Question", "name": "LibreChat умеет DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Да — запись endpoints.custom с baseURL: https://daoxe.com/v1, ключом через env и точными ID моделей."}}, {"@type": "Question", "name": "Почему падают заголовки диалогов?", "acceptedAnswer": {"@type": "Answer", "text": "Дефолтный titleModel — gpt-3.5-turbo, которого у вашего ключа может не быть. Задайте реальный ID из GET /v1/models или current_model."}}, {"@type": "Question", "name": "Включать ли /v1 в baseURL?", "acceptedAnswer": {"@type": "Answer", "text": "Да — LibreChat сам допишет /chat/completions. directEndpoint: true нужен только если вы дали полный путь."}}, {"@type": "Question", "name": "Сколько стоит?", "acceptedAnswer": {"@type": "Answer", "text": "По моделям и аккаунту — актуальные цены; пополнение — фиксированные 1 ¥ = $1 квоты."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-librechat/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-librechat/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-librechat/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>DaoXE в LibreChat</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE в LibreChat</h1>
+      <p class="lead">LibreChat — self-hosted мультимодельный чат-UI. Блок <code>endpoints.custom</code> принимает любой OpenAI-совместимый эндпоинт: одна запись DaoXE даёт каждому пользователю инстанса весь каталог аккаунта.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>LibreChat настраивается файлом <code>librechat.yaml</code>. В <code>endpoints.custom</code> вы объявляете <code>name</code>, <code>apiKey</code> и <code>baseURL</code> — ровно форма DaoXE. Подблок <code>models</code> решает, что могут выбирать пользователи, и LibreChat умеет подтянуть его живьём из <code>GET /v1/models</code> (<a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">гайд по дешёвым API</a>).</p><h2 id="librechat-daoxe">Зачем направлять LibreChat через DaoXE<a class="anchor" href="#librechat-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>Self-hosted, много пользователей.</strong> Одна запись YAML обслуживает весь инстанс; ключи живут на сервере, а не в браузерах.</li><li><strong>Декларативные модели.</strong> Перечислите точные ID или включите <code>models.fetch: true</code> для живого списка аккаунта.</li><li><strong>Тюнинг на эндпоинт.</strong> Генерация заголовков, подстановка и удаление параметров — поля этого же эндпоинта.</li></ul><h2 id="librechat">Настройка в LibreChat<a class="anchor" href="#librechat" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Правьте librechat.yaml.</span> Откройте <code>librechat.yaml</code> (тот, что смонтирован в docker-compose) и добавьте блок в <code>endpoints.custom</code>.</li><li><span class="s-title">name, key, baseURL.</span> <code>name: "DaoXE"</code>; <code>apiKey: "{DAOXE_API_KEY}"</code> (ссылка на env держит ключ вне файла); <code>baseURL: "https://daoxe.com/v1"</code>.</li><li><span class="s-title">Объявите модели.</span> В <code>models.default</code> — точные ID из <code>GET /v1/models</code>; добавьте <code>models.fetch: true</code> для живого списка. <code>default</code> остаётся фолбэком при сбое загрузки.</li><li><span class="s-title">Перезапуск и выбор.</span> Перезапустите LibreChat, выберите <strong>DaoXE</strong> в селекторе эндпоинтов и модель в пикере, отправьте тестовое сообщение.</li></ol><div class="code"><span class="lang-tag">yaml</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code># librechat.yaml — custom OpenAI-compatible endpoint
+endpoints:
+  custom:
+    - name: &quot;DaoXE&quot;
+      apiKey: &quot;${DAOXE_API_KEY}&quot;
+      baseURL: &quot;https://daoxe.com/v1&quot;
+      models:
+        default: [&quot;YOUR_EXACT_MODEL_ID&quot;]
+        fetch: true
+      titleConvo: true
+      titleModel: &quot;current_model&quot;</code></pre></div><div class="callout warn"><p class="c-title">Что важно учесть</p><p><strong>baseURL заканчивается на <code>/v1</code>:</strong> приложение само дописывает <code>/chat/completions</code>; полный путь требует <code>directEndpoint: true</code>, чтобы использоваться дословно. <strong>titleModel:</strong> заголовки диалогов по умолчанию генерируются моделью <code>gpt-3.5-turbo</code>, которой у вашего ключа может не быть — задайте <code>titleModel</code> реальным ID из каталога (или <code>current_model</code>), иначе генерация заголовков падает. <strong>Не называйте как встроенное:</strong> кастомный эндпоинт с именем «openAI» или «anthropic» конфликтует со встроенными — для иконки используйте <code>iconURL</code> с ключом встроенного. <strong>addParams / dropParams:</strong> поля эндпоинта, добавляющие или убирающие параметры запроса — <code>dropParams</code> пригодится, если эндпоинт отвергает параметр по умолчанию. ID привязаны к аккаунту. Больше клиентов — в <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">заметки по настройке клиентов</a>.</p></div><h2 id="sec-3">Убедитесь, что отдают настоящую модель<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>Сначала проверьте эндпоинт, а не клиент — если это не работает, настройки не помогут:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Сначала проверьте эндпоинт вне LibreChat, затем сравните сложный промпт с официальным API при temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Проверяйте нас, а не верьте на слово</p><p>Направьте <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a> на DaoXE и на официальный API и сравните при temperature 0. Затем изучите, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, чтобы дешёвый эндпоинт не подменил вам модель на меньшую.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>LibreChat умеет DaoXE?</summary><div class="a"><p>Да — запись <code>endpoints.custom</code> с <code>baseURL: https://daoxe.com/v1</code>, ключом через env и точными ID моделей.</p></div></details><details><summary>Почему падают заголовки диалогов?</summary><div class="a"><p>Дефолтный <code>titleModel</code> — <code>gpt-3.5-turbo</code>, которого у вашего ключа может не быть. Задайте реальный ID из <code>GET /v1/models</code> или <code>current_model</code>.</p></div></details><details><summary>Включать ли /v1 в baseURL?</summary><div class="a"><p>Да — LibreChat сам допишет <code>/chat/completions</code>. <code>directEndpoint: true</code> нужен только если вы дали полный путь.</p></div></details><details><summary>Сколько стоит?</summary><div class="a"><p>По моделям и аккаунту — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=ru" target="_blank" rel="noopener">актуальные цены</a>; пополнение — фиксированные 1 ¥ = $1 квоты.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#librechat-daoxe">Зачем направлять LibreChat через DaoXE</a></li><li><a href="#librechat">Настройка в LibreChat</a></li><li><a href="#sec-3">Убедитесь, что отдают настоящую модель</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/"><div class="r-k">В ваших инструментах</div><div class="r-d">Индекс всех интеграций DaoXE + таблица выбора.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-open-webui/"><div class="r-k">DaoXE в Open WebUI</div><div class="r-d">Open WebUI через подключение OpenAI API.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-anythingllm/"><div class="r-k">DaoXE в AnythingLLM</div><div class="r-d">AnythingLLM через провайдер OpenAI (Generic).</div></a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/"><div class="r-k">Проверка подмены</div><div class="r-d">Ловите даунгрейд, квантизацию и обрезку контекста в любом прокси.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
