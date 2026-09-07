@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Доступ к Mistral API, OpenAI-совместимо — reasoning_effort и меняющая форма content | DaoXE</title>
+  <meta name="description" content="Вызов Mistral через OpenAI-совместимый эндпоинт DaoXE: reasoning как параметр запроса, поле content, меняющее форму, max_tokens против контекстного окна и проверка модели.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/mistral-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Доступ к Mistral API, OpenAI-совместимо — reasoning_effort и меняющая форма content | DaoXE">
+  <meta property="og:description" content="Вызов Mistral через OpenAI-совместимый эндпоинт DaoXE: reasoning как параметр запроса, поле content, меняющее форму, max_tokens против контекстного окна и проверка модели.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Доступ к Mistral API, OpenAI-совместимо — reasoning_effort и меняющая форма content | DaoXE">
+  <meta name="twitter:description" content="Вызов Mistral через OpenAI-совместимый эндпоинт DaoXE: reasoning как параметр запроса, поле content, меняющее форму, max_tokens против контекстного окна и проверка модели.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/#article", "headline": "Доступ к Mistral API, OpenAI-совместимо — и его reasoning_effort", "name": "Доступ к Mistral API, OpenAI-совместимо — reasoning_effort и меняющая форма content | DaoXE", "description": "Вызов Mistral через OpenAI-совместимый эндпоинт DaoXE: reasoning как параметр запроса, поле content, меняющее форму, max_tokens против контекстного окна и проверка модели.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "Mistral API (OpenAI-совместимо)", "item": "https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "Как включить или выключить reasoning у Mistral?", "acceptedAnswer": {"@type": "Answer", "text": "Отправьте reasoning_effort в теле запроса: none — ответ обычной строкой, high — чанк мышления, затем ответ. Поле нестандартное — при необходимости используйте extra-body вашего SDK."}}, {"@type": "Question", "name": "Почему content то строка, то список?", "acceptedAnswer": {"@type": "Answer", "text": "Это reasoning-форма Mistral: типизированные чанки thinking/text при заданном effort, обычная строка без него. Парсите обе формы и возвращайте чанки мышления в истории."}}, {"@type": "Question", "name": "Работает ли FIM-эндпоинт Codestral?", "acceptedAnswer": {"@type": "Answer", "text": "У нативного Mistral есть POST /v1/fim/completions с prompt/suffix для Codestral — специальная поверхность, а не стандартный OpenAI-путь. Проходит ли она через конкретный релей, проверяется одним тестовым вызовом — до того, как вписывать её в IDE-плагин."}}, {"@type": "Question", "name": "Сколько стоит Mistral здесь?", "acceptedAnswer": {"@type": "Answer", "text": "По модели и аккаунту — см. актуальные цены. Пополнение — фиксированные 1 ¥ = $1 квоты любым способом оплаты."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/mistral-api-openai-compatible/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/mistral-api-openai-compatible/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/mistral-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>Mistral API (OpenAI-совместимо)</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Доступ к Mistral API, OpenAI-совместимо — и его reasoning_effort</h1>
+      <p class="lead">Модели Mistral обычно живут за api.mistral.ai со своим ключом. Через DaoXE они идут за тем же OpenAI-совместимым base URL, что GPT, Claude и DeepSeek — один ключ на сотни моделей примерно от 25 провайдеров.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Семейства Mistral — генеральная линейка Mistral, кодовые Codestral и другие — обычно требуют отдельного ключа api.mistral.ai. Через DaoXE они стоят за тем же ключом, что GPT, Claude и DeepSeek: один ключ на сотни моделей примерно от 25 провайдеров. Вызывайте <code>/v1/chat/completions</code> с ID семейства Mistral из <code>GET /v1/models</code> — какие именно Mistral ID есть у вашего аккаунта, решает живой список, а не этот текст. Маршрутизация по цене: <a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">гайд по дешёвым API</a>.</p><h2 id="mistral-daoxe">Как вызвать Mistral через DaoXE<a class="anchor" href="#mistral-daoxe" aria-label="Link to section">#</a></h2><p>Путь chat: <code>/v1/chat/completions</code> с <code>Authorization: Bearer</code>. Reasoning — параметр запроса, а не отдельная модель: отправьте <code>extra_body={&quot;reasoning_effort&quot;: &quot;high&quot;}</code>, и ответ придёт типизированными чанками вместо обычной строки. Нативно <code>max_tokens</code> делит контекстное окно с промптом — закладывайте объём и на мышление, и на ответ.</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code># Mistral reasoning is a REQUEST PARAM (reasoning_effort), not a model switch.
+# With effort set, message.content becomes a LIST of typed chunks
+# ({&quot;type&quot;: &quot;thinking&quot;}... then {&quot;type&quot;: &quot;text&quot;}) instead of a plain string -
+# parse both shapes, and replay the thinking chunks in multi-turn history.
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)
+r = client.chat.completions.create(
+    model=&quot;YOUR_EXACT_MODEL_ID&quot;,   # a mistral-family id from GET /v1/models
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;2+2? Think briefly, then answer.&quot;}],
+    max_tokens=2048,               # prompt + max_tokens must fit the context window
+    extra_body={&quot;reasoning_effort&quot;: &quot;high&quot;},   # non-standard: send via extra_body
+)
+msg = r.choices[0].message
+content = msg.content
+if isinstance(content, list):      # thinking chunks + text chunks
+    for part in content:
+        if getattr(part, &quot;type&quot;, None) == &quot;text&quot;:
+            print(part.text)       # final answer
+else:
+    print(content)                 # plain string when effort is &quot;none&quot;
+</code></pre></div><h2 id="mistral">Как Mistral отдаёт рассуждения<a class="anchor" href="#mistral" aria-label="Link to section">#</a></h2><p><!-- verified 2026-09-08: docs.mistral.ai/capabilities/reasoning · docs.mistral.ai/api -->Нынешний механизм Mistral — параметр <code>reasoning_effort</code> (<code>none</code>, <code>minimal</code>, <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>); старые нативные reasoning-ID Magistral устарели. При <code>high</code> <code>message.content</code> становится списком: сначала чанки <code>{&quot;type&quot;: &quot;thinking&quot;}</code>, затем ответ <code>{&quot;type&quot;: &quot;text&quot;}</code>; при <code>none</code> это обычная строка. Стриминг следует тому же сплиту — <code>delta.content</code> меняет форму посреди потока. Отсюда два правила: парсить <code>content</code> как обе формы и возвращать чанки мышления в истории многошагового диалога — Mistral предупреждает, что их вырезание ухудшает следующий ответ. Проходит ли параметр через конкретный путь релея и сохраняется ли форма списка — ровно то, что надо проверять: один тестовый вызов, прежде чем привязывать клиент.</p><h2 id="mistral-2">Нюансы именно для Mistral<a class="anchor" href="#mistral-2" aria-label="Link to section">#</a></h2><ul><li><strong>message.content меняет форму.</strong> С высоким <code>reasoning_effort</code> <code>content</code> — список типизированных чанков (сначала мышление, затем текст); без него — обычная строка. Клиент, ждущий <code>str</code>, сломается, как только включено мышление, — разбирайте обе формы.</li><li><strong>Токены мышления внутри max_tokens.</strong> Mistral документирует: промпт плюс <code>max_tokens</code> должны влезать в контекстное окно модели — под reasoning-запрос нужен запас на мышление, а не только на ответ, иначе ответ придётся обрезанным.</li><li><strong>Нестандартные поля — через extra_body.</strong> <code>reasoning_effort</code>, <code>safe_prompt</code> (вставляет safety-промпт перед диалогом; по умолчанию false), <code>random_seed</code> (имя Mistral для того, что у OpenAI зовётся <code>seed</code>) и <code>guardrails</code> выходят за спецификацию OpenAI — отправляйте через extra-body вашего SDK и проверяйте, что релей передаёт их, а не молча выбрасывает неизвестные поля.</li><li><strong>Алиасы двигаются; Magistral устарел.</strong> Нативные ID — это <code>-latest</code>-алиасы плюс датированные снапшоты, и Mistral публикует даты deprecation и retirement с указанием моделей-преемников — выделенные reasoning-модели Magistral уже устарели, reasoning переехал в основное семейство через <code>reasoning_effort</code>. Копируйте ID из <code>GET /v1/models</code>, а не из старых постов.</li></ul><h2 id="sec-4">Сколько это стоит<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><div class="callout ok"><p class="c-title">Один баланс, один курс пополнения</p><p>Пополнение идёт по фиксированному курсу <strong>1 ¥ = $1 квоты</strong> любым способом оплаты, а каждая модель тарифицируется по своей цене в USD — актуальные цены по моделям смотрите на <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=price_hook&utm_term=ru" target="_blank" rel="noopener">daoxe.com/pricing</a>. Курс одинаковый для всех способов оплаты: Alipay, WeChat Pay, USDT, банковская карта (Visa · Mastercard), Apple Pay и Google Pay — один баланс на все модели каталога, без выбора тарифа и без месячного минимума. Цены зависят от аккаунта и меняются, поэтому проверьте небольшим пополнением, а не доверяйте цифре из гайда.</p></div><h2 id="sec-5">Убедитесь, что отдают настоящую модель<a class="anchor" href="#sec-5" aria-label="Link to section">#</a></h2><p>Сначала проверьте эндпоинт, а не клиент — если это не работает, настройки не помогут:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Проверьте связность, затем сравните фиксированный промпт при temperature 0 с официальным API Mistral, чтобы убедиться в совпадении уровня:</p><div class="callout ok"><p class="c-title">Проверяйте нас, а не верьте на слово</p><p>Направьте <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a> на DaoXE и на официальный API и сравните при temperature 0. Затем изучите, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, чтобы дешёвый эндпоинт не подменил вам модель на меньшую.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Как включить или выключить reasoning у Mistral?</summary><div class="a"><p>Отправьте <code>reasoning_effort</code> в теле запроса: <code>none</code> — ответ обычной строкой, <code>high</code> — чанк мышления, затем ответ. Поле нестандартное — при необходимости используйте extra-body вашего SDK.</p></div></details><details><summary>Почему content то строка, то список?</summary><div class="a"><p>Это reasoning-форма Mistral: типизированные чанки thinking/text при заданном effort, обычная строка без него. Парсите обе формы и возвращайте чанки мышления в истории.</p></div></details><details><summary>Работает ли FIM-эндпоинт Codestral?</summary><div class="a"><p>У нативного Mistral есть <code>POST /v1/fim/completions</code> с <code>prompt</code>/<code>suffix</code> для Codestral — специальная поверхность, а не стандартный OpenAI-путь. Проходит ли она через конкретный релей, проверяется одним тестовым вызовом — до того, как вписывать её в IDE-плагин.</p></div></details><details><summary>Сколько стоит Mistral здесь?</summary><div class="a"><p>По модели и аккаунту — см. <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=ru" target="_blank" rel="noopener">актуальные цены</a>. Пополнение — фиксированные 1 ¥ = $1 квоты любым способом оплаты.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#mistral-daoxe">Как вызвать Mistral через DaoXE</a></li><li><a href="#mistral">Как Mistral отдаёт рассуждения</a></li><li><a href="#mistral-2">Нюансы именно для Mistral</a></li><li><a href="#sec-4">Сколько это стоит</a></li><li><a href="#sec-5">Убедитесь, что отдают настоящую модель</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/gpt-api-openai-compatible/"><div class="r-k">GPT API (OpenAI-совместимо)</div><div class="r-d">GPT через chat + Responses; drop-in OpenAI SDK.</div></a><a href="/daoxe-guide/ru/glm-api-openai-compatible/"><div class="r-k">GLM API (OpenAI-совместимо)</div><div class="r-d">GLM через OpenAI-совместимый chat; без отдельного аккаунта Zhipu.</div></a><a href="/daoxe-guide/ru/minimax-api-openai-compatible/"><div class="r-k">MiniMax API (OpenAI-совместимо)</div><div class="r-d">MiniMax через OpenAI-совместимый chat; без отдельной консоли.</div></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/"><div class="r-k">Проверка подмены</div><div class="r-d">Ловите даунгрейд, квантизацию и обрезку контекста в любом прокси.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

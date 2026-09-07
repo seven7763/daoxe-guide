@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mistral API 的 OpenAI 兼容接入 —— reasoning_effort 与会变形的 content 字段 | DaoXE</title>
+  <meta name="description" content="通过 DaoXE 的 OpenAI 兼容端点调用 Mistral：推理作为请求参数、会变形的 content 字段、max_tokens 与上下文窗口的关系，以及真模型验证。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/mistral-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Mistral API 的 OpenAI 兼容接入 —— reasoning_effort 与会变形的 content 字段 | DaoXE">
+  <meta property="og:description" content="通过 DaoXE 的 OpenAI 兼容端点调用 Mistral：推理作为请求参数、会变形的 content 字段、max_tokens 与上下文窗口的关系，以及真模型验证。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mistral API 的 OpenAI 兼容接入 —— reasoning_effort 与会变形的 content 字段 | DaoXE">
+  <meta name="twitter:description" content="通过 DaoXE 的 OpenAI 兼容端点调用 Mistral：推理作为请求参数、会变形的 content 字段、max_tokens 与上下文窗口的关系，以及真模型验证。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/#article", "headline": "Mistral API 的 OpenAI 兼容接入 —— 以及它的 reasoning_effort", "name": "Mistral API 的 OpenAI 兼容接入 —— reasoning_effort 与会变形的 content 字段 | DaoXE", "description": "通过 DaoXE 的 OpenAI 兼容端点调用 Mistral：推理作为请求参数、会变形的 content 字段、max_tokens 与上下文窗口的关系，以及真模型验证。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "Mistral API（OpenAI 兼容）", "item": "https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/mistral-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "怎么开关 Mistral 的推理？", "acceptedAnswer": {"@type": "Answer", "text": "在请求体里发 reasoning_effort：none 得到普通字符串回答，high 得到思考分块加回答。它是非标准字段，必要时用你 SDK 的 extra-body 选项。"}}, {"@type": "Question", "name": "为什么 content 有时是字符串、有时是列表？", "acceptedAnswer": {"@type": "Answer", "text": "这是 Mistral 的推理形态：开了 effort 是类型化 thinking/text 分块，不开是普通字符串。两种都解析，历史里回传思考分块。"}}, {"@type": "Question", "name": "Codestral 的 FIM 端点能用吗？", "acceptedAnswer": {"@type": "Answer", "text": "Mistral 原生有 POST /v1/fim/completions（prompt/suffix，Codestral 用）—— 这是专有面，不是标准 OpenAI 路径。某条中转是否承载它，把 IDE 补全插件接上去之前先用一次调用验证。"}}, {"@type": "Question", "name": "这里 Mistral 多少钱？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、按账号 —— 见实时定价。充值统一 1 元 = $1 额度，所有支付方式一致。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/mistral-api-openai-compatible/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/mistral-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/mistral-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>Mistral API（OpenAI 兼容）</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Mistral API 的 OpenAI 兼容接入 —— 以及它的 reasoning_effort</h1>
+      <p class="lead">Mistral 的模型通常要走 api.mistral.ai 和它自己的 key。通过 DaoXE，它们和 GPT、Claude、DeepSeek 共用同一个 OpenAI 兼容 base URL —— 一个 key 覆盖数百个模型、约 25 家厂商。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Mistral 的家族 —— 通用 Mistral 系列、代码向的 Codestral 等 —— 原生要单独的 api.mistral.ai key。通过 DaoXE，它们和 GPT、Claude、DeepSeek 共用同一个 key：一个 key 覆盖数百个模型、约 25 家厂商。用 <code>GET /v1/models</code> 里的 Mistral 系 ID 调 <code>/v1/chat/completions</code> —— 你的账号到底载有哪些 Mistral ID，以实时列表为准，别当默认。成本分流见<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>。</p><h2 id="daoxe-mistral">通过 DaoXE 调用 Mistral<a class="anchor" href="#daoxe-mistral" aria-label="Link to section">#</a></h2><p>Chat 路径：<code>/v1/chat/completions</code>，用 <code>Authorization: Bearer</code>。推理是请求参数，不是另选模型：发 <code>extra_body={&quot;reasoning_effort&quot;: &quot;high&quot;}</code>，回答会以类型化分块而非普通字符串的形式返回。原生侧 <code>max_tokens</code> 与 prompt 共享上下文窗口 —— 预算要同时覆盖思考和回答。</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># Mistral reasoning is a REQUEST PARAM (reasoning_effort), not a model switch.
+# With effort set, message.content becomes a LIST of typed chunks
+# ({&quot;type&quot;: &quot;thinking&quot;}... then {&quot;type&quot;: &quot;text&quot;}) instead of a plain string -
+# parse both shapes, and replay the thinking chunks in multi-turn history.
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)
+r = client.chat.completions.create(
+    model=&quot;YOUR_EXACT_MODEL_ID&quot;,   # a mistral-family id from GET /v1/models
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;2+2? Think briefly, then answer.&quot;}],
+    max_tokens=2048,               # prompt + max_tokens must fit the context window
+    extra_body={&quot;reasoning_effort&quot;: &quot;high&quot;},   # non-standard: send via extra_body
+)
+msg = r.choices[0].message
+content = msg.content
+if isinstance(content, list):      # thinking chunks + text chunks
+    for part in content:
+        if getattr(part, &quot;type&quot;, None) == &quot;text&quot;:
+            print(part.text)       # final answer
+else:
+    print(content)                 # plain string when effort is &quot;none&quot;
+</code></pre></div><h2 id="mistral">Mistral 如何暴露思考内容<a class="anchor" href="#mistral" aria-label="Link to section">#</a></h2><p><!-- verified 2026-09-08: docs.mistral.ai/capabilities/reasoning · docs.mistral.ai/api -->Mistral 现行机制是 <code>reasoning_effort</code> 参数（<code>none</code>、<code>minimal</code>、<code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>）；旧的原生 Magistral 推理 ID 已弃用。设 <code>high</code> 时 <code>message.content</code> 变成列表：先是 <code>{&quot;type&quot;: &quot;thinking&quot;}</code> 分块，然后是 <code>{&quot;type&quot;: &quot;text&quot;}</code> 回答；设 <code>none</code> 时是普通字符串。流式同理 —— <code>delta.content</code> 会在流中途改变形态。由此两条规则：content 按两种形态解析；多轮历史要回传思考分块 —— Mistral 明确警告剔除它们会降低下一轮回答质量。参数是否穿过某条中转路径、列表形态是否保留，正是要验证的事 —— 绑定客户端前先发一次测试调用。</p><h2 id="mistral-2">Mistral 特有的注意点<a class="anchor" href="#mistral-2" aria-label="Link to section">#</a></h2><ul><li><strong>message.content 会变形。</strong> reasoning_effort 开高时，<code>content</code> 是类型化分块列表（先思考后文本）；不开则是普通字符串。默认按 str 解析的客户端一开思考就会挂 —— 两种形态都要处理。</li><li><strong>思考 token 计在 max_tokens 里。</strong> Mistral 文档写明：prompt 加 <code>max_tokens</code> 不能超过模型上下文窗口 —— 推理请求要给思考留余量，不只是给回答，否则回复会偏短。</li><li><strong>非标准字段走 extra_body。</strong> <code>reasoning_effort</code>、<code>safe_prompt</code>（在对话前注入安全提示；默认 false）、<code>random_seed</code>（Mistral 对 OpenAI <code>seed</code> 的叫法）和 <code>guardrails</code> 都超出 OpenAI 规范 —— 用你 SDK 的 extra-body 通道发送，并测试中转是转发这些字段还是静默丢弃未知字段。</li><li><strong>别名会动；Magistral 已弃用。</strong> 原生 ID 是 <code>-latest</code> 别名加日期快照，Mistral 会公布 deprecation 与 retirement 日期及指定继任者 —— 专门的 Magistral 推理模型已弃用，推理并入主家族、由 <code>reasoning_effort</code> 控制。从 <code>GET /v1/models</code> 复制 ID，别照搬旧帖。</li></ul><h2 id="sec-4">这要花多少钱<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><div class="callout ok"><p class="c-title">一个余额，一个充值汇率</p><p>充值统一按 <strong>1 元人民币 = $1 额度</strong>，所有支付方式一致；模型再各按自己的美元标价计费 —— 实时单价见<a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=price_hook&utm_term=zh" target="_blank" rel="noopener">定价页</a>。支付宝、微信、USDT、银行卡（Visa · Mastercard）、Apple Pay 与 Google Pay 都是同一个汇率 —— 目录里所有模型共用一个余额，不用选套餐，也没有月度低消。单价与账户绑定且会变动，所以请用一小笔充值去确认，而不是相信教程里的某个数字。</p></div><h2 id="sec-5">验证你拿到的是真模型<a class="anchor" href="#sec-5" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先确认连通，再在 temperature 0 下把固定 prompt 与官方 Mistral API 对比，确认模型档位：</p><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>怎么开关 Mistral 的推理？</summary><div class="a"><p>在请求体里发 <code>reasoning_effort</code>：<code>none</code> 得到普通字符串回答，<code>high</code> 得到思考分块加回答。它是非标准字段，必要时用你 SDK 的 extra-body 选项。</p></div></details><details><summary>为什么 content 有时是字符串、有时是列表？</summary><div class="a"><p>这是 Mistral 的推理形态：开了 effort 是类型化 thinking/text 分块，不开是普通字符串。两种都解析，历史里回传思考分块。</p></div></details><details><summary>Codestral 的 FIM 端点能用吗？</summary><div class="a"><p>Mistral 原生有 <code>POST /v1/fim/completions</code>（<code>prompt</code>/<code>suffix</code>，Codestral 用）—— 这是专有面，不是标准 OpenAI 路径。某条中转是否承载它，把 IDE 补全插件接上去之前先用一次调用验证。</p></div></details><details><summary>这里 Mistral 多少钱？</summary><div class="a"><p>按模型、按账号 —— 见<a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>。充值统一 1 元 = $1 额度，所有支付方式一致。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#daoxe-mistral">通过 DaoXE 调用 Mistral</a></li><li><a href="#mistral">Mistral 如何暴露思考内容</a></li><li><a href="#mistral-2">Mistral 特有的注意点</a></li><li><a href="#sec-4">这要花多少钱</a></li><li><a href="#sec-5">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/gpt-api-openai-compatible/"><div class="r-k">GPT API（OpenAI 兼容）</div><div class="r-d">GPT 走 chat + Responses；OpenAI SDK 即插即用。</div></a><a href="/daoxe-guide/zh/glm-api-openai-compatible/"><div class="r-k">GLM API（OpenAI 兼容）</div><div class="r-d">GLM 走 OpenAI 兼容 chat；无需单独智谱账号。</div></a><a href="/daoxe-guide/zh/minimax-api-openai-compatible/"><div class="r-k">MiniMax API（OpenAI 兼容）</div><div class="r-d">MiniMax 走 OpenAI 兼容 chat；无需单独控制台。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
