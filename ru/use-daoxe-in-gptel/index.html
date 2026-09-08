@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaoXE в gptel — LLM-клиент Emacs на вашем эндпоинте</title>
+  <meta name="description" content="Регистрация DaoXE в gptel через gptel-make-openai: :host без схемы, :endpoint до /v1/chat/completions, ключи в authinfo, объявленный список моделей и стриминг, который по умолчанию выключен.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-gptel/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-gptel/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-gptel/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="DaoXE в gptel — LLM-клиент Emacs на вашем эндпоинте">
+  <meta property="og:description" content="Регистрация DaoXE в gptel через gptel-make-openai: :host без схемы, :endpoint до /v1/chat/completions, ключи в authinfo, объявленный список моделей и стриминг, который по умолчанию выключен.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DaoXE в gptel — LLM-клиент Emacs на вашем эндпоинте">
+  <meta name="twitter:description" content="Регистрация DaoXE в gptel через gptel-make-openai: :host без схемы, :endpoint до /v1/chat/completions, ключи в authinfo, объявленный список моделей и стриминг, который по умолчанию выключен.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/#article", "headline": "DaoXE в gptel", "name": "DaoXE в gptel — LLM-клиент Emacs на вашем эндпоинте", "description": "Регистрация DaoXE в gptel через gptel-make-openai: :host без схемы, :endpoint до /v1/chat/completions, ключи в authinfo, объявленный список моделей и стриминг, который по умолчанию выключен.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE в gptel", "item": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-gptel/#faq", "mainEntity": [{"@type": "Question", "name": "gptel работает с DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Да — gptel-make-openai с :host daoxe.com и :endpoint /v1/chat/completions превращает DaoXE в бэкенд gptel."}}, {"@type": "Question", "name": "Почему бэкенд отдаёт 404 или «connection refused»?", "acceptedAnswer": {"@type": "Answer", "text": "Обычно https:// или путь внутри :host. Оставьте только DNS, протокол https по умолчанию, путь — в :endpoint."}}, {"@type": "Question", "name": "Работают ли tools и reasoning?", "acceptedAnswer": {"@type": "Answer", "text": "gptel шлёт tools по OpenAI-совместимому пути для моделей с function calling; reasoning-блоки читаются из полей reasoning/reasoning_content и показываются согласно gptel-include-reasoning."}}, {"@type": "Question", "name": "Сколько стоит?", "acceptedAnswer": {"@type": "Answer", "text": "По моделям и аккаунту — актуальные цены; пополнение — фиксированные 1 ¥ = $1 квоты."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-gptel/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-gptel/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-gptel/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>DaoXE в gptel</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>DaoXE в gptel</h1>
+      <p class="lead">gptel — свободный LLM-клиент для Emacs: чат из любого буфера, ответы в Markdown/Org, клиентские elisp-инструменты. Он говорит на проводном формате OpenAI, поэтому DaoXE — это одна регистрация бэкенда.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>gptel — LLM-клиент для Emacs: спрашивайте из любого буфера, получайте Markdown/Org, давайте модели elisp-инструменты. OpenAI-совместимый путь — это <code>gptel-make-openai</code>, так что DaoXE — одна регистрация: host, endpoint, ключ и объявленные модели (<a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">гайд по дешёвым API</a>).</p><h2 id="gptel-daoxe">Зачем направлять gptel через DaoXE<a class="anchor" href="#gptel-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>AI в любом буфере.</strong> Дописывайте, переписывайте и спрашивайте из org-mode, кода, magit — ответ появляется там, где вы работаете.</li><li><strong>Клиентские инструменты.</strong> elisp-инструменты gptel и интеграция с MCP шлют function calls по OpenAI-совместимому пути — модели DaoXE с настоящим function calling ведут себя как сами.</li><li><strong>Ключи живут в Emacs.</strong> auth-source, переменные окружения или функция, возвращающая ключ, — секрет не обязан лежать в конфиге открытым текстом.</li></ul><h2 id="gptel">Настройка в gptel<a class="anchor" href="#gptel" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">Зарегистрируйте бэкенд.</span> В <code>init.el</code>: <code>(gptel-make-openai "DaoXE" :host "daoxe.com" :endpoint "/v1/chat/completions" :key "sk-you…-key" :stream t :models '("YOUR_EXACT_MODEL_ID"))</code>.</li><li><span class="s-title">:host — без пути.</span> В <code>:host</code> идёт только DNS — <code>daoxe.com</code>, без <code>https://</code> и без <code>/v1</code>. Протокол по умолчанию https; путь живёт в <code>:endpoint</code>.</li><li><span class="s-title">Объявите модели.</span> <code>:models</code> — ручной список: gptel не ходит за <code>GET /v1/models</code>. Копируйте точные ID; plist на модель объявляет media/tool-способности.</li><li><span class="s-title">Выберите и отправьте.</span> <code>M-x gptel-menu</code> → DaoXE и модель (в меню они с префиксом имени бэкенда); отправляйте из любого буфера.</li></ol><div class="code"><span class="lang-tag">elisp</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>;; init.el — register DaoXE as an OpenAI-compatible gptel backend
+(gptel-make-openai &quot;DaoXE&quot;
+  :host &quot;daoxe.com&quot;                  ; DNS only — no scheme, no path
+  :endpoint &quot;/v1/chat/completions&quot;   ; gptel joins protocol://host + endpoint
+  :key &quot;sk-you…-key&quot;                 ; or an authinfo entry / a key-returning fn
+  :stream t                          ; streaming defaults to nil
+  :models &#x27;(&quot;YOUR_EXACT_MODEL_ID&quot;))  ; gptel does not fetch /v1/models
+
+;; ~/.authinfo alternative:
+;; machine daoxe.com login apikey password sk-you…-key</code></pre></div><div class="callout warn"><p class="c-title">Что важно учесть</p><p><strong>Правило :host перевёрнуто:</strong> gptel ждёт только DNS — <code>daoxe.com</code>, без схемы и пути; часть <code>/v1/chat/completions</code> кладётся в <code>:endpoint</code> (это и его значение по умолчанию, так что минимальный конфиг может его опустить). <strong>Стриминг по умолчанию выключен:</strong> добавьте <code>:stream t</code>, иначе ответ приходит одним асинхронным куском. <strong>Запроса /models нет:</strong> <code>:models</code> — ровно то, что вы объявили; опечатка падает на первом сообщении, а media/tool-use задаются plist'ом на модель, не определяются автоматически. <strong>Ключи:</strong> auth-source берёт DNS эндпоинта как HOST и пользователя <code>apikey</code> — <code>machine daoxe.com login apikey password sk-…</code>. Больше клиентов — в <a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">заметки по настройке клиентов</a>.</p></div><h2 id="sec-3">Убедитесь, что отдают настоящую модель<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>Сначала проверьте эндпоинт, а не клиент — если это не работает, настройки не помогут:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Проверьте эндпоинт вне Emacs, затем сравните сложный промпт с официальным API при temperature 0:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">Проверяйте нас, а не верьте на слово</p><p>Направьте <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a> на DaoXE и на официальный API и сравните при temperature 0. Затем изучите, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, чтобы дешёвый эндпоинт не подменил вам модель на меньшую.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>gptel работает с DaoXE?</summary><div class="a"><p>Да — <code>gptel-make-openai</code> с :host <code>daoxe.com</code> и :endpoint <code>/v1/chat/completions</code> превращает DaoXE в бэкенд gptel.</p></div></details><details><summary>Почему бэкенд отдаёт 404 или «connection refused»?</summary><div class="a"><p>Обычно <code>https://</code> или путь внутри <code>:host</code>. Оставьте только DNS, протокол https по умолчанию, путь — в <code>:endpoint</code>.</p></div></details><details><summary>Работают ли tools и reasoning?</summary><div class="a"><p>gptel шлёт tools по OpenAI-совместимому пути для моделей с function calling; reasoning-блоки читаются из полей <code>reasoning</code>/<code>reasoning_content</code> и показываются согласно <code>gptel-include-reasoning</code>.</p></div></details><details><summary>Сколько стоит?</summary><div class="a"><p>По моделям и аккаунту — <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=ru" target="_blank" rel="noopener">актуальные цены</a>; пополнение — фиксированные 1 ¥ = $1 квоты.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#gptel-daoxe">Зачем направлять gptel через DaoXE</a></li><li><a href="#gptel">Настройка в gptel</a></li><li><a href="#sec-3">Убедитесь, что отдают настоящую модель</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/"><div class="r-k">В ваших инструментах</div><div class="r-d">Индекс всех интеграций DaoXE + таблица выбора.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-aider/"><div class="r-k">DaoXE в Aider</div><div class="r-d">Aider через OPENAI_API_BASE + префикс openai/.</div></a><a href="/daoxe-guide/ru/use-daoxe-in-zed/"><div class="r-k">DaoXE в Zed</div><div class="r-d">Zed через language_models.openai_compatible.</div></a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/"><div class="r-k">Проверка подмены</div><div class="r-d">Ловите даунгрейд, квантизацию и обрезку контекста в любом прокси.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
