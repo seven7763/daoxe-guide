@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MiMo API access, OpenAI-compatible — thinking by default, locked sampling | DaoXE</title>
+  <meta name="description" content="Call Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) through DaoXE&#x27;s OpenAI-compatible endpoint: thinking on by default via the thinking field, the 400 error when reasoning_content is dropped in tool calls, and how to verify.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="MiMo API access, OpenAI-compatible — thinking by default, locked sampling | DaoXE">
+  <meta property="og:description" content="Call Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) through DaoXE&#x27;s OpenAI-compatible endpoint: thinking on by default via the thinking field, the 400 error when reasoning_content is dropped in tool calls, and how to verify.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MiMo API access, OpenAI-compatible — thinking by default, locked sampling | DaoXE">
+  <meta name="twitter:description" content="Call Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) through DaoXE&#x27;s OpenAI-compatible endpoint: thinking on by default via the thinking field, the 400 error when reasoning_content is dropped in tool calls, and how to verify.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Guides", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "en", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/#article", "headline": "MiMo API access, OpenAI-compatible — and its thinking default", "name": "MiMo API access, OpenAI-compatible — thinking by default, locked sampling | DaoXE", "description": "Call Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) through DaoXE's OpenAI-compatible endpoint: thinking on by default via the thinking field, the 400 error when reasoning_content is dropped in tool calls, and how to verify.", "inLanguage": "en", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://seven7763.github.io/daoxe-guide/en/"}, {"@type": "ListItem", "position": 2, "name": "MiMo API (OpenAI-compatible)", "item": "https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "How do I turn MiMo thinking off?", "acceptedAnswer": {"@type": "Answer", "text": "Send thinking with {&quot;type&quot;: &quot;disabled&quot;} in the request body. It's a non-standard field — use your SDK's extra-body option. Omitting it leaves thinking ON for the current v2.5 IDs."}}, {"@type": "Question", "name": "Why did my agent get a 400 mid-conversation?", "acceptedAnswer": {"@type": "Answer", "text": "In multi-turn tool use, every echoed assistant message must include its reasoning_content. If your framework trims that field when rebuilding history, the API rejects the request — rebuild history from raw message objects."}}, {"@type": "Question", "name": "Why is my temperature setting ignored?", "acceptedAnswer": {"@type": "Answer", "text": "While thinking is on, MiMo forces temperature/top_p to its recommended defaults (1.0/0.95). The parameter is accepted but overridden — no error, no effect."}}, {"@type": "Question", "name": "How much does MiMo cost here?", "acceptedAnswer": {"@type": "Answer", "text": "Per-model, account-scoped — see live pricing. Top-up is a flat 1 RMB = $1 of credit on every payment method."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/en/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Guides</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/en/">Home</a><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Language">🌐 EN</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/mimo-api-openai-compatible/" lang="en" hreflang="en" aria-current="true">English<span>EN</span></a><a href="/daoxe-guide/ru/mimo-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/mimo-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/en/">Home</a> › <span>MiMo API (OpenAI-compatible)</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>MiMo API access, OpenAI-compatible — and its thinking default</h1>
+      <p class="lead">Xiaomi's MiMo models normally sit behind their own platform key. Through DaoXE they ride the same OpenAI-compatible base URL as GPT, Claude and DeepSeek — one key spanning hundreds of models across roughly 25 providers.</p>
+      <p class="page-meta">Updated 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>MiMo is Xiaomi's model family — the general <code>mimo-v2.5</code> and the Pro tier, documented with 1M-token context windows and native OpenAI- and Anthropic-format surfaces. Through DaoXE you call <code>/v1/chat/completions</code> with a MiMo ID from <code>GET /v1/models</code> under the same key as every other family — which exact MiMo IDs your account carries is a live-list question, not a given. Cost routing: <a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">cheapest APIs guide</a>.</p><h2 id="call-mimo-through-daoxe">Call MiMo through DaoXE<a class="anchor" href="#call-mimo-through-daoxe" aria-label="Link to section">#</a></h2><p>Chat path: <code>/v1/chat/completions</code> with <code>Authorization: Bearer</code>. MiMo thinks by default: the vendor documents <code>thinking</code> (<code>enabled</code>/<code>disabled</code>) with enabled as the factory state for the current v2.5 IDs. Sampling is locked while thinking — custom <code>temperature</code>/<code>top_p</code> are forced to the vendor's recommended 1.0/0.95 — and <code>max_completion_tokens</code> is the cap that covers thinking <em>and</em> answer.</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code># MiMo reasoning IDs think by DEFAULT, lock temperature/top_p, and 400 if a
+# tool-call round drops reasoning_content. max_completion_tokens (not max_tokens)
+# is the cap that covers thinking + answer.
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)
+r = client.chat.completions.create(
+    model=&quot;YOUR_EXACT_MODEL_ID&quot;,   # a mimo-* id from GET /v1/models
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;2+2? Think briefly, then answer.&quot;}],
+    max_completion_tokens=2048,    # thinking + answer share this budget
+    # thinking is ON by default; to opt out explicitly:
+    extra_body={&quot;thinking&quot;: {&quot;type&quot;: &quot;disabled&quot;}},  # non-standard: extra_body
+)
+msg = r.choices[0].message
+print(getattr(msg, &quot;reasoning_content&quot;, None))  # thinking trace
+print(msg.content)                              # final answer
+print(r.usage.completion_tokens_details.reasoning_tokens)  # thinking spend
+</code></pre></div><h2 id="how-mimo-exposes-reasoning">How MiMo exposes reasoning<a class="anchor" href="#how-mimo-exposes-reasoning" aria-label="Link to section">#</a></h2><p><!-- verified 2026-09-09: mimo.mi.com docs (deep-thinking, first-api-call, models) -->MiMo puts the trace in a dedicated <code>reasoning_content</code> field on the message — the same shape as DeepSeek — while <code>usage.completion_tokens_details.reasoning_tokens</code> reports the spend. Two twists make it the strictest of the reasoning families: thinking is ON unless you send <code>thinking: {&quot;type&quot;: &quot;disabled&quot;}</code>, and the multi-turn contract is enforced, not advisory — a tool-call round that drops <code>reasoning_content</code> gets a 400, where DeepSeek-style APIs degrade or the docs merely warn. Whether a given relay path forwards the non-standard <code>thinking</code> field and preserves <code>reasoning_content</code> is exactly the kind of thing to verify — one test call before you commit a client.</p><h2 id="mimo-specific-notes">MiMo-specific notes<a class="anchor" href="#mimo-specific-notes" aria-label="Link to section">#</a></h2><ul><li><strong>Thinking is the default, not the opt-in.</strong> The <code>thinking</code> field (<code>{&quot;type&quot;: &quot;enabled&quot;}</code> / <code>{&quot;type&quot;: &quot;disabled&quot;}</code>) is non-standard — send it via your SDK's extra-body — and omitting it leaves thinking ON for the v2.5 IDs. Clients that assume a plain-text answer should disable it explicitly or parse <code>reasoning_content</code>.</li><li><strong>Dropping reasoning_content 400s in tool loops.</strong> The vendor is blunt: in multi-turn agent conversations with tool calls, every echoed assistant message must carry its <code>reasoning_content</code> back, <em>or the API returns a 400 error</em>. It names the affected clients by protocol — Cursor, Roo Code, Codex, Zed, Goose and friends on the OpenAI side; OpenCode, Kilo Code and friends on the Anthropic side. Build history from raw message objects, never from a trimmed summary.</li><li><strong>Sampling params are accepted but ignored while thinking.</strong> Custom <code>temperature</code>/<code>top_p</code> do not error — they are silently forced to 1.0/0.95. Tuning them on a thinking request is a no-op, so stop cargo-culting them.</li><li><strong>max_completion_tokens, not max_tokens, owns the budget.</strong> The cap spans thinking plus answer, so an undersized cap truncates the answer after a long think. Exact IDs always come from <code>GET /v1/models</code>.</li></ul><h2 id="what-it-costs">What it costs<a class="anchor" href="#what-it-costs" aria-label="Link to section">#</a></h2><div class="callout ok"><p class="c-title">One balance, one top-up rate</p><p>Top-up runs at a flat <strong>1 RMB = $1 of credit</strong> on every payment method, and each model then bills at its own USD rate — live per-model rates are on the <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=price_hook&utm_term=en" target="_blank" rel="noopener">live pricing page</a>. That rate is the same on Alipay, WeChat Pay, USDT, bank card (Visa · Mastercard), Apple Pay and Google Pay — one balance, shared by every model in the catalog, with no plan to choose and no monthly minimum. Rates are account-scoped and do change, so confirm with one small top-up rather than trusting a number in a guide.</p></div><h2 id="verify-you-actually-get-the-model">Verify you actually get the model<a class="anchor" href="#verify-you-actually-get-the-model" aria-label="Link to section">#</a></h2><p>Prove the endpoint works before blaming the client — if this fails, no setting will fix it:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Copied">Copy</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Confirm connectivity, then diff a fixed prompt at temperature-equivalent settings (MiMo enforces its own while thinking) against the official MiMo API to make sure the tier matches:</p><div class="callout ok"><p class="c-title">Verify us — don't trust us</p><p>Point the <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">open benchmark</a> at DaoXE and at the official API and compare at temperature 0. Then learn to <a href="/daoxe-guide/en/detect-relay-model-swapping/">detect model swapping</a> so a cheaper endpoint can't quietly swap you to a smaller model.</p></div><h2 id="faq">Frequently asked questions<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>How do I turn MiMo thinking off?</summary><div class="a"><p>Send <code>thinking</code> with <code>{&quot;type&quot;: &quot;disabled&quot;}</code> in the request body. It's a non-standard field — use your SDK's extra-body option. Omitting it leaves thinking ON for the current v2.5 IDs.</p></div></details><details><summary>Why did my agent get a 400 mid-conversation?</summary><div class="a"><p>In multi-turn tool use, every echoed assistant message must include its <code>reasoning_content</code>. If your framework trims that field when rebuilding history, the API rejects the request — rebuild history from raw message objects.</p></div></details><details><summary>Why is my temperature setting ignored?</summary><div class="a"><p>While thinking is on, MiMo forces <code>temperature</code>/<code>top_p</code> to its recommended defaults (1.0/0.95). The parameter is accepted but overridden — no error, no effect.</p></div></details><details><summary>How much does MiMo cost here?</summary><div class="a"><p>Per-model, account-scoped — see <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=en" target="_blank" rel="noopener">live pricing</a>. Top-up is a flat 1 RMB = $1 of credit on every payment method.</p></div></details></div><section class="cta-band"><h2>Try DaoXE — and benchmark it yourself</h2><p>One key for GPT, Claude, Gemini, DeepSeek and more. Point the open benchmark at us and compare — don't take our word for it.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=en" target="_blank" rel="noopener">Get an API key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li><a href="#call-mimo-through-daoxe">Call MiMo through DaoXE</a></li><li><a href="#how-mimo-exposes-reasoning">How MiMo exposes reasoning</a></li><li><a href="#mimo-specific-notes">MiMo-specific notes</a></li><li><a href="#what-it-costs">What it costs</a></li><li><a href="#verify-you-actually-get-the-model">Verify you actually get the model</a></li><li><a href="#faq">Frequently asked questions</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Related guides</h2><div class="related-grid"><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/"><div class="r-k">Cheapest APIs</div><div class="r-d">Where real savings come from — and the trap to avoid.</div></a><a href="/daoxe-guide/en/glm-api-openai-compatible/"><div class="r-k">GLM API（OpenAI-compatible)</div><div class="r-d">GLM via OpenAI-compatible chat; no separate Zhipu account.</div></a><a href="/daoxe-guide/en/minimax-api-openai-compatible/"><div class="r-k">MiniMax API（OpenAI-compatible)</div><div class="r-d">MiniMax via OpenAI-compatible chat; no separate console.</div></a><a href="/daoxe-guide/en/doubao-api-openai-compatible/"><div class="r-k">Doubao API (OpenAI-compatible)</div><div class="r-d">Doubao via /v1/chat/completions; catalog ID, no ep- setup.</div></a><a href="/daoxe-guide/en/detect-relay-model-swapping/"><div class="r-k">Detect model swapping</div><div class="r-d">Catch downgrading, quantization and context truncation in any proxy.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/en/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">An independent guide to using <strong>DaoXE</strong> — an OpenAI-compatible, multi-protocol LLM API gateway. One base URL for GPT, Claude, Gemini, DeepSeek, Kimi and more, with native Anthropic Messages for Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <ul><li><a href="/daoxe-guide/en/cheapest-claude-gpt-gemini-api/">Cheapest APIs</a></li><li><a href="/daoxe-guide/en/daoxe-vs-official-api-cost/">Cost vs official</a></li><li><a href="/daoxe-guide/en/cheaper-endpoint-cursor-claude-code/">Cursor &amp; Claude Code</a></li><li><a href="/daoxe-guide/en/openrouter-alternative/">OpenRouter alternative</a></li><li><a href="/daoxe-guide/en/llm-gateway-price-latency-benchmark/">Gateway benchmark</a></li><li><a href="/daoxe-guide/en/detect-relay-model-swapping/">Detect model swapping</a></li><li><a href="/daoxe-guide/en/use-daoxe-in-your-tools/">Use in your tools</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=en" target="_blank" rel="noopener">Pricing</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Setup examples (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Open benchmark (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code guide</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE is not available in mainland China. Always confirm current pricing, quota, and availability on the official site — this site never invents numbers.</p>
+      <p>Values shown as “to be confirmed / see pricing” are unconfirmed placeholders.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

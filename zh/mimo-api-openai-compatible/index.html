@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MiMo API 的 OpenAI 兼容接入 —— 默认思考、锁死的采样参数 | DaoXE</title>
+  <meta name="description" content="通过 DaoXE 的 OpenAI 兼容端点调用小米 MiMo（mimo-v2.5 / mimo-v2.5-pro）：默认开启的 thinking 字段、工具调用丢 reasoning_content 即 400 报错，以及真模型验证。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="MiMo API 的 OpenAI 兼容接入 —— 默认思考、锁死的采样参数 | DaoXE">
+  <meta property="og:description" content="通过 DaoXE 的 OpenAI 兼容端点调用小米 MiMo（mimo-v2.5 / mimo-v2.5-pro）：默认开启的 thinking 字段、工具调用丢 reasoning_content 即 400 报错，以及真模型验证。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MiMo API 的 OpenAI 兼容接入 —— 默认思考、锁死的采样参数 | DaoXE">
+  <meta name="twitter:description" content="通过 DaoXE 的 OpenAI 兼容端点调用小米 MiMo（mimo-v2.5 / mimo-v2.5-pro）：默认开启的 thinking 字段、工具调用丢 reasoning_content 即 400 报错，以及真模型验证。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/#article", "headline": "MiMo API 的 OpenAI 兼容接入 —— 以及它的默认思考", "name": "MiMo API 的 OpenAI 兼容接入 —— 默认思考、锁死的采样参数 | DaoXE", "description": "通过 DaoXE 的 OpenAI 兼容端点调用小米 MiMo（mimo-v2.5 / mimo-v2.5-pro）：默认开启的 thinking 字段、工具调用丢 reasoning_content 即 400 报错，以及真模型验证。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "MiMo API（OpenAI 兼容）", "item": "https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "怎么关掉 MiMo 的思考？", "acceptedAnswer": {"@type": "Answer", "text": "在请求体里发 thinking 带 {&quot;type&quot;: &quot;disabled&quot;}。它是非标准字段 —— 用你 SDK 的 extra-body 选项。不发送的话当前 v2.5 ID 的思考保持开启。"}}, {"@type": "Question", "name": "为什么 agent 对话中途报 400？", "acceptedAnswer": {"@type": "Answer", "text": "多轮工具调用中，每条回传的 assistant 消息都必须带 reasoning_content。框架重建历史时若裁掉这个字段，请求会被拒 —— 用原始消息对象重建历史。"}}, {"@type": "Question", "name": "为什么我的 temperature 不生效？", "acceptedAnswer": {"@type": "Answer", "text": "思考开启时 MiMo 把 temperature/top_p 强制为官方推荐值（1.0/0.95）。参数被接受但被覆盖 —— 不报错、无效果。"}}, {"@type": "Question", "name": "这里 MiMo 多少钱？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、按账号 —— 见实时定价。充值统一 1 元 = $1 额度，所有支付方式一致。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/mimo-api-openai-compatible/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/mimo-api-openai-compatible/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/mimo-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>MiMo API（OpenAI 兼容）</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>MiMo API 的 OpenAI 兼容接入 —— 以及它的默认思考</h1>
+      <p class="lead">小米 MiMo 的模型原生要走它自家平台的 key。通过 DaoXE，它们和 GPT、Claude、DeepSeek 共用同一个 OpenAI 兼容 base URL —— 一个 key 覆盖数百个模型、约 25 家厂商。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>MiMo 是小米的模型家族 —— 通用版 <code>mimo-v2.5</code> 与 Pro 档，官方声明 1M token 上下文、原生 OpenAI 与 Anthropic 双格式。通过 DaoXE，用 <code>GET /v1/models</code> 里的 MiMo ID 调 <code>/v1/chat/completions</code>，与其他家族共用同一个 key —— 你的账号到底载哪些 MiMo ID，以实时列表为准，别当默认。成本分流见<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>。</p><h2 id="daoxe-mimo">通过 DaoXE 调用 MiMo<a class="anchor" href="#daoxe-mimo" aria-label="Link to section">#</a></h2><p>Chat 路径：<code>/v1/chat/completions</code>，用 <code>Authorization: Bearer</code>。MiMo 默认思考：厂商文档写明 <code>thinking</code> 字段（<code>enabled</code>/<code>disabled</code>），当前 v2.5 系列 ID 的出厂状态就是开启。思考开启时采样被锁定 —— 自定义 <code>temperature</code>/<code>top_p</code> 会被强制按官方推荐值 1.0/0.95 生效 —— 而管住「思考+回答」总预算的是 <code>max_completion_tokens</code>。</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># MiMo reasoning IDs think by DEFAULT, lock temperature/top_p, and 400 if a
+# tool-call round drops reasoning_content. max_completion_tokens (not max_tokens)
+# is the cap that covers thinking + answer.
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)
+r = client.chat.completions.create(
+    model=&quot;YOUR_EXACT_MODEL_ID&quot;,   # a mimo-* id from GET /v1/models
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;2+2? Think briefly, then answer.&quot;}],
+    max_completion_tokens=2048,    # thinking + answer share this budget
+    # thinking is ON by default; to opt out explicitly:
+    extra_body={&quot;thinking&quot;: {&quot;type&quot;: &quot;disabled&quot;}},  # non-standard: extra_body
+)
+msg = r.choices[0].message
+print(getattr(msg, &quot;reasoning_content&quot;, None))  # thinking trace
+print(msg.content)                              # final answer
+print(r.usage.completion_tokens_details.reasoning_tokens)  # thinking spend
+</code></pre></div><h2 id="mimo">MiMo 如何暴露思考内容<a class="anchor" href="#mimo" aria-label="Link to section">#</a></h2><p><!-- verified 2026-09-09: mimo.mi.com docs (deep-thinking, first-api-call, models) -->MiMo 把思考轨迹放在消息上独立的 <code>reasoning_content</code> 字段里 —— 与 DeepSeek 同型，而 <code>usage.completion_tokens_details.reasoning_tokens</code> 报告开销。两点使它成为推理家族里最严的一个：不发 <code>thinking: {&quot;type&quot;: &quot;disabled&quot;}</code> 思考就一直开着；多轮契约是强制的而非建议 —— 丢掉 <code>reasoning_content</code> 的工具调用回合直接 400，而 DeepSeek 式 API 是性能退化或文档仅口头警告。非标准的 <code>thinking</code> 字段能否穿过某条中转路径、<code>reasoning_content</code> 是否保留，正是要验证的事 —— 绑定客户端前先发一次测试调用。</p><h2 id="mimo-2">MiMo 特有的注意点<a class="anchor" href="#mimo-2" aria-label="Link to section">#</a></h2><ul><li><strong>思考是默认态，不是可选项。</strong> <code>thinking</code> 字段（<code>{&quot;type&quot;: &quot;enabled&quot;}</code> / <code>{&quot;type&quot;: &quot;disabled&quot;}</code>）是非标准字段 —— 用你 SDK 的 extra-body 发送，而且不发送就意味着 v2.5 ID 的思考保持开启。默认按纯文本回答解析的客户端，要么显式关掉，要么得能解析 <code>reasoning_content</code>。</li><li><strong>工具循环里丢 reasoning_content 直接 400。</strong> 厂商原话说得很硬：多轮 agent 对话带工具调用时，每一轮回传的 assistant 消息必须完整带回 <code>reasoning_content</code>，<em>否则 API 返回 400 错误</em>。文档还按协议点名了受影响客户端 —— OpenAI 侧的 Cursor、Roo Code、Codex、Zed、Goose 等；Anthropic 侧的 OpenCode、Kilo Code 等。重建历史要用原始消息对象，别用截断摘要。</li><li><strong>思考开启时采样参数收下但忽略。</strong> 自定义 <code>temperature</code>/<code>top_p</code> 不报错 —— 会被静默强制为 1.0/0.95。在 thinking 请求上调它们是无效操作，别再惯性带了。</li><li><strong>管预算的是 max_completion_tokens，不是 max_tokens。</strong> 上限覆盖思考加回答，预算给小了，长思考之后回答会被截断。准确 ID 永远从 <code>GET /v1/models</code> 读。</li></ul><h2 id="sec-4">这要花多少钱<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><div class="callout ok"><p class="c-title">一个余额，一个充值汇率</p><p>充值统一按 <strong>1 元人民币 = $1 额度</strong>，所有支付方式一致；模型再各按自己的美元标价计费 —— 实时单价见<a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=price_hook&utm_term=zh" target="_blank" rel="noopener">定价页</a>。支付宝、微信、USDT、银行卡（Visa · Mastercard）、Apple Pay 与 Google Pay 都是同一个汇率 —— 目录里所有模型共用一个余额，不用选套餐，也没有月度低消。单价与账户绑定且会变动，所以请用一小笔充值去确认，而不是相信教程里的某个数字。</p></div><h2 id="sec-5">验证你拿到的是真模型<a class="anchor" href="#sec-5" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先确认连通，再（MiMo 思考时会强制自己的采样配置）把固定 prompt 与官方 MiMo API 对比，确认模型档位：</p><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>怎么关掉 MiMo 的思考？</summary><div class="a"><p>在请求体里发 <code>thinking</code> 带 <code>{&quot;type&quot;: &quot;disabled&quot;}</code>。它是非标准字段 —— 用你 SDK 的 extra-body 选项。不发送的话当前 v2.5 ID 的思考保持开启。</p></div></details><details><summary>为什么 agent 对话中途报 400？</summary><div class="a"><p>多轮工具调用中，每条回传的 assistant 消息都必须带 <code>reasoning_content</code>。框架重建历史时若裁掉这个字段，请求会被拒 —— 用原始消息对象重建历史。</p></div></details><details><summary>为什么我的 temperature 不生效？</summary><div class="a"><p>思考开启时 MiMo 把 <code>temperature</code>/<code>top_p</code> 强制为官方推荐值（1.0/0.95）。参数被接受但被覆盖 —— 不报错、无效果。</p></div></details><details><summary>这里 MiMo 多少钱？</summary><div class="a"><p>按模型、按账号 —— 见<a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>。充值统一 1 元 = $1 额度，所有支付方式一致。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#daoxe-mimo">通过 DaoXE 调用 MiMo</a></li><li><a href="#mimo">MiMo 如何暴露思考内容</a></li><li><a href="#mimo-2">MiMo 特有的注意点</a></li><li><a href="#sec-4">这要花多少钱</a></li><li><a href="#sec-5">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/glm-api-openai-compatible/"><div class="r-k">GLM API（OpenAI 兼容）</div><div class="r-d">GLM 走 OpenAI 兼容 chat；无需单独智谱账号。</div></a><a href="/daoxe-guide/zh/minimax-api-openai-compatible/"><div class="r-k">MiniMax API（OpenAI 兼容）</div><div class="r-d">MiniMax 走 OpenAI 兼容 chat；无需单独控制台。</div></a><a href="/daoxe-guide/zh/doubao-api-openai-compatible/"><div class="r-k">Doubao API（OpenAI 兼容）</div><div class="r-d">Doubao 走 /v1/chat/completions；用目录 ID，免 ep- 配置。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

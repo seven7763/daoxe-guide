@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Доступ к MiMo API, OpenAI-совместимо — мышление по умолчанию, фикс сэмплинга | DaoXE</title>
+  <meta name="description" content="Вызов Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) через OpenAI-совместимый эндпоинт DaoXE: мышление включено по умолчанию, ошибка 400 при потере reasoning_content в tool calls и проверка модели.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/mimo-api-openai-compatible/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/mimo-api-openai-compatible/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="Доступ к MiMo API, OpenAI-совместимо — мышление по умолчанию, фикс сэмплинга | DaoXE">
+  <meta property="og:description" content="Вызов Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) через OpenAI-совместимый эндпоинт DaoXE: мышление включено по умолчанию, ошибка 400 при потере reasoning_content в tool calls и проверка модели.">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Доступ к MiMo API, OpenAI-совместимо — мышление по умолчанию, фикс сэмплинга | DaoXE">
+  <meta name="twitter:description" content="Вызов Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) через OpenAI-совместимый эндпоинт DaoXE: мышление включено по умолчанию, ошибка 400 при потере reasoning_content в tool calls и проверка модели.">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/#article", "headline": "Доступ к MiMo API, OpenAI-совместимо — и его мышление по умолчанию", "name": "Доступ к MiMo API, OpenAI-совместимо — мышление по умолчанию, фикс сэмплинга | DaoXE", "description": "Вызов Xiaomi MiMo (mimo-v2.5 / mimo-v2.5-pro) через OpenAI-совместимый эндпоинт DaoXE: мышление включено по умолчанию, ошибка 400 при потере reasoning_content в tool calls и проверка модели.", "inLanguage": "ru", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://seven7763.github.io/daoxe-guide/ru/"}, {"@type": "ListItem", "position": 2, "name": "MiMo API (OpenAI-совместимо)", "item": "https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/mimo-api-openai-compatible/#faq", "mainEntity": [{"@type": "Question", "name": "Как выключить мышление MiMo?", "acceptedAnswer": {"@type": "Answer", "text": "Отправьте thinking с {&quot;type&quot;: &quot;disabled&quot;} в теле запроса. Поле нестандартное — используйте extra-body вашего SDK. Без него мышление у текущих v2.5 ID остаётся включённым."}}, {"@type": "Question", "name": "Почему агент получает 400 посреди диалога?", "acceptedAnswer": {"@type": "Answer", "text": "В многошаговом tool use каждое возвращаемое сообщение ассистента должно включать reasoning_content. Если ваш фреймворк вырезает это поле при пересборке истории, API отклонит запрос — собирайте историю из сырых объектов."}}, {"@type": "Question", "name": "Почему игнорируется моя temperature?", "acceptedAnswer": {"@type": "Answer", "text": "При включённом мышлении MiMo принудительно ставит temperature/top_p на рекомендованные значения (1.0/0.95). Параметр принимается, но перекрывается — без ошибки и без эффекта."}}, {"@type": "Question", "name": "Сколько стоит MiMo здесь?", "acceptedAnswer": {"@type": "Answer", "text": "По модели и аккаунту — см. актуальные цены. Пополнение — фиксированные 1 ¥ = $1 квоты любым способом оплаты."}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/ru/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">Гайды</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/mimo-api-openai-compatible/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/mimo-api-openai-compatible/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/mimo-api-openai-compatible/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/ru/">Главная</a> › <span>MiMo API (OpenAI-совместимо)</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>Доступ к MiMo API, OpenAI-совместимо — и его мышление по умолчанию</h1>
+      <p class="lead">Модели MiMo от Xiaomi обычно живут за собственным ключом платформы. Через DaoXE они идут за тем же OpenAI-совместимым base URL, что GPT, Claude и DeepSeek — один ключ на сотни моделей примерно от 25 провайдеров.</p>
+      <p class="page-meta">Обновлено 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>MiMo — семейство моделей Xiaomi: универсальная <code>mimo-v2.5</code> и Pro-уровень, с заявленным контекстом 1M токенов и нативными OpenAI- и Anthropic-форматами. Через DaoXE вызывайте <code>/v1/chat/completions</code> с MiMo ID из <code>GET /v1/models</code> под тем же ключом, что и остальные семейства — какие именно MiMo ID есть у вашего аккаунта, решает живой список, а не этот текст. Маршрутизация по цене: <a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">гайд по дешёвым API</a>.</p><h2 id="mimo-daoxe">Как вызвать MiMo через DaoXE<a class="anchor" href="#mimo-daoxe" aria-label="Link to section">#</a></h2><p>Путь chat: <code>/v1/chat/completions</code> с <code>Authorization: Bearer</code>. MiMo думает по умолчанию: вендор документирует поле <code>thinking</code> (<code>enabled</code>/<code>disabled</code>) с enabled как заводским состоянием для текущих v2.5 ID. Сэмплинг при мышлении фиксирован — ваши <code>temperature</code>/<code>top_p</code> принудительно заменяются на рекомендованные 1.0/0.95 — а <code>max_completion_tokens</code> — это лимит, покрывающий мышление <em>и</em> ответ.</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="code"><span class="lang-tag">python</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code># MiMo reasoning IDs think by DEFAULT, lock temperature/top_p, and 400 if a
+# tool-call round drops reasoning_content. max_completion_tokens (not max_tokens)
+# is the cap that covers thinking + answer.
+from openai import OpenAI
+
+client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DAOXE_KEY&quot;)
+r = client.chat.completions.create(
+    model=&quot;YOUR_EXACT_MODEL_ID&quot;,   # a mimo-* id from GET /v1/models
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;2+2? Think briefly, then answer.&quot;}],
+    max_completion_tokens=2048,    # thinking + answer share this budget
+    # thinking is ON by default; to opt out explicitly:
+    extra_body={&quot;thinking&quot;: {&quot;type&quot;: &quot;disabled&quot;}},  # non-standard: extra_body
+)
+msg = r.choices[0].message
+print(getattr(msg, &quot;reasoning_content&quot;, None))  # thinking trace
+print(msg.content)                              # final answer
+print(r.usage.completion_tokens_details.reasoning_tokens)  # thinking spend
+</code></pre></div><h2 id="mimo">Как MiMo отдаёт рассуждения<a class="anchor" href="#mimo" aria-label="Link to section">#</a></h2><p><!-- verified 2026-09-09: mimo.mi.com docs (deep-thinking, first-api-call, models) -->MiMo кладёт трассу в отдельное поле <code>reasoning_content</code> на сообщении — та же форма, что у DeepSeek, — а <code>usage.completion_tokens_details.reasoning_tokens</code> показывает расход. Два отличия делают его самым строгим семейством: мышление ВКЛючено, пока вы не отправите <code>thinking: {&quot;type&quot;: &quot;disabled&quot;}</code>, а многошаговый контракт принудительный, а не рекомендательный — tool-call раунд, потерявший <code>reasoning_content</code>, получает 400, там, где API в стиле DeepSeek деградируют или в доках лишь предупреждают. Проходит ли нестандартное поле <code>thinking</code> через конкретный путь релея и сохраняется ли <code>reasoning_content</code> — ровно то, что надо проверять: один тестовый вызов, прежде чем привязывать клиент.</p><h2 id="mimo-2">Нюансы именно для MiMo<a class="anchor" href="#mimo-2" aria-label="Link to section">#</a></h2><ul><li><strong>Мышление — умолчание, а не опция.</strong> Поле <code>thinking</code> (<code>{&quot;type&quot;: &quot;enabled&quot;}</code> / <code>{&quot;type&quot;: &quot;disabled&quot;}</code>) нестандартное — отправляйте через extra-body вашего SDK, и без него мышление у v2.5 ID остаётся ВКЛюченным. Клиенты, ждущие простой текстовый ответ, должны отключать его явно или уметь парсить <code>reasoning_content</code>.</li><li><strong>Потеря reasoning_content = 400 в tool-циклах.</strong> Вендор формулирует жёстко: в многошаговых агентских диалогах с tool calls каждое возвращаемое сообщение ассистента обязано нести <code>reasoning_content</code> обратно, <em>иначе API вернёт 400</em>. В доках перечислены затронутые клиенты по протоколам — Cursor, Roo Code, Codex, Zed, Goose и другие на стороне OpenAI; OpenCode, Kilo Code и другие на стороне Anthropic. Собирайте историю из сырых объектов сообщений, а не из урезанной сводки.</li><li><strong>Сэмплинг принимается, но игнорируется при мышлении.</strong> Свои <code>temperature</code>/<code>top_p</code> не вызывают ошибку — их молча заменяют на 1.0/0.95. Крутить их в thinking-запросе бессмысленно.</li><li><strong>Бюджет — в max_completion_tokens, не max_tokens.</strong> Лимит покрывает мышление плюс ответ, поэтому заниженный лимит обрежет ответ после долгого размышления. Точные ID — всегда из <code>GET /v1/models</code>.</li></ul><h2 id="sec-4">Сколько это стоит<a class="anchor" href="#sec-4" aria-label="Link to section">#</a></h2><div class="callout ok"><p class="c-title">Один баланс, один курс пополнения</p><p>Пополнение идёт по фиксированному курсу <strong>1 ¥ = $1 квоты</strong> любым способом оплаты, а каждая модель тарифицируется по своей цене в USD — актуальные цены по моделям смотрите на <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=price_hook&utm_term=ru" target="_blank" rel="noopener">daoxe.com/pricing</a>. Курс одинаковый для всех способов оплаты: Alipay, WeChat Pay, USDT, банковская карта (Visa · Mastercard), Apple Pay и Google Pay — один баланс на все модели каталога, без выбора тарифа и без месячного минимума. Цены зависят от аккаунта и меняются, поэтому проверьте небольшим пополнением, а не доверяйте цифре из гайда.</p></div><h2 id="sec-5">Убедитесь, что отдают настоящую модель<a class="anchor" href="#sec-5" aria-label="Link to section">#</a></h2><p>Сначала проверьте эндпоинт, а не клиент — если это не работает, настройки не помогут:</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="Скопировано">Копировать</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>Подтвердите связь, затем сравните фиксированный промпт (MiMo при мышлении навязывает свои настройки сэмплинга) с официальным API MiMo, чтобы убедиться в совпадении уровня:</p><div class="callout ok"><p class="c-title">Проверяйте нас, а не верьте на слово</p><p>Направьте <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">открытый бенчмарк</a> на DaoXE и на официальный API и сравните при temperature 0. Затем изучите, <a href="/daoxe-guide/ru/detect-relay-model-swapping/">как поймать подмену модели</a>, чтобы дешёвый эндпоинт не подменил вам модель на меньшую.</p></div><h2 id="faq">Частые вопросы<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Как выключить мышление MiMo?</summary><div class="a"><p>Отправьте <code>thinking</code> с <code>{&quot;type&quot;: &quot;disabled&quot;}</code> в теле запроса. Поле нестандартное — используйте extra-body вашего SDK. Без него мышление у текущих v2.5 ID остаётся включённым.</p></div></details><details><summary>Почему агент получает 400 посреди диалога?</summary><div class="a"><p>В многошаговом tool use каждое возвращаемое сообщение ассистента должно включать <code>reasoning_content</code>. Если ваш фреймворк вырезает это поле при пересборке истории, API отклонит запрос — собирайте историю из сырых объектов.</p></div></details><details><summary>Почему игнорируется моя temperature?</summary><div class="a"><p>При включённом мышлении MiMo принудительно ставит <code>temperature</code>/<code>top_p</code> на рекомендованные значения (1.0/0.95). Параметр принимается, но перекрывается — без ошибки и без эффекта.</p></div></details><details><summary>Сколько стоит MiMo здесь?</summary><div class="a"><p>По модели и аккаунту — см. <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=ru" target="_blank" rel="noopener">актуальные цены</a>. Пополнение — фиксированные 1 ¥ = $1 квоты любым способом оплаты.</p></div></details></div><section class="cta-band"><h2>Попробуйте DaoXE — и проверьте его сами</h2><p>Один ключ для GPT, Claude, Gemini, DeepSeek и других. Направьте открытый бенчмарк на нас и сравните — не верьте на слово.</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=ru" target="_blank" rel="noopener">Получить API-ключ</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></div></section></article>
+      <aside class="toc" aria-label="Содержание"><div class="toc-title">Содержание</div><ul><li><a href="#mimo-daoxe">Как вызвать MiMo через DaoXE</a></li><li><a href="#mimo">Как MiMo отдаёт рассуждения</a></li><li><a href="#mimo-2">Нюансы именно для MiMo</a></li><li><a href="#sec-4">Сколько это стоит</a></li><li><a href="#sec-5">Убедитесь, что отдают настоящую модель</a></li><li><a href="#faq">Частые вопросы</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>Похожие гайды</h2><div class="related-grid"><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/"><div class="r-k">Дешёвые API</div><div class="r-d">Откуда берётся реальная экономия — и какой ловушки избегать.</div></a><a href="/daoxe-guide/ru/glm-api-openai-compatible/"><div class="r-k">GLM API (OpenAI-совместимо)</div><div class="r-d">GLM через OpenAI-совместимый chat; без отдельного аккаунта Zhipu.</div></a><a href="/daoxe-guide/ru/minimax-api-openai-compatible/"><div class="r-k">MiniMax API (OpenAI-совместимо)</div><div class="r-d">MiniMax через OpenAI-совместимый chat; без отдельной консоли.</div></a><a href="/daoxe-guide/ru/doubao-api-openai-compatible/"><div class="r-k">Doubao API (OpenAI-совместимо)</div><div class="r-d">Doubao через /v1/chat/completions; каталожный ID, без ep-.</div></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/"><div class="r-k">Проверка подмены</div><div class="r-d">Ловите даунгрейд, квантизацию и обрезку контекста в любом прокси.</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/ru/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Гайды</h4>
+      <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ресурсы</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE недоступен в материковом Китае. Актуальные цены, лимиты и доступность проверяйте на официальном сайте — здесь нет выдуманных цифр.</p>
+      <p>Значения «уточняется / см. цены» — это незаполненные плейсхолдеры.</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
