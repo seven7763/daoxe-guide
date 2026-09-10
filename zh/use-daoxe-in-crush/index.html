@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 Crush 里用 DaoXE —— 终端智能体的 openai-compat 供应商</title>
+  <meta name="description" content="把 Crush（Charm 的终端编码智能体）指向 DaoXE：provider add 用 openai-compat 类型、/v1 的 base URL、带上下文窗口的 model add，以及 large/small 模型槽。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-crush/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-crush/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-crush/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 Crush 里用 DaoXE —— 终端智能体的 openai-compat 供应商">
+  <meta property="og:description" content="把 Crush（Charm 的终端编码智能体）指向 DaoXE：provider add 用 openai-compat 类型、/v1 的 base URL、带上下文窗口的 model add，以及 large/small 模型槽。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 Crush 里用 DaoXE —— 终端智能体的 openai-compat 供应商">
+  <meta name="twitter:description" content="把 Crush（Charm 的终端编码智能体）指向 DaoXE：provider add 用 openai-compat 类型、/v1 的 base URL、带上下文窗口的 model add，以及 large/small 模型槽。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/#article", "headline": "在 Crush 里用 DaoXE", "name": "在 Crush 里用 DaoXE —— 终端智能体的 openai-compat 供应商", "description": "把 Crush（Charm 的终端编码智能体）指向 DaoXE：provider add 用 openai-compat 类型、/v1 的 base URL、带上下文窗口的 model add，以及 large/small 模型槽。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 Crush 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-crush/#faq", "mainEntity": [{"@type": "Question", "name": "Crush 能接 DaoXE 吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— provider add daoxe --type openai-compat --base-url \"https://daoxe.com/v1\" 加 key，然后 model add daoxe/YOUR_EXACT_MODEL_ID。"}}, {"@type": "Question", "name": "openai 还是 openai-compat？", "acceptedAnswer": {"@type": "Answer", "text": "openai-compat —— Crush 的 README 写明它用于「有 OpenAI 兼容 API 的非 OpenAI 供应商」；openai 是经 OpenAI 本身代理用的。"}}, {"@type": "Question", "name": "为什么 Crush 看不到我的模型？", "acceptedAnswer": {"@type": "Answer", "text": "模型来自该供应商注册的列表（开启发现时会合并）。用 model add daoxe/YOUR_EXACT_MODEL_ID 注册 —— 只有供应商条目不会带来任何模型。"}}, {"@type": "Question", "name": "费用？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、随账号 —— 实时定价；充值统一 1 元 = $1 额度。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-crush/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-crush/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-crush/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 Crush 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 Crush 里用 DaoXE</h1>
+      <p class="lead">Crush 是 Charm Bracelet 的终端编码智能体。它的 openai-compat 供应商类型接受任何 OpenAI 形状的端点 —— DaoXE 只差 crushrc 里的两条命令。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>Crush 在终端里跑智能体编码会话：改文件、执行命令、读项目的上下文文件。它的配置是一个 Bash 文件，非 OpenAI 端点的供应商路径就是 <strong>openai-compat</strong> 类型 —— 正是 DaoXE 的形状（<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>）。</p><h2 id="crush-daoxe">为什么让 Crush 走 DaoXE<a class="anchor" href="#crush-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>智能体级编码，用你自己的模型。</strong>Crush 的规划、编辑和工具调用都走你注册的供应商 —— 一把 DaoXE key 覆盖 ~25 家供应商的数百个模型。</li><li><strong>配置就是 Bash 文件。</strong>crushrc 启动时像 .bashrc 一样执行，key 可以来自密码管理器，不必躺在 JSON 里。</li><li><strong>large / small 模型槽。</strong>主循环用强模型、后台任务用便宜模型，正好映射到 DaoXE 的目录。</li></ul><h2 id="crush">在 Crush 里配置<a class="anchor" href="#crush" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">注册供应商。</span> 在 <code>~/.config/crush/crushrc</code>：<code>provider add daoxe --type openai-compat --base-url "https://daoxe.com/v1" --api-key "${DAOXE_API_KEY:?set DAOXE_API_KEY}"</code> —— 文档自带的 openai-compat 示例就是以 <code>/v1</code> 结尾的 base URL 加 shell 展开的 key。</li><li><span class="s-title">注册模型。</span> <code>model add daoxe/YOUR_EXACT_MODEL_ID</code> 用 <code>GET /v1/models</code> 的精确 ID，加上 <code>--context-window</code>，可选 <code>--can-reason</code> / <code>--supports-images</code> —— 这些能力标志决定 Crush 会向模型要求什么。</li><li><span class="s-title">填模型槽。</span> 主循环用 <code>model large daoxe/YOUR_EXACT_MODEL_ID</code>；后台任务用 <code>model small daoxe/YOUR_SMALL_MODEL_ID</code>。引用一律是 <code>provider/model</code> 形式 —— 也就是 <code>crush models</code> 打印的形式。</li><li><span class="s-title">开始会话。</span> 在项目里运行 <code>crush</code>；TUI 会列出该供应商的模型。<code>crush models</code> 打印当前 large/small 选择。</li></ol><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># ~/.config/crush/crushrc — register DaoXE as an openai-compat provider
+provider add daoxe \
+  --type openai-compat \
+  --base-url &quot;https://daoxe.com/v1&quot; \
+  --api-key &quot;${DAOXE_API_KEY:?set DAOXE_API_KEY}&quot;
+
+# register a model, then put it in the large (coding) slot
+model add daoxe/YOUR_EXACT_MODEL_ID --name &quot;DaoXE primary&quot; --context-window 128000
+model large daoxe/YOUR_EXACT_MODEL_ID</code></pre></div><div class="callout warn"><p class="c-title">值得注意的坑</p><p><strong>模型按供应商注册：</strong>Crush 读取 <code>models</code> 列表并能合并自动发现的条目 —— <code>discover_models</code> 默认开启时你的显式条目优先于拉取的，但只有供应商条目、没注册过模型的仍然要 <code>model add</code>。<strong>上下文窗口自己填：</strong>文档示例总是传 <code>--context-window</code>；填错影响的是 Crush 的摘要与截断逻辑，不是 API。<strong>key 是 shell 展开的：</strong>crushrc 就是 Bash —— <code>${DAOXE_API_KEY:?…}</code> 在变量为空时会大声失败，而空的 <code>--api-key</code> 会原样发出去，所以保护性展开不能省。<strong>受信任的配置：</strong>Crush 以你的 shell 权限执行 crushrc，文档明确警告不要在没读过配置的目录里启动 —— DaoXE key 放你自己的 crushrc，别放项目里的。更多客户端见<a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">客户端设置说明</a>。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先在智能体之外验证端点，再在 temperature 0 下把难题与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>Crush 能接 DaoXE 吗？</summary><div class="a"><p>能 —— <code>provider add daoxe --type openai-compat --base-url "https://daoxe.com/v1"</code> 加 key，然后 <code>model add daoxe/YOUR_EXACT_MODEL_ID</code>。</p></div></details><details><summary>openai 还是 openai-compat？</summary><div class="a"><p><code>openai-compat</code> —— Crush 的 README 写明它用于「有 OpenAI 兼容 API 的非 OpenAI 供应商」；<code>openai</code> 是经 OpenAI 本身代理用的。</p></div></details><details><summary>为什么 Crush 看不到我的模型？</summary><div class="a"><p>模型来自该供应商注册的列表（开启发现时会合并）。用 <code>model add daoxe/YOUR_EXACT_MODEL_ID</code> 注册 —— 只有供应商条目不会带来任何模型。</p></div></details><details><summary>费用？</summary><div class="a"><p>按模型、随账号 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>；充值统一 1 元 = $1 额度。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#crush-daoxe">为什么让 Crush 走 DaoXE</a></li><li><a href="#crush">在 Crush 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-opencode/"><div class="r-k">在 opencode 里用 DaoXE</div><div class="r-d">opencode 走 opencode.json 里的自定义供应商。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-goose/"><div class="r-k">在 goose 里用 DaoXE</div><div class="r-d">goose 走 OpenAI 供应商的自定义 host。</div></a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
