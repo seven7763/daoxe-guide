@@ -29,10 +29,10 @@
   <meta name="twitter:title" content="DaoXE — один ключ ко всем LLM: Claude, GPT, Gemini">
   <meta name="twitter:description" content="Честный, проверяемый бенчмарком шлюз к LLM API. Один ключ на Claude, GPT, Gemini, DeepSeek и Kimi. OpenAI-совместимо, с нативным Anthropic Messages для Claude Code.">
   <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
-  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css?v=2902e01d">
   <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
   <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — Гайды", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "ru", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "WebPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/#webpage", "url": "https://seven7763.github.io/daoxe-guide/ru/", "name": "DaoXE — один ключ ко всем LLM: Claude, GPT, Gemini", "description": "Честный, проверяемый бенчмарком шлюз к LLM API. Один ключ на Claude, GPT, Gemini, DeepSeek и Kimi. OpenAI-совместимо, с нативным Anthropic Messages для Claude Code.", "inLanguage": "ru", "isPartOf": {"@id": "https://seven7763.github.io/#website"}, "about": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/ru/#faq", "mainEntity": [{"@type": "Question", "name": "DaoXE OpenAI-совместим?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Base URL https://daoxe.com/v1 и ваш ключ; существующий код на OpenAI SDK работает без изменений. Также доступны OpenAI Responses и нативный Anthropic Messages."}}, {"@type": "Question", "name": "Claude Code работает через DaoXE?", "acceptedAnswer": {"@type": "Answer", "text": "Да — нативно по протоколу Anthropic Messages на /v1/messages, поэтому вызов инструментов и стриминг работают корректно. См. гайд по Cursor и Claude Code."}}, {"@type": "Question", "name": "Какой ID модели указывать?", "acceptedAnswer": {"@type": "Answer", "text": "Всегда точный ID из GET /v1/models для вашего аккаунта — ID зависят от аккаунта, не копируйте чужие строки."}}, {"@type": "Question", "name": "Как убедиться, что модель настоящая?", "acceptedAnswer": {"@type": "Answer", "text": "Запустите открытый воспроизводимый бенчмарк против DaoXE и официального API и сравните. См. как распознать подмену модели."}}, {"@type": "Question", "name": "Есть ли бесплатный старт?", "acceptedAnswer": {"@type": "Answer", "text": "Стартовый бонус: уточняется. Актуальные условия — на официальном сайте."}}]}]}]</script>
-  <script src="/daoxe-guide/assets/script.js" defer></script>
+  <script src="/daoxe-guide/assets/script.js?v=55afe60d" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Перейти к содержимому</a>
@@ -46,7 +46,7 @@
     <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/ru/" aria-current="page">Главная</a><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></nav>
     <div class="nav-tools">
       <details class="lang-menu">
-        <summary class="lang-btn" aria-label="Язык">🌐 RU</summary>
+        <summary class="lang-btn">🌐 RU</summary>
         <div class="lang-list"><a href="/daoxe-guide/en/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/" lang="ru" hreflang="ru" aria-current="true">Русский<span>RU</span></a><a href="/daoxe-guide/zh/" lang="zh-Hans" hreflang="zh-Hans">简体中文<span>ZH</span></a></div>
       </details>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="Тёмная тема" title="Тёмная тема">◐</button>
@@ -79,11 +79,11 @@ curl --fail-with-body --show-error --silent \
       <p style="margin-top:12px">Независимый гайд по <strong>DaoXE</strong> — OpenAI-совместимому мультипротокольному шлюзу к LLM. Один base URL для GPT, Claude, Gemini, DeepSeek, Kimi и других, с нативным Anthropic Messages для Claude Code.</p>
     </div>
     <div class="footer-col">
-      <h4>Гайды</h4>
+      <h3>Гайды</h3>
       <ul><li><a href="/daoxe-guide/ru/cheapest-claude-gpt-gemini-api/">Дешёвые API</a></li><li><a href="/daoxe-guide/ru/daoxe-vs-official-api-cost/">Цена vs официал</a></li><li><a href="/daoxe-guide/ru/cheaper-endpoint-cursor-claude-code/">Cursor и Claude Code</a></li><li><a href="/daoxe-guide/ru/openrouter-alternative/">Альтернатива OpenRouter</a></li><li><a href="/daoxe-guide/ru/llm-gateway-price-latency-benchmark/">Бенчмарк шлюзов</a></li><li><a href="/daoxe-guide/ru/detect-relay-model-swapping/">Проверка подмены</a></li><li><a href="/daoxe-guide/ru/use-daoxe-in-your-tools/">В ваших инструментах</a></li></ul>
     </div>
     <div class="footer-col">
-      <h4>Ресурсы</h4>
+      <h3>Ресурсы</h3>
       <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=ru" target="_blank" rel="noopener">Цены</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">Примеры настройки (GitHub)</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">Открытый бенчмарк (GitHub)</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Гайд по Claude Code</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li><li><a href="https://t.me/daoxe_api_ru" target="_blank" rel="noopener">Telegram @daoxe_api_ru</a></li></ul>
     </div>
   </div>

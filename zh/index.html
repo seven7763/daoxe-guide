@@ -29,10 +29,10 @@
   <meta name="twitter:title" content="DaoXE —— 一个 key 调 GPT/Claude/Gemini 的 LLM API 网关">
   <meta name="twitter:description" content="诚实、可被 benchmark 验证的 LLM API 网关。一个 key 调 GPT、Claude、Gemini、DeepSeek、Kimi；OpenAI 兼容，Claude Code 走原生 Anthropic Messages。">
   <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
-  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css?v=2902e01d">
   <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
   <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "WebPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/#webpage", "url": "https://seven7763.github.io/daoxe-guide/zh/", "name": "DaoXE —— 一个 key 调 GPT/Claude/Gemini 的 LLM API 网关", "description": "诚实、可被 benchmark 验证的 LLM API 网关。一个 key 调 GPT、Claude、Gemini、DeepSeek、Kimi；OpenAI 兼容，Claude Code 走原生 Anthropic Messages。", "inLanguage": "zh-Hans", "isPartOf": {"@id": "https://seven7763.github.io/#website"}, "about": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/#faq", "mainEntity": [{"@type": "Question", "name": "DaoXE 是 OpenAI 兼容的吗？", "acceptedAnswer": {"@type": "Answer", "text": "是。base URL 填 https://daoxe.com/v1 并用你的 key；现有 OpenAI SDK 代码无需改动即可运行。同时提供 OpenAI Responses 与原生 Anthropic Messages。"}}, {"@type": "Question", "name": "Claude Code 能通过 DaoXE 跑吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— 在 /v1/messages 原生支持 Anthropic Messages 协议，工具调用与流式都正常。见Cursor / Claude Code 教程。"}}, {"@type": "Question", "name": "该用哪个模型 ID？", "acceptedAnswer": {"@type": "Answer", "text": "始终用你账户 GET /v1/models 返回的准确 ID —— ID 按账户区分，别照抄别人的字符串。"}}, {"@type": "Question", "name": "怎么确认拿到的是真模型？", "acceptedAnswer": {"@type": "Answer", "text": "用开源、可复现的 benchmark 对准 DaoXE 和官方 API 做对比。见如何鉴别掉包/降级。"}}, {"@type": "Question", "name": "有免费试用额度吗？", "acceptedAnswer": {"@type": "Answer", "text": "注册赠额为 待确认。请在官方站点查看当前活动。"}}]}]}]</script>
-  <script src="/daoxe-guide/assets/script.js" defer></script>
+  <script src="/daoxe-guide/assets/script.js?v=55afe60d" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">跳到正文</a>
@@ -46,7 +46,7 @@
     <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/" aria-current="page">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
     <div class="nav-tools">
       <details class="lang-menu">
-        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <summary class="lang-btn">🌐 ZH</summary>
         <div class="lang-list"><a href="/daoxe-guide/en/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
       </details>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
@@ -79,11 +79,11 @@ curl --fail-with-body --show-error --silent \
       <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
     </div>
     <div class="footer-col">
-      <h4>教程</h4>
+      <h3>教程</h3>
       <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
     </div>
     <div class="footer-col">
-      <h4>资源</h4>
+      <h3>资源</h3>
       <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
     </div>
   </div>

@@ -280,7 +280,11 @@ td .no { color: var(--ink-faint); }
 .cta-band h2 { margin: 0; color: #fff; font-size: 1.5rem; }
 .cta-band p { margin: 8px 0 0; color: color-mix(in srgb, #fff 88%, transparent); max-width: 52ch; }
 .cta-band .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-.cta-band .btn-primary { background: #fff; color: var(--brand-strong); border-color: #fff; }
+/* White-on-gradient button: keep text a FIXED dark brand color. The cta-band
+   background is always light (white button), but --brand-strong flips to
+   #a5a1ff in dark themes -> 2.29:1 (a11y fail). #4338ca = light-theme
+   --brand-strong; on #fff 7.90:1, on hover bg #f2f2ff 7.12:1. */
+.cta-band .btn-primary { background: #fff; color: #4338ca; border-color: #fff; }
 .cta-band .btn-primary:hover { background: #f2f2ff; }
 .cta-band .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
 .cta-band .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.1); }
@@ -297,7 +301,7 @@ td .no { color: var(--ink-faint); }
 /* ---------- footer ---------- */
 .site-footer { margin-top: 60px; border-top: 1px solid var(--border); background: var(--bg-soft); }
 .footer-grid { display: grid; gap: 28px; grid-template-columns: 1.6fr 1fr 1fr; padding: 40px 0 26px; }
-.footer-grid h4 { font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 12px; }
+.footer-grid h3 { font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 12px; }
 .footer-about p { color: var(--ink-soft); font-size: .92rem; margin: 0; max-width: 42ch; }
 .footer-col ul { list-style: none; margin: 0; padding: 0; }
 .footer-col li { margin-bottom: 8px; }

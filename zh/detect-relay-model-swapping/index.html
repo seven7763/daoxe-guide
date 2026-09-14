@@ -29,10 +29,10 @@
   <meta name="twitter:title" content="如何鉴别中转掉包 / 降级（可复现方法）| DaoXE">
   <meta name="twitter:description" content="一套可复现方法 + 免费开源工具，在任何 OpenAI/Anthropic 兼容中转里抓出掉包、量化降级与上下文截断。可测任何供应商，包括我们。">
   <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
-  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css?v=2902e01d">
   <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
   <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/#article", "headline": "你的「Claude」或 GPT 是真的吗？如何鉴别中转掉包", "name": "如何鉴别中转掉包 / 降级（可复现方法）| DaoXE", "description": "一套可复现方法 + 免费开源工具，在任何 OpenAI/Anthropic 兼容中转里抓出掉包、量化降级与上下文截断。可测任何供应商，包括我们。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "如何鉴别中转掉包", "item": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/detect-relay-model-swapping/#faq", "mainEntity": [{"@type": "Question", "name": "能证明一个中转到底跑的哪个模型吗？", "acceptedAnswer": {"@type": "Answer", "text": "从外部无法密码学证明。但能力探针与对官方 API 的并排 diff，能给出强而可复现的掉包/降级信号。"}}, {"@type": "Question", "name": "查响应头不就够了？", "acceptedAnswer": {"@type": "Answer", "text": "不够 —— 响应头与任何自报身份都能被中转伪造。请测行为。"}}, {"@type": "Question", "name": "验证工具会看到我的 key 吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。开源 benchmark 本地运行，从不传输或存储你的 key、prompt 与响应。"}}, {"@type": "Question", "name": "能测 DaoXE 以外的供应商吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— 这正是重点。它与供应商无关，可测官方 API 和任何网关，包括我们。"}}]}]}]</script>
-  <script src="/daoxe-guide/assets/script.js" defer></script>
+  <script src="/daoxe-guide/assets/script.js?v=55afe60d" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">跳到正文</a>
@@ -46,7 +46,7 @@
     <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/" aria-current="page">鉴别掉包</a></nav>
     <div class="nav-tools">
       <details class="lang-menu">
-        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <summary class="lang-btn">🌐 ZH</summary>
         <div class="lang-list"><a href="/daoxe-guide/en/detect-relay-model-swapping/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/detect-relay-model-swapping/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
       </details>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
@@ -87,11 +87,11 @@ print(r.choices[0].message.content)  # 跨供应商 / 跨时间对比</code></pr
       <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
     </div>
     <div class="footer-col">
-      <h4>教程</h4>
+      <h3>教程</h3>
       <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
     </div>
     <div class="footer-col">
-      <h4>资源</h4>
+      <h3>资源</h3>
       <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
     </div>
   </div>

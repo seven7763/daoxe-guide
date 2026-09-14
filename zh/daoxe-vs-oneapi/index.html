@@ -29,10 +29,10 @@
   <meta name="twitter:title" content="DaoXE vs One API / New API —— 托管访问 vs 自托管中转面板">
   <meta name="twitter:description" content="DaoXE 对比 One API / New API（自托管的「中转」面板）：各自到底是什么、谁来托管、谁来提供上游渠道，以及掉包风险藏在哪里。">
   <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
-  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css?v=2902e01d">
   <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
   <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/#article", "headline": "DaoXE vs One API / New API", "name": "DaoXE vs One API / New API —— 托管访问 vs 自托管中转面板", "description": "DaoXE 对比 One API / New API（自托管的「中转」面板）：各自到底是什么、谁来托管、谁来提供上游渠道，以及掉包风险藏在哪里。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "DaoXE vs One API / New API", "item": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/daoxe-vs-oneapi/#faq", "mainEntity": [{"@type": "Question", "name": "One API / New API 是模型供应商吗？", "acceptedAnswer": {"@type": "Answer", "text": "不是 —— 它们是自托管的中转/管理面板。上游渠道仍需你自己提供。DaoXE 本身才是托管的访问。"}}, {"@type": "Question", "name": "这些面板能防止掉包吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能保证 —— 中转的诚实只等于其上游渠道的诚实。无论用哪个面板，都要 benchmark 并如何鉴别掉包。"}}, {"@type": "Question", "name": "用 DaoXE 需要自托管什么吗？", "acceptedAnswer": {"@type": "Answer", "text": "不需要 —— DaoXE 是托管的。One API/New API 需要你部署并维护面板及其上游。"}}, {"@type": "Question", "name": "能把 DaoXE 放在 One API / New API 后面吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以加一个 OpenAI 兼容的上游渠道 —— 但如果你只是想要访问，直接调 DaoXE 更简单。"}}]}]}]</script>
-  <script src="/daoxe-guide/assets/script.js" defer></script>
+  <script src="/daoxe-guide/assets/script.js?v=55afe60d" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">跳到正文</a>
@@ -46,7 +46,7 @@
     <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
     <div class="nav-tools">
       <details class="lang-menu">
-        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <summary class="lang-btn">🌐 ZH</summary>
         <div class="lang-list"><a href="/daoxe-guide/en/daoxe-vs-oneapi/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/daoxe-vs-oneapi/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/daoxe-vs-oneapi/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
       </details>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
@@ -77,11 +77,11 @@ client = OpenAI(base_url=&quot;https://daoxe.com/v1&quot;, api_key=&quot;YOUR_DA
       <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
     </div>
     <div class="footer-col">
-      <h4>教程</h4>
+      <h3>教程</h3>
       <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
     </div>
     <div class="footer-col">
-      <h4>资源</h4>
+      <h3>资源</h3>
       <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
     </div>
   </div>
