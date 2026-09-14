@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 OpenHands 里用 DaoXE —— 自主编码智能体的一把网关 key</title>
+  <meta name="description" content="把 OpenHands（开源 AI 软件工程智能体）指向 DaoXE：Settings → LLM → Advanced、模型名必需的 openai/ 前缀、以 /v1 结尾的 Base URL，以及后端网络这一真坑。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-openhands/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-openhands/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-openhands/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 OpenHands 里用 DaoXE —— 自主编码智能体的一把网关 key">
+  <meta property="og:description" content="把 OpenHands（开源 AI 软件工程智能体）指向 DaoXE：Settings → LLM → Advanced、模型名必需的 openai/ 前缀、以 /v1 结尾的 Base URL，以及后端网络这一真坑。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 OpenHands 里用 DaoXE —— 自主编码智能体的一把网关 key">
+  <meta name="twitter:description" content="把 OpenHands（开源 AI 软件工程智能体）指向 DaoXE：Settings → LLM → Advanced、模型名必需的 openai/ 前缀、以 /v1 结尾的 Base URL，以及后端网络这一真坑。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/#article", "headline": "在 OpenHands 里用 DaoXE", "name": "在 OpenHands 里用 DaoXE —— 自主编码智能体的一把网关 key", "description": "把 OpenHands（开源 AI 软件工程智能体）指向 DaoXE：Settings → LLM → Advanced、模型名必需的 openai/ 前缀、以 /v1 结尾的 Base URL，以及后端网络这一真坑。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 OpenHands 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openhands/#faq", "mainEntity": [{"@type": "Question", "name": "OpenHands 能接 DaoXE 吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— Settings → LLM 开 Advanced，Custom Model 填 openai/YOUR_EXACT_MODEL_ID，Base URL 填 https://daoxe.com/v1，贴 DaoXE key。本质是 LiteLLM 的 openai/ 供应商指向 DaoXE。"}}, {"@type": "Question", "name": "模型名为什么必须 openai/ 开头？", "acceptedAnswer": {"@type": "Answer", "text": "那是 OpenHands（经 LiteLLM）选路用的供应商标 —— openai/ 表示「按这个 base URL 走 OpenAI 兼容协议」。前缀后的部分必须等于 GET /v1/models 里的精确 ID，否则报错误模型。"}}, {"@type": "Question", "name": "OpenHands 连不上我填的 base URL？", "acceptedAnswer": {"@type": "Answer", "text": "发起请求的是 OpenHands 后端（通常在 Docker 内，localhost 指容器）。接 DaoXE 托管端点时检查容器出网 HTTPS/代理；文档里的 host.docker.internal 是给本地模型服务器用的。"}}, {"@type": "Question", "name": "费用？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、随账号 —— 实时定价；充值统一 1 元 = $1 额度。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-openhands/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-openhands/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-openhands/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 OpenHands 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 OpenHands 里用 DaoXE</h1>
+      <p class="lead">OpenHands（前身 OpenDevin）是那个会规划、改文件、跑命令、提补丁的开源智能体。它的 LLM 层就是 LiteLLM —— 任何 OpenAI 兼容端点都能直接插进来，DaoXE 亦然。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>OpenHands 跑完整的工程循环 —— 规划、编辑、终端、PR。官方文档写明：LiteLLM 支持什么模型它就能接什么（<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>），而 OpenAI 兼容路径正是 DaoXE 的形状：一个 base URL、一把 key、一个带对前缀的模型 ID。</p><h2 id="openhands-daoxe">为什么让 OpenHands 走 DaoXE<a class="anchor" href="#openhands-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>智能体循环，用你的 key。</strong>OpenHands 的规划器、编辑器和终端调用都跑在你注册的供应商上 —— 一把 DaoXE key 覆盖 ~25 家供应商的数百个模型，强模型和便宜模型共用一个余额。</li><li><strong>两套配置、一份账单。</strong>命名 LLM 配置让强模型负责规划、低价模型做例行编辑 —— 不必开第二个账号。</li><li><strong>结果可审计。</strong>智能体的产出是 diff 和命令执行记录 —— 正是检查便宜端点有没有给你真模型的地面实况（<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>）。</li></ul><h2 id="openhands">在 OpenHands 里配置<a class="anchor" href="#openhands" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">打开 LLM 高级面板。</span> 在 OpenHands UI 的 <code>Settings → LLM</code> 点 "see advanced settings" 并开启 <strong>Advanced</strong> 开关 —— <code>Base URL</code> 字段只在那里出现。</li><li><span class="s-title">给模型 ID 加前缀。</span> <code>Custom Model</code> 填 <code>openai/</code> + DaoXE <code>GET /v1/models</code> 里的精确 ID，例如 <code>openai/YOUR_EXACT_MODEL_ID</code>。OpenHands 经 LiteLLM 路由，<code>openai/…</code> 就是它对「任意 OpenAI 兼容服务器」的供应商标。</li><li><span class="s-title">指向 DaoXE。</span> <code>Base URL</code>：<code>https://daoxe.com/v1</code>；<code>API Key</code>：你的 DaoXE key。无界面运行则读同一组 <code>LLM_MODEL</code> / <code>LLM_BASE_URL</code> / <code>LLM_API_KEY</code>。</li><li><span class="s-title">验一次循环。</span> 让它干一件小事 —— 列文件、修个错别字 —— 确认工具调用真的执行。若智能体「表现得像聊天机器人」，文档给的办法是换更强模型或加大上下文窗口，而不是翻设置。</li></ol><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code># Headless / CLI runs read the same trio
+export LLM_MODEL=&quot;openai/YOUR_EXACT_MODEL_ID&quot;   # the openai/ prefix is required
+export LLM_BASE_URL=&quot;https://daoxe.com/v1&quot;
+export LLM_API_KEY=&quot;***&quot;
+</code></pre></div><div class="callout warn"><p class="c-title">值得注意的坑</p><p><strong><code>openai/</code> 前缀不是装饰：</strong>OpenHands 靠它解析供应商 —— 缺前缀配置就走错路径，文档排错表里的 "Provider is not recognized" 说的就是它。前缀之后的字符串必须与端点 <code>GET /v1/models</code> 返回的 <code>id</code> 完全一致；DaoXE 的模型 ID 随账号而变，请读取、别猜。<strong>Base URL 是从后端可达，不是从你的浏览器：</strong>OpenHands 常在 Docker 里运行，容器里的 <code>127.0.0.1</code> 是容器自己 —— 所以文档的本地服务器示例用 <code>http://host.docker.internal:&lt;port&gt;/v1</code>。DaoXE 的托管地址只要容器出网 HTTPS 不被拦即可。<strong>弱模型会让循环停摆：</strong>文档建议用得起的最强模型；无视工具调用的模型看着像网关故障，其实是模型问题。<strong>命名配置会继承：</strong><code>config.toml</code> 里的 <code>[llm.&lt;profile&gt;]</code> 段复制默认 <code>[llm]</code> 的全部设置，base URL 配一次全档共享。更多客户端见<a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">客户端设置说明</a>。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先在智能体之外证明端点可用，再在 temperature 0 下把难题与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>OpenHands 能接 DaoXE 吗？</summary><div class="a"><p>能 —— <code>Settings → LLM</code> 开 Advanced，Custom Model 填 <code>openai/YOUR_EXACT_MODEL_ID</code>，Base URL 填 <code>https://daoxe.com/v1</code>，贴 DaoXE key。本质是 LiteLLM 的 <code>openai/</code> 供应商指向 DaoXE。</p></div></details><details><summary>模型名为什么必须 openai/ 开头？</summary><div class="a"><p>那是 OpenHands（经 LiteLLM）选路用的供应商标 —— <code>openai/</code> 表示「按这个 base URL 走 OpenAI 兼容协议」。前缀后的部分必须等于 <code>GET /v1/models</code> 里的精确 ID，否则报错误模型。</p></div></details><details><summary>OpenHands 连不上我填的 base URL？</summary><div class="a"><p>发起请求的是 OpenHands 后端（通常在 Docker 内，localhost 指容器）。接 DaoXE 托管端点时检查容器出网 HTTPS/代理；文档里的 host.docker.internal 是给本地模型服务器用的。</p></div></details><details><summary>费用？</summary><div class="a"><p>按模型、随账号 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>；充值统一 1 元 = $1 额度。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#openhands-daoxe">为什么让 OpenHands 走 DaoXE</a></li><li><a href="#openhands">在 OpenHands 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-goose/"><div class="r-k">在 goose 里用 DaoXE</div><div class="r-d">goose 走 OpenAI 供应商的自定义 host。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-continue/"><div class="r-k">在 Continue 里用 DaoXE</div><div class="r-d">Continue 走 config.yaml 的 apiBase。</div></a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/"><div class="r-k">最便宜 API</div><div class="r-d">真正的省钱来自哪里 —— 以及要避开的那个坑。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

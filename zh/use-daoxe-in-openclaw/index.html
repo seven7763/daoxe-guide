@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在 OpenClaw 里用 DaoXE —— 给开源个人助理加一条 models.providers</title>
+  <meta name="description" content="把 DaoXE 注册成 OpenClaw 的自定义 OpenAI 兼容供应商：openclaw.json 完整片段、models[] 显式注册，以及官方文档里的视觉标记与角色兼容规则。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="google-site-verification" content="yZO9B1FODo6v8Er-8PJmBiVGL4E8F10wKM-8wakJeA4">
+  <link rel="canonical" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/">
+  <link rel="alternate" hreflang="en" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-openclaw/">
+  <link rel="alternate" hreflang="ru" href="https://seven7763.github.io/daoxe-guide/ru/use-daoxe-in-openclaw/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/">
+  <link rel="alternate" hreflang="x-default" href="https://seven7763.github.io/daoxe-guide/en/use-daoxe-in-openclaw/">
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/daoxe-guide/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DaoXE">
+  <meta property="og:title" content="在 OpenClaw 里用 DaoXE —— 给开源个人助理加一条 models.providers">
+  <meta property="og:description" content="把 DaoXE 注册成 OpenClaw 的自定义 OpenAI 兼容供应商：openclaw.json 完整片段、models[] 显式注册，以及官方文档里的视觉标记与角色兼容规则。">
+  <meta property="og:url" content="https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/">
+  <meta property="og:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <meta property="og:image:alt" content="DaoXE — one key, many models, verifiable by benchmark">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="在 OpenClaw 里用 DaoXE —— 给开源个人助理加一条 models.providers">
+  <meta name="twitter:description" content="把 DaoXE 注册成 OpenClaw 的自定义 OpenAI 兼容供应商：openclaw.json 完整片段、models[] 显式注册，以及官方文档里的视觉标记与角色兼容规则。">
+  <meta name="twitter:image" content="https://seven7763.github.io/daoxe-guide/assets/og-image.svg">
+  <link rel="stylesheet" href="/daoxe-guide/assets/styles.css">
+  <noscript><style>@media(max-width:860px){.nav-links{position:static;display:flex;flex-direction:row;flex-wrap:wrap;box-shadow:none;border:0;padding:0}.nav-toggle{display:none}}</style></noscript>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://seven7763.github.io/#org", "name": "DaoXE", "url": "https://daoxe.com", "logo": "https://seven7763.github.io/daoxe-guide/assets/favicon.svg", "sameAs": ["https://t.me/daoxe_ai", "https://github.com/seven7763/DaoXE-AI", "https://github.com/seven7763/llm-gateway-benchmark"]}, {"@type": "WebSite", "@id": "https://seven7763.github.io/#website", "name": "DaoXE — 教程", "url": "https://seven7763.github.io/daoxe-guide/en/", "inLanguage": "zh-Hans", "publisher": {"@id": "https://seven7763.github.io/#org"}}, {"@type": "TechArticle", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/#article", "headline": "在 OpenClaw 里用 DaoXE", "name": "在 OpenClaw 里用 DaoXE —— 给开源个人助理加一条 models.providers", "description": "把 DaoXE 注册成 OpenClaw 的自定义 OpenAI 兼容供应商：openclaw.json 完整片段、models[] 显式注册，以及官方文档里的视觉标记与角色兼容规则。", "inLanguage": "zh-Hans", "datePublished": "2026-07-20", "dateModified": "2026-07-20", "url": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/", "mainEntityOfPage": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/", "image": ["https://seven7763.github.io/daoxe-guide/assets/og-image.svg"], "author": {"@id": "https://seven7763.github.io/#org"}, "publisher": {"@id": "https://seven7763.github.io/#org"}, "isPartOf": {"@id": "https://seven7763.github.io/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://seven7763.github.io/daoxe-guide/zh/"}, {"@type": "ListItem", "position": 2, "name": "在 OpenClaw 里用 DaoXE", "item": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/"}]}, {"@type": "FAQPage", "@id": "https://seven7763.github.io/daoxe-guide/zh/use-daoxe-in-openclaw/#faq", "mainEntity": [{"@type": "Question", "name": "OpenClaw 能接 DaoXE 吗？", "acceptedAnswer": {"@type": "Answer", "text": "能 —— 在 models.providers 加 daoxe 条目：api: \"openai-completions\"、baseUrl: \"https://daoxe.com/v1\"、你的 key、显式模型行；再把 agents.defaults.model.primary 指向 daoxe/&lt;id&gt;。"}}, {"@type": "Question", "name": "DaoXE 的原生 Claude Messages 能用吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以作为第二个供应商 —— 文档支持 api: \"anthropic-messages\" 的兼容路由。注意 OpenClaw 对非直连 Anthropic 路由会抑制隐式 beta 头，需要 beta 特性时显式设 headers[\"anthropic-beta\"]。"}}, {"@type": "Question", "name": "为什么选择列表里没有我的模型？", "acceptedAnswer": {"@type": "Answer", "text": "因为供应商条目本身不注册任何模型 —— 在它的 models 数组里加一条匹配的 { id: \"…\" }，ID 用 GET /v1/models 的精确值。"}}, {"@type": "Question", "name": "费用？", "acceptedAnswer": {"@type": "Answer", "text": "按模型、随账号 —— 实时定价；充值统一 1 元 = $1 额度。"}}]}]}]</script>
+  <script src="/daoxe-guide/assets/script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/daoxe-guide/zh/">
+      <img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">
+      DaoXE<span class="tag">教程</span>
+    </a>
+    <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="菜单">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/daoxe-guide/zh/">首页</a><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></nav>
+    <div class="nav-tools">
+      <details class="lang-menu">
+        <summary class="lang-btn" aria-label="语言">🌐 ZH</summary>
+        <div class="lang-list"><a href="/daoxe-guide/en/use-daoxe-in-openclaw/" lang="en" hreflang="en">English<span>EN</span></a><a href="/daoxe-guide/ru/use-daoxe-in-openclaw/" lang="ru" hreflang="ru">Русский<span>RU</span></a><a href="/daoxe-guide/zh/use-daoxe-in-openclaw/" lang="zh-Hans" hreflang="zh-Hans" aria-current="true">简体中文<span>ZH</span></a></div>
+      </details>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">◐</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/daoxe-guide/zh/">首页</a> › <span>在 OpenClaw 里用 DaoXE</span></nav>
+  <div class="container page">
+    <header class="page-head">
+      <h1>在 OpenClaw 里用 DaoXE</h1>
+      <p class="lead">OpenClaw 是那个住在你的聊天渠道里、在你机器上干真活的开源个人 AI 助理。它的模型层是配置优先的：一个 <code>models.providers</code> 块就能把 DaoXE 变成一等公民。</p>
+      <p class="page-meta">更新于 2026-07-20</p>
+    </header>
+    <div class="layout has-toc" style="margin-top:26px">
+      <article class="prose"><p>OpenClaw 的 Gateway 从 <code>~/.openclaw/openclaw.json</code> 解析全部智能体模型 —— JSON5、热重载。它的自定义供应商文档写死了 DaoXE 的形状：<code>api: "openai-completions"</code> + 以 <code>/v1</code> 结尾的 baseUrl，正是文档给「任何 OpenAI 兼容服务器」指定的路（<a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API 教程</a>）。</p><h2 id="openclaw-daoxe">为什么让 OpenClaw 走 DaoXE<a class="anchor" href="#openclaw-daoxe" aria-label="Link to section">#</a></h2><ul><li><strong>一把 key 驱动整个助理。</strong>聊天、定时任务、子智能体和工具循环都走你声明的供应商 —— 一把 DaoXE key 覆盖 ~25 家供应商的数百个模型，规划用的强模型和干活的便宜模型共用一个余额。</li><li><strong>元数据你说了算。</strong>上下文窗口、输入模态、输出上限写在你的配置里，而不是让客户端去猜。</li><li><strong>设计上可审查。</strong>一个 JSON5 块说清 OpenClaw 把什么发去哪里 —— 助理与端点之间没有隐藏路由。</li></ul><h2 id="openclaw">在 OpenClaw 里配置<a class="anchor" href="#openclaw" aria-label="Link to section">#</a></h2><ol class="steps"><li><span class="s-title">注册供应商。</span> 在 <code>~/.openclaw/openclaw.json</code> 的 <code>models.providers</code> 下加 <code>daoxe</code> 条目：<code>baseUrl: "https://daoxe.com/v1"</code>、<code>api: "openai-completions"</code>、<code>apiKey: "${DAOXE_API_KEY}"</code> —— 文档示范的 env 展开写法。</li><li><span class="s-title">把模型也注册上。</span> 加 <code>models: [{ id: "YOUR_EXACT_MODEL_ID" }]</code>，ID 从 DaoXE 的 <code>GET /v1/models</code> 原样复制；支持视觉的模型标 <code>input: ["text", "image"]</code>。只有供应商条目、没有显式模型行 = 什么都没注册。</li><li><span class="s-title">指定默认模型。</span> 把 <code>agents.defaults.model.primary</code> 设为 <code>"daoxe/YOUR_EXACT_MODEL_ID"</code> —— 引用一律是 <code>provider/model</code> 形式。别名与逐模型设置在 <code>agents.defaults.models</code>，可选。</li><li><span class="s-title">保存并核对。</span> Gateway 监听文件改动自动热重载；增量修改可用 <code>openclaw config set models.providers.daoxe '&lt;json&gt;' --strict-json --merge</code>（破坏性整体重写必须加 <code>--replace</code>）。用 <code>openclaw models list</code> 确认，<code>openclaw models set daoxe/…</code> 切换。</li></ol><div class="code"><span class="lang-tag">json5</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>// ~/.openclaw/openclaw.json — add DaoXE as a custom provider
+{
+  env: { vars: { DAOXE_API_KEY: &quot;sk-you…-key&quot; } },
+  agents: {
+    defaults: {
+      model: { primary: &quot;daoxe/YOUR_EXACT_MODEL_ID&quot; },
+    },
+  },
+  models: {
+    mode: &quot;merge&quot;,
+    providers: {
+      daoxe: {
+        baseUrl: &quot;https://daoxe.com/v1&quot;,
+        apiKey: &quot;${DAOXE_API_KEY}&quot;,
+        api: &quot;openai-completions&quot;,
+        models: [
+          { id: &quot;YOUR_EXACT_MODEL_ID&quot;, name: &quot;DaoXE primary&quot;,
+            input: [&quot;text&quot;, &quot;image&quot;], contextWindow: 200000 },
+        ],
+      },
+    },
+  },
+}</code></pre></div><div class="callout warn"><p class="c-title">值得注意的坑</p><p><strong>供应商 ≠ 模型：</strong>文档明说 <code>agents.defaults.models["provider/model"]</code>「既不限制覆盖，也不注册新的运行时模型」—— 每条自定义模型都必须同时出现在 <code>models.providers.daoxe.models[]</code> 里且 <code>id</code> 完全一致。<strong>视觉要手动点亮：</strong>不写 <code>input</code> 默认按纯文本处理，图片附件会以文字引用而非像素送达 —— 会看图的 DaoXE 模型请显式标 <code>["text", "image"]</code>。<strong>兼容标志会被强制：</strong>在非原生的 <code>openai-completions</code> 路由上，OpenClaw 会改用 <code>system</code> 而非 OpenAI 的 <code>developer</code> 角色，并跳过 OpenAI 专有的请求塑形；显式写 <code>supportsDeveloperRole: true</code> 也会被覆盖 —— 别较劲。<strong>费用显示由你填：</strong>省略 <code>cost</code> 时全按零处理，OpenClaw 的用量面板会在 DaoXE 路由上显示 $0，而实际账单在服务端计 —— 常看那面板就填真实的数量级。更多客户端见<a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLIENT_SETUP.md" target="_blank" rel="noopener">客户端设置说明</a>。</p></div><h2 id="sec-3">验证你拿到的是真模型<a class="anchor" href="#sec-3" aria-label="Link to section">#</a></h2><p>先证明端点可用，再怀疑客户端 —— 这一步失败，改任何设置都没用：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>export DAOXE_API_KEY=&quot;your_api_key&quot;
+
+# List the exact model IDs your account can call
+curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/models \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot;</code></pre></div><p>先在助理之外验证端点，再在 temperature 0 下把难题与官方 API 对比：</p><div class="code"><span class="lang-tag">bash</span><button class="copy" type="button" data-copied="已复制">复制</button><pre><code>curl --fail-with-body --show-error --silent \
+  https://daoxe.com/v1/chat/completions \
+  -H &quot;Authorization: Bearer ${DAOXE_API_KEY}&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;YOUR_EXACT_MODEL_ID&quot;,
+    &quot;max_tokens&quot;: 64,
+    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello in one sentence.&quot;}]
+  }&#x27;</code></pre></div><div class="callout ok"><p class="c-title">别信我们 —— 自己验证</p><p>把 <a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark</a> 对准 DaoXE 和官方 API，在 temperature 0 下对比。再学会<a href="/daoxe-guide/zh/detect-relay-model-swapping/">如何鉴别掉包</a>，让便宜端点无法悄悄把你换成更小的模型。</p></div><h2 id="faq">常见问题<a class="anchor" href="#faq" aria-label="Link to section">#</a></h2><div class="faq"><details><summary>OpenClaw 能接 DaoXE 吗？</summary><div class="a"><p>能 —— 在 <code>models.providers</code> 加 <code>daoxe</code> 条目：<code>api: "openai-completions"</code>、<code>baseUrl: "https://daoxe.com/v1"</code>、你的 key、显式模型行；再把 <code>agents.defaults.model.primary</code> 指向 <code>daoxe/&lt;id&gt;</code>。</p></div></details><details><summary>DaoXE 的原生 Claude Messages 能用吗？</summary><div class="a"><p>可以作为第二个供应商 —— 文档支持 <code>api: "anthropic-messages"</code> 的兼容路由。注意 OpenClaw 对非直连 Anthropic 路由会抑制隐式 beta 头，需要 beta 特性时显式设 <code>headers["anthropic-beta"]</code>。</p></div></details><details><summary>为什么选择列表里没有我的模型？</summary><div class="a"><p>因为供应商条目本身不注册任何模型 —— 在它的 <code>models</code> 数组里加一条匹配的 <code>{ id: "…" }</code>，ID 用 <code>GET /v1/models</code> 的精确值。</p></div></details><details><summary>费用？</summary><div class="a"><p>按模型、随账号 —— <a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=pseo&utm_term=zh" target="_blank" rel="noopener">实时定价</a>；充值统一 1 元 = $1 额度。</p></div></details></div><section class="cta-band"><h2>试用 DaoXE —— 并亲自 benchmark 它</h2><p>一个 key 调 GPT、Claude、Gemini、DeepSeek 等。用开源 benchmark 对准我们做对比 —— 别只听我们说。</p><div class="row"><a class="btn btn-primary" href="https://daoxe.com?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=cta_footer&utm_term=zh" target="_blank" rel="noopener">获取 API Key</a><a class="btn btn-ghost" href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></div></section></article>
+      <aside class="toc" aria-label="本页目录"><div class="toc-title">本页目录</div><ul><li><a href="#openclaw-daoxe">为什么让 OpenClaw 走 DaoXE</a></li><li><a href="#openclaw">在 OpenClaw 里配置</a></li><li><a href="#sec-3">验证你拿到的是真模型</a></li><li><a href="#faq">常见问题</a></li></ul></aside>
+    </div>
+  </div>
+  <section class="related container"><h2>相关教程</h2><div class="related-grid"><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/"><div class="r-k">在你的工具里用</div><div class="r-d">所有 DaoXE 接入的索引 + 决策表。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-gptme/"><div class="r-k">在 gptme 里用 DaoXE</div><div class="r-d">gptme 走 [[providers]] 块（base_url + api_key_env）。</div></a><a href="/daoxe-guide/zh/use-daoxe-in-crush/"><div class="r-k">在 Crush 里用 DaoXE</div><div class="r-d">Crush 走 provider add（openai-compat）。</div></a><a href="/daoxe-guide/zh/claude-api-openai-compatible/"><div class="r-k">Claude API（OpenAI 兼容）</div><div class="r-d">Claude 走 OpenAI chat + 原生 Anthropic Messages。</div></a><a href="/daoxe-guide/zh/detect-relay-model-swapping/"><div class="r-k">鉴别掉包</div><div class="r-d">在任何中转里抓出掉包、量化降级与上下文截断。</div></a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/daoxe-guide/zh/"><img class="logo" src="/daoxe-guide/assets/favicon.svg" alt="" width="26" height="26">DaoXE</a>
+      <p style="margin-top:12px">面向出海开发者的 <strong>DaoXE</strong> 使用教程 —— 一个 OpenAI 兼容、多协议的 LLM API 网关。一个 Base URL 调用 GPT、Claude、Gemini、DeepSeek、Kimi 等；Claude Code 走原生 Anthropic Messages。</p>
+    </div>
+    <div class="footer-col">
+      <h4>教程</h4>
+      <ul><li><a href="/daoxe-guide/zh/cheapest-claude-gpt-gemini-api/">最便宜 API</a></li><li><a href="/daoxe-guide/zh/daoxe-vs-official-api-cost/">成本对比</a></li><li><a href="/daoxe-guide/zh/cheaper-endpoint-cursor-claude-code/">Cursor·Claude Code</a></li><li><a href="/daoxe-guide/zh/openrouter-alternative/">OpenRouter 替代</a></li><li><a href="/daoxe-guide/zh/llm-gateway-price-latency-benchmark/">网关基准</a></li><li><a href="/daoxe-guide/zh/detect-relay-model-swapping/">鉴别掉包</a></li><li><a href="/daoxe-guide/zh/use-daoxe-in-your-tools/">在你的工具里用</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <ul><li><a href="https://daoxe.com/pricing?utm_source=owned_site&utm_medium=organic&utm_campaign=site&utm_content=footer&utm_term=zh" target="_blank" rel="noopener">定价</a></li><li><a href="https://github.com/seven7763/DaoXE-AI" target="_blank" rel="noopener">接入示例（GitHub）</a></li><li><a href="https://github.com/seven7763/llm-gateway-benchmark" target="_blank" rel="noopener">开源 benchmark（GitHub）</a></li><li><a href="https://github.com/seven7763/DaoXE-AI/blob/main/CLAUDE_CODE.md" target="_blank" rel="noopener">Claude Code 教程</a></li><li><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener">Telegram @daoxe_ai</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>DaoXE 不向中国大陆提供服务。价格、额度与可用性请以官方页面为准 —— 本站不编造任何数字。</p>
+      <p>显示为「待确认 / 见定价页」的数值均为未确认占位符。</p>
+      <p>© 2026 DaoXE. seven7763.github.io</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
