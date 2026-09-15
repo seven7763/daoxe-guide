@@ -10,7 +10,7 @@ DaoXE is an LLM API gateway (a "middle" / relay endpoint) that exposes many mode
 
 - One key, many models: GPT, Claude, Gemini, DeepSeek, Kimi, Qwen, Doubao and more.
 - OpenAI-compatible: existing OpenAI SDK code runs unchanged.
-- Multi-protocol, natively: OpenAI Chat Completions, OpenAI Responses, and Anthropic Messages (so Claude Code works properly, not just an OpenAI-shaped wrapper).
+- Multi-protocol, natively: OpenAI Chat Completions, OpenAI Responses, and Anthropic Messages (so Claude Code and the Anthropic SDKs run directly through `/v1/messages`).
 - Honest by design: account-scoped model list, transparent usage, and an open benchmark to catch silent model downgrading.
 - Overseas-ready: for developers abroad, overseas Chinese communities, and Russian-speaking developers. Not available in mainland China.
 
