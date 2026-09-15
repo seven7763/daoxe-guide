@@ -1,6 +1,7 @@
 # DaoXE guide — SEO/GEO static site. All crawlers welcome (search + AI).
 User-agent: *
 Allow: /
+Disallow: /go/
 
 # Regular search crawlers
 User-agent: Googlebot
@@ -10,6 +11,7 @@ User-agent: Applebot
 User-agent: DuckDuckBot
 User-agent: SeznamBot
 Allow: /
+Disallow: /go/
 
 # AI / answer-engine crawlers (GEO — explicitly welcomed)
 User-agent: GPTBot
@@ -31,5 +33,6 @@ User-agent: DuckAssistBot
 User-agent: CCBot
 User-agent: Timpibot
 Allow: /
+Disallow: /go/
 
 Sitemap: https://seven7763.github.io/daoxe-guide/sitemap.xml
